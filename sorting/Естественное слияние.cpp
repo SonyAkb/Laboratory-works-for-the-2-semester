@@ -1,59 +1,104 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <vector>
+#include <chrono>
 using namespace std;
 
-void creature_mas_rand(int* ptr, int n) { //создаю массив через датчик случайных чисел
+void creature_mas_rand(int* ptr, int n);
+void creature_mas_hands(int* ptr, int n);
+void print(int* ptr, int n);
+void Merge_Sort_Recursion(int* mas, int r, int t);
+void Merger_Sort(int* mas, int r, int i);
+
+int main() {
+    system("chcp 1251 > Null");
+    srand(time(0));
+
+    int choice;
+    int mas_size = 25;
+    int* mas = new int[mas_size]; //СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР°
+
+    do {
+        cout << "РљР°РєРёРј СЃРїРѕСЃРѕР±РѕРј РІС‹ С…РѕС‚РёС‚Рµ СЃРѕР·РґР°С‚СЊ РјР°СЃСЃРёРІ? " << endl;
+        cout << "1 - Р’РІРµСЃС‚Рё СЂСѓС‡РєР°РјРё" << endl;
+        cout << "2 - РЎРѕР·РґР°С‚СЊ СЃР»СѓС‡Р°Р№РЅРѕ" << endl;
+        cin >> choice;
+    } while (choice < 1 || choice > 2);
+
+    switch (choice) { //РІС‹Р±РѕСЂ СЃРїРѕСЃРѕР±Р° СЃРѕР·РґР°РЅРёСЏ РјР°СЃСЃРёРІР°
+    case 1: {
+        creature_mas_hands(mas, mas_size);
+        break;
+    }
+    default: {
+        creature_mas_rand(mas, mas_size); //СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° СЃР»СѓС‡Р°Р№РЅРѕ
+        break;
+    }
+    }
+
+    cout << endl << "РЎРѕР·РґР°РЅ РјР°СЃСЃРёРІ!" << endl;
+    print(mas, mas_size); //РІС‹РІРѕРґ РјР°СЃСЃРёРІР°
+    auto start_time_recursive = chrono::steady_clock::now();  // РЅР°С‡Р°Р»СЊРЅРѕРµ РІСЂРµРјСЏ
+    Merger_Sort(mas, mas_size, 0);
+    auto end_time_recursive = chrono::steady_clock::now(); // РєРѕРЅРµС‡РЅРѕРµ РІСЂРµРјСЏ
+    auto diff_time = end_time_recursive - start_time_recursive; //СЂР°Р·РЅРёС†Р° РјРµР¶РґСѓ РЅР°С‡Р°Р»СЊРЅС‹Рј Рё РєРѕРЅРµС‡РЅС‹Рј РІСЂРµРјРµРЅРµРј
+
+    print(mas, mas_size);
+    cout << "РЎРѕСЂС‚РёСЂРѕРІРєР° РІС‹РїРѕР»РЅРµРЅР° Р·Р° " << chrono::duration <double, milli>(diff_time).count() << " ms" << endl << endl;
+
+    return 0;
+}
+
+void creature_mas_rand(int* ptr, int n) { //СЃРѕР·РґР°СЋ РјР°СЃСЃРёРІ С‡РµСЂРµР· РґР°С‚С‡РёРє СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
     for (int i = 0; i < n; i++) {
-        ptr[i] = rand() % 1000 + 1; //случайное число от 1 до 1000
+        ptr[i] = rand() % 1000 + 1; //СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 1000
     }
 }
-void creature_mas_hands(int* ptr, int n) { //создание массива с клавиатуры
+void creature_mas_hands(int* ptr, int n) { //СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° СЃ РєР»Р°РІРёР°С‚СѓСЂС‹
     cout << endl;
     for (int i = 0; i < n; i++) {
-        cout << "Введите элемент " << i + 1 << ": ";
+        cout << "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚ " << i + 1 << ": ";
         cin >> ptr[i];
     }
 }
-void print(int* ptr, int n) { //вывод текущего массива
-    cout << endl << "Текущий массив:" << endl;
-    for (int i = 0; i < n; i++) { //прохожу по массиву
+void print(int* ptr, int n) { //РІС‹РІРѕРґ С‚РµРєСѓС‰РµРіРѕ РјР°СЃСЃРёРІР°
+    cout << endl << "РўРµРєСѓС‰РёР№ РјР°СЃСЃРёРІ:" << endl;
+    for (int i = 0; i < n; i++) { //РїСЂРѕС…РѕР¶Сѓ РїРѕ РјР°СЃСЃРёРІСѓ
         cout << ptr[i] << ' ';
     }
     cout << endl << endl;
 }
 
 void Merge_Sort_Recursion(int* mas, int r, int t) {
-    int p = 1; // кол-0 элементов в первой серии
-    int k = 1; // кол-0 элементов во второй серии
+    int p = 1; // РєРѕР»-0 СЌР»РµРјРµРЅС‚РѕРІ РІ РїРµСЂРІРѕР№ СЃРµСЂРёРё
+    int k = 1; // РєРѕР»-0 СЌР»РµРјРµРЅС‚РѕРІ РІРѕ РІС‚РѕСЂРѕР№ СЃРµСЂРёРё
     int i = 0;
-    bool flag = false; //определение надобности второй серии
+    bool flag = false; //РѕРїСЂРµРґРµР»РµРЅРёРµ РЅР°РґРѕР±РЅРѕСЃС‚Рё РІС‚РѕСЂРѕР№ СЃРµСЂРёРё
 
-    while (mas[i] <= mas[i + 1] && i < r - 1) { //подсчет кол-а элементов первой серии
-        p++;
+    while (mas[i] <= mas[i + 1] && i < r - 1) { //РїРѕРґСЃС‡РµС‚ РєРѕР»-Р° СЌР»РµРјРµРЅС‚РѕРІ РїРµСЂРІРѕР№ СЃРµСЂРёРё
+        p++; //СѓРІРµР»РёС‡РёРІР°СЋ РєРѕР»-Рѕ СЌР»РµРјРµРЅС‚РѕРІ РІ 1 СЃРµСЂРёРё
         i++;
     }
     if (mas[i] > mas[i + 1] && i < r - 1) {
         i++;
-        flag = true;
-        while (mas[i] <= mas[i + 1] && i < r - 1) { //подсчет кол-а элементов второй серии
-            k++;
+        flag = true; //РµСЃС‚СЊ РІС‚РѕСЂР°СЏ СЃРµСЂРёСЏ
+        while (mas[i] <= mas[i + 1] && i < r - 1) { //РїРѕРґСЃС‡РµС‚ РєРѕР»-Р° СЌР»РµРјРµРЅС‚РѕРІ РІС‚РѕСЂРѕР№ СЃРµСЂРёРё
+            k++; //СѓРІРµР»РёС‡РёРІР°СЋ РєРѕР»-Рѕ СЌР»РµРјРµРЅС‚РѕРІ РІ 2 СЃРµСЂРёРё
             i++;
         }
     }
-    int num = i + 1; // количество элементов в 2х сериях
+    int num = i + 1; // РєРѕР»РёС‡РµСЃС‚РІРѕ СЌР»РµРјРµРЅС‚РѕРІ РІ 2С… СЃРµСЂРёСЏС…
 
-    int* a = new int[p];//серия 1
-    int* b = new int[k];//серия 2
+    int* a = new int[p];//СЃРµСЂРёСЏ 1
+    int* b = new int[k];//СЃРµСЂРёСЏ 2
 
-    for (i = 0; i < p; i++) { //заполнение первой серии
+    for (i = 0; i < p; i++) { //Р·Р°РїРѕР»РЅРµРЅРёРµ РїРµСЂРІРѕР№ СЃРµСЂРёРё
         a[i] = mas[i];
     }
 
-    int count = 0;//счетчик
-    if (flag == true) { //если есть вторая серия
-        for (i = p; i < p + k; i++) { //заполнение второй серии
-            b[count] = mas[i];
-            count++;
+    int count = 0;//СЃС‡РµС‚С‡РёРє
+    if (flag == true) { //РµСЃР»Рё РµСЃС‚СЊ РІС‚РѕСЂР°СЏ СЃРµСЂРёСЏ
+        for (i = p; i < p + k; i++) { //Р·Р°РїРѕР»РЅРµРЅРёРµ РІС‚РѕСЂРѕР№ СЃРµСЂРёРё
+            b[count++] = mas[i];
         }
     }
 
@@ -83,43 +128,7 @@ void Merge_Sort_Recursion(int* mas, int r, int t) {
 }
 void Merger_Sort(int* mas, int r, int i) {
     if (i < r) {
-        Merge_Sort_Recursion(mas, r, i);//сортировка
-        Merger_Sort(mas, r, i + 1);//рекурсия
+        Merge_Sort_Recursion(mas, r, i);//СЃРѕСЂС‚РёСЂРѕРІРєР°
+        Merger_Sort(mas, r, i + 1);//СЂРµРєСѓСЂСЃРёСЏ
     }
-}
-
-int main() {
-    system("chcp 1251 > Null");
-    srand(time(0));
-
-    int choice;
-    int mas_size = 25;
-    int* mas = new int[mas_size]; //создание массива
-
-    do {
-        cout << "Каким способом вы хотите создать массив? " << endl;
-        cout << "1 - Ввести ручками" << endl;
-        cout << "2 - Создать случайно" << endl;
-        cin >> choice;
-    } while (choice < 1 || choice > 2);
-
-
-    switch (choice) { //выбор способа создания массива
-    case 1: {
-        creature_mas_hands(mas, mas_size);
-        break;
-    }
-    default: {
-        creature_mas_rand(mas, mas_size); //создание массива случайно
-        break;
-    }
-    }
-
-    cout << endl << "Создан массив!" << endl;
-    print(mas, mas_size); //вывод массива
-    
-    Merger_Sort(mas, mas_size, 0);
-    print(mas, mas_size);
-
-    return 0;
 }

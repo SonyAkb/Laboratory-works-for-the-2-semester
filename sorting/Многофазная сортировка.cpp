@@ -1,37 +1,91 @@
-#include <iostream>
+п»ї#include <iostream>
 #include <vector>
+#include <chrono>
 using namespace std;
 
-void creature_mas_rand(vector<int>& ptr) { //создаю массив через датчик случайных чисел
+void creature_mas_rand(vector<int>& ptr);
+void creature_mas_hands(vector<int>& ptr);
+void print(vector<int>& ptr);
+void Quick_Sort(vector<int>& vect, int start_Index, int pivot_Index);
+int mx_ind(vector < vector <int>>& A, vector < vector <int>>& B, vector < vector <int>>& C, int zero);
+int mn_ind(vector < vector <int>>& A, vector < vector <int>>& B, vector < vector <int>>& C, int zero);
+void clear_vector(vector < vector <int>>& vec);
+void clear_vector(vector < vector < vector <int>>>& vec);
+vector<int> new_ser(vector<int>& A, vector<int>& B);
+int empty_ind(vector < vector <int> > A, vector < vector <int> > B, vector < vector <int> > C);
+vector<int> not_an_empty_head(vector < vector <int> > A, vector < vector <int> > B, vector < vector <int> > C);
+void multiphase_sorting(vector<int>& vect);
+
+int main() {
+    system("chcp 1251 > Null");
+    srand(time(0));
+
+    int choice;
+    int mas_size = 25;
+
+    vector<int> vect(mas_size);
+
+    do {
+        cout << "РљР°РєРёРј СЃРїРѕСЃРѕР±РѕРј РІС‹ С…РѕС‚РёС‚Рµ СЃРѕР·РґР°С‚СЊ РјР°СЃСЃРёРІ? " << endl;
+        cout << "1 - Р’РІРµСЃС‚Рё СЂСѓС‡РєР°РјРё" << endl;
+        cout << "2 - РЎРѕР·РґР°С‚СЊ СЃР»СѓС‡Р°Р№РЅРѕ" << endl;
+        cin >> choice;
+    } while (choice < 1 || choice > 2);
+
+    switch (choice) { //РІС‹Р±РѕСЂ СЃРїРѕСЃРѕР±Р° СЃРѕР·РґР°РЅРёСЏ РјР°СЃСЃРёРІР°
+    case 1: {
+        creature_mas_hands(vect);
+        break;
+    }
+    default: {
+        creature_mas_rand(vect); //СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° СЃР»СѓС‡Р°Р№РЅРѕ
+        break;
+    }
+    }
+
+    cout << endl << "РЎРѕР·РґР°РЅ РјР°СЃСЃРёРІ!" << endl;
+    print(vect); //РІС‹РІРѕРґ РјР°СЃСЃРёРІР°
+    auto start_time_recursive = chrono::steady_clock::now();  // РЅР°С‡Р°Р»СЊРЅРѕРµ РІСЂРµРјСЏ
+    multiphase_sorting(vect);//РјРЅРѕРіРѕС„Р°Р·РЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
+    auto end_time_recursive = chrono::steady_clock::now(); // РєРѕРЅРµС‡РЅРѕРµ РІСЂРµРјСЏ
+    auto diff_time = end_time_recursive - start_time_recursive; //СЂР°Р·РЅРёС†Р° РјРµР¶РґСѓ РЅР°С‡Р°Р»СЊРЅС‹Рј Рё РєРѕРЅРµС‡РЅС‹Рј РІСЂРµРјРµРЅРµРј
+
+    cout << "РњР°СЃСЃРёРІ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅ!" << endl;
+    print(vect);
+    cout << "РЎРѕСЂС‚РёСЂРѕРІРєР° РІС‹РїРѕР»РЅРµРЅР° Р·Р° " << chrono::duration <double, milli>(diff_time).count() << " ms" << endl << endl;
+    return 0;
+}
+
+void creature_mas_rand(vector<int>& ptr) { //СЃРѕР·РґР°СЋ РјР°СЃСЃРёРІ С‡РµСЂРµР· РґР°С‚С‡РёРє СЃР»СѓС‡Р°Р№РЅС‹С… С‡РёСЃРµР»
     for (int i = 0; i < ptr.size(); i++) {
-        ptr[i] = rand() % 1000 + 1; //случайное число от 1 до 1000
+        ptr[i] = rand() % 1000 + 1; //СЃР»СѓС‡Р°Р№РЅРѕРµ С‡РёСЃР»Рѕ РѕС‚ 1 РґРѕ 1000
     }
 }
-void creature_mas_hands(vector<int>& ptr) { //создание массива с клавиатуры
+void creature_mas_hands(vector<int>& ptr) { //СЃРѕР·РґР°РЅРёРµ РјР°СЃСЃРёРІР° СЃ РєР»Р°РІРёР°С‚СѓСЂС‹
     cout << endl;
     for (int i = 0; i < ptr.size(); i++) {
-        cout << "Введите элемент " << i + 1 << ": ";
+        cout << "Р’РІРµРґРёС‚Рµ СЌР»РµРјРµРЅС‚ " << i + 1 << ": ";
         cin >> ptr[i];
     }
 }
 
-void print(vector<int>& ptr) { //вывод текущего массива
-    cout << endl << "Текущий массив:" << endl;
-    for (int i = 0; i < ptr.size(); i++) { //прохожу по массиву
+void print(vector<int>& ptr) { //РІС‹РІРѕРґ С‚РµРєСѓС‰РµРіРѕ РјР°СЃСЃРёРІР°
+    cout << endl << "РўРµРєСѓС‰РёР№ РјР°СЃСЃРёРІ:" << endl;
+    for (int i = 0; i < ptr.size(); i++) { //РїСЂРѕС…РѕР¶Сѓ РїРѕ РјР°СЃСЃРёРІСѓ
         cout << ptr[i] << ' ';
     }
     cout << endl << endl;
 }
 
-void Quick_Sort(vector<int>& vect, int start_Index, int pivot_Index) { //быстрая сортировка
+void Quick_Sort(vector<int>& vect, int start_Index, int pivot_Index) { //Р±С‹СЃС‚СЂР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
     if (start_Index < pivot_Index) {
         int current_Index = start_Index;
-        for (int i = current_Index; i < pivot_Index; i++) { //иду до опорного элемента
+        for (int i = current_Index; i < pivot_Index; i++) { //РёРґСѓ РґРѕ РѕРїРѕСЂРЅРѕРіРѕ СЌР»РµРјРµРЅС‚Р°
             if (vect[i] <= vect[pivot_Index]) {
-                swap(vect[i], vect[current_Index++]); //меняю элементы местами
+                swap(vect[i], vect[current_Index++]); //РјРµРЅСЏСЋ СЌР»РµРјРµРЅС‚С‹ РјРµСЃС‚Р°РјРё
             }
         }
-        swap(vect[current_Index], vect[pivot_Index]); //меняю элементы местами
+        swap(vect[current_Index], vect[pivot_Index]); //РјРµРЅСЏСЋ СЌР»РµРјРµРЅС‚С‹ РјРµСЃС‚Р°РјРё
         Quick_Sort(vect, start_Index, current_Index - 1);
         Quick_Sort(vect, current_Index + 1, pivot_Index);
     }
@@ -44,7 +98,7 @@ int mx_ind(vector < vector <int>>& A, vector < vector <int>>& B, vector < vector
         }
         return 1;
     }
-    if (zero == 1) {
+    else if (zero == 1) {
         if (A.size() > C.size()) {
             return 0;
         }
@@ -79,13 +133,13 @@ int mn_ind(vector < vector <int>>& A, vector < vector <int>>& B, vector < vector
     }
 }
 
-void clear_vector(vector < vector <int>>& vec) { //очищаю двумерный вектор
+void clear_vector(vector < vector <int>>& vec) { //РѕС‡РёС‰Р°СЋ РґРІСѓРјРµСЂРЅС‹Р№ РІРµРєС‚РѕСЂ
     for (auto& inner_vec : vec) {
         inner_vec.clear();
     }
     vec.clear();
 }
-void clear_vector(vector < vector < vector <int>>>& vec) { //очищаю трехмерный вектор
+void clear_vector(vector < vector < vector <int>>>& vec) { //РѕС‡РёС‰Р°СЋ С‚СЂРµС…РјРµСЂРЅС‹Р№ РІРµРєС‚РѕСЂ
     for (auto& innerVec : vec) {
         for (auto& innerInnerVec : innerVec) {
             innerInnerVec.clear();
@@ -95,7 +149,7 @@ void clear_vector(vector < vector < vector <int>>>& vec) { //очищаю трехмерный в
     vec.clear();
 }
 
-vector<int> new_ser(vector<int>& A, vector<int>& B) {//новая серия из двух серий
+vector<int> new_ser(vector<int>& A, vector<int>& B) {//РЅРѕРІР°СЏ СЃРµСЂРёСЏ РёР· РґРІСѓС… СЃРµСЂРёР№
     int A_ind = 0, B_ind = 0;
     int ABsize = A.size() + B.size();
     vector<int> temp;
@@ -119,110 +173,73 @@ vector<int> new_ser(vector<int>& A, vector<int>& B) {//новая серия из двух серий
     return temp;
 }
 
-int empty_ind(vector < vector <int> > A, vector < vector <int> > B, vector < vector <int> > C) {//нахожу пустую голову
+int empty_ind(vector < vector <int> > A, vector < vector <int> > B, vector < vector <int> > C) {//РЅР°С…РѕР¶Сѓ РїСѓСЃС‚СѓСЋ РіРѕР»РѕРІСѓ
     if (A.empty()) {
         return 0;
     }
-    if (B.empty()) {
+    else if (B.empty()) {
         return 1;
     }
     return 2;
 }
 
 vector<int> not_an_empty_head(vector < vector <int> > A, vector < vector <int> > B, vector < vector <int> > C) {
-    if (A.empty() && B.empty()) {//ищу не пусткю последовательность
+    if (A.empty() && B.empty()) {//РёС‰Сѓ РЅРµ РїСѓСЃС‚РєСЋ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚СЊ
         return C[0];
     }
-    if (A.empty() && C.empty()) {
+    else if (A.empty() && C.empty()) {
         return B[0];
     }
     return A[0];
 }
 
-void multiphase_sorting(vector<int>& vect) { //многофазная сортировка
+void multiphase_sorting(vector<int>& vect) { //РјРЅРѕРіРѕС„Р°Р·РЅР°СЏ СЃРѕСЂС‚РёСЂРѕРІРєР°
     vector < vector <int> > vect_of_series;
-    int size_series = 5;//размер серии
+    int size_series = 5;//СЂР°Р·РјРµСЂ СЃРµСЂРёРё
     bool flag = true;
     int count = 0;
 
-    for (int i = 0; i < size_series; ++i) { //5 серий
+    for (int i = 0; i < size_series; ++i) { //5 СЃРµСЂРёР№
         vector<int> temp;
-        for (int j = 0; j < size_series; ++j)//по 5 элементов
+        for (int j = 0; j < size_series; ++j)//РїРѕ 5 СЌР»РµРјРµРЅС‚РѕРІ
             temp.push_back(vect[i * size_series + j]);
         vect_of_series.push_back(temp);
     }
 
-    for (int i = 0; i < size_series; ++i) { //сортирую каждую серию отдельно
+    for (int i = 0; i < size_series; ++i) { //СЃРѕСЂС‚РёСЂСѓСЋ РєР°Р¶РґСѓСЋ СЃРµСЂРёСЋ РѕС‚РґРµР»СЊРЅРѕ
         Quick_Sort(vect_of_series[i], 0, size_series - 1);
     }
-    vector < vector < vector <int> > > stack_of_series; //вектор векторов серий
+    vector < vector < vector <int> > > stack_of_series; //РІРµРєС‚РѕСЂ РІРµРєС‚РѕСЂРѕРІ СЃРµСЂРёР№
 
-    for (int k = 0; k < 2; ++k) { //рассовываю по головам последовательности серий
+    for (int k = 0; k < 2; ++k) { //СЂР°СЃСЃРѕРІС‹РІР°СЋ РїРѕ РіРѕР»РѕРІР°Рј РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё СЃРµСЂРёР№
         vector < vector <int> > pointer_1;
-        for (int i = 0 + k; i < 3; ++i) {//пихаю последовательности в головы
+        for (int i = 0 + k; i < 3; ++i) {//РїРёС…Р°СЋ РїРѕСЃР»РµРґРѕРІР°С‚РµР»СЊРЅРѕСЃС‚Рё РІ РіРѕР»РѕРІС‹
             pointer_1.push_back(vect_of_series[count++]);
         }
         stack_of_series.push_back(pointer_1);
     }
 
-    clear_vector(vect_of_series); //освобождаю память
+    clear_vector(vect_of_series); //РѕСЃРІРѕР±РѕР¶РґР°СЋ РїР°РјСЏС‚СЊ
     vector < vector <int> > pointer_1;
-    stack_of_series.push_back(pointer_1);//пустая голова с пустой серией
-    clear_vector(pointer_1); //освобождаю память
+    stack_of_series.push_back(pointer_1);//РїСѓСЃС‚Р°СЏ РіРѕР»РѕРІР° СЃ РїСѓСЃС‚РѕР№ СЃРµСЂРёРµР№
+    clear_vector(pointer_1); //РѕСЃРІРѕР±РѕР¶РґР°СЋ РїР°РјСЏС‚СЊ
 
-    while (flag) { //пока не солью все серии в одну
-        int zero_index = empty_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2]); //индекс пустой головы
-        int min_index = mn_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2], zero_index);//индекс с меньшим числом серий
-        int max_index = mx_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2], zero_index);//индекс с большим числом серий
-        int cur_min_sequence = stack_of_series[min_index].size(); //по сколько серий сплавлять
-        for (int i = 0; i < cur_min_sequence; i++) {//запись сплавленных серий в запасную голову
+    while (flag) { //РїРѕРєР° РЅРµ СЃРѕР»СЊСЋ РІСЃРµ СЃРµСЂРёРё РІ РѕРґРЅСѓ
+        int zero_index = empty_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2]); //РёРЅРґРµРєСЃ РїСѓСЃС‚РѕР№ РіРѕР»РѕРІС‹
+        int min_index = mn_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2], zero_index);//РёРЅРґРµРєСЃ СЃ РјРµРЅСЊС€РёРј С‡РёСЃР»РѕРј СЃРµСЂРёР№
+        int max_index = mx_ind(stack_of_series[0], stack_of_series[1], stack_of_series[2], zero_index);//РёРЅРґРµРєСЃ СЃ Р±РѕР»СЊС€РёРј С‡РёСЃР»РѕРј СЃРµСЂРёР№
+        int cur_min_sequence = stack_of_series[min_index].size(); //РїРѕ СЃРєРѕР»СЊРєРѕ СЃРµСЂРёР№ СЃРїР»Р°РІР»СЏС‚СЊ
+        for (int i = 0; i < cur_min_sequence; i++) {//Р·Р°РїРёСЃСЊ СЃРїР»Р°РІР»РµРЅРЅС‹С… СЃРµСЂРёР№ РІ Р·Р°РїР°СЃРЅСѓСЋ РіРѕР»РѕРІСѓ
             vector<int> temp = new_ser(stack_of_series[min_index][stack_of_series[min_index].size() - 1],
-                stack_of_series[max_index][stack_of_series[max_index].size() - 1]); //сплав серий
+                stack_of_series[max_index][stack_of_series[max_index].size() - 1]); //СЃРїР»Р°РІ СЃРµСЂРёР№
             if (temp.size() == 25) {
-                flag = false; //все серии слиты в одну отсортированную
+                flag = false; //РІСЃРµ СЃРµСЂРёРё СЃР»РёС‚С‹ РІ РѕРґРЅСѓ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅСѓСЋ
             }
-            stack_of_series[zero_index].push_back(temp);//добавляю отсортированную серию
-            stack_of_series[min_index].erase(stack_of_series[min_index].end() - 1); //убираю сплавленную серию
-            stack_of_series[max_index].erase(stack_of_series[max_index].end() - 1); //убираю сплавленную серию
+            stack_of_series[zero_index].push_back(temp);//РґРѕР±Р°РІР»СЏСЋ РѕС‚СЃРѕСЂС‚РёСЂРѕРІР°РЅРЅСѓСЋ СЃРµСЂРёСЋ
+            stack_of_series[min_index].erase(stack_of_series[min_index].end() - 1); //СѓР±РёСЂР°СЋ СЃРїР»Р°РІР»РµРЅРЅСѓСЋ СЃРµСЂРёСЋ
+            stack_of_series[max_index].erase(stack_of_series[max_index].end() - 1); //СѓР±РёСЂР°СЋ СЃРїР»Р°РІР»РµРЅРЅСѓСЋ СЃРµСЂРёСЋ
         }
     }
     vect = not_an_empty_head(stack_of_series[0], stack_of_series[1], stack_of_series[2]);
-    clear_vector(stack_of_series); //освобождаю память
-}
-
-int main() {
-    system("chcp 1251 > Null");
-    srand(time(0));
-
-    int choice;
-    int mas_size = 25;
-
-    vector<int> vect(mas_size);
-
-    do {
-        cout << "Каким способом вы хотите создать массив? " << endl;
-        cout << "1 - Ввести ручками" << endl;
-        cout << "2 - Создать случайно" << endl;
-        cin >> choice;
-    } while (choice < 1 || choice > 2);
-
-    switch (choice) { //выбор способа создания массива
-    case 1: {
-        creature_mas_hands(vect);
-        break;
-    }
-    default: {
-        creature_mas_rand(vect); //создание массива случайно
-        break;
-    }
-    }
-
-    cout << endl << "Создан массив!" << endl;
-    print(vect); //вывод массива
-
-    multiphase_sorting(vect);//многофазная сортировка
-    cout << "Массив отсортирован!" << endl;
-    print(vect);
-
-    return 0;
+    clear_vector(stack_of_series); //РѕСЃРІРѕР±РѕР¶РґР°СЋ РїР°РјСЏС‚СЊ
 }
