@@ -1,50 +1,50 @@
-#include "Pay.h"
+п»ї#include "Pay.h"
 #include <iostream>
 #include <string>
 using namespace std;
 
-Pay::Pay() {//конструктор по умолчанию
+Pay::Pay() {//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ
 	name = "John Doe";
 	salary = 10;
 	bonus = 0;
-	cout << "Конструктор по умолчанию для объекта " << this << endl;
+	cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РїРѕ СѓРјРѕР»С‡Р°РЅРёСЋ РґР»СЏ РѕР±СЉРµРєС‚Р° " << this << endl;
 }
 
-Pay::Pay(string name = "Jhon", double salary = 0, int bonus = 0) { //конструктор с параметрами
-	this->name = name;//присвоение фио
-	this->salary = salary;//присвоение з/п
-	this->bonus = bonus;//присвоение премии
-	cout << "Конструктор с параметрами для объекта " << this << endl;
+Pay::Pay(string name = "Jhon", double salary = 0, int bonus = 0) { //РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё
+	this->name = name;//РїСЂРёСЃРІРѕРµРЅРёРµ С„РёРѕ
+	this->salary = salary;//РїСЂРёСЃРІРѕРµРЅРёРµ Р·/Рї
+	this->bonus = bonus;//РїСЂРёСЃРІРѕРµРЅРёРµ РїСЂРµРјРёРё
+	cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЃ РїР°СЂР°РјРµС‚СЂР°РјРё РґР»СЏ РѕР±СЉРµРєС‚Р° " << this << endl;
 }
 
-Pay::Pay(const Pay& other) {//конструктор копирования
-	this->name = other.name;//копирование фио
-	this->salary = other.salary;//копирование з/п
-	this->bonus = other.bonus;//присвоение премии
-	cout << "Конструктор копирования для объекта " << this << endl;
+Pay::Pay(const Pay& other) {//РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ
+	this->name = other.name;//РєРѕРїРёСЂРѕРІР°РЅРёРµ С„РёРѕ
+	this->salary = other.salary;//РєРѕРїРёСЂРѕРІР°РЅРёРµ Р·/Рї
+	this->bonus = other.bonus;//РїСЂРёСЃРІРѕРµРЅРёРµ РїСЂРµРјРёРё
+	cout << "РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєРѕРїРёСЂРѕРІР°РЅРёСЏ РґР»СЏ РѕР±СЉРµРєС‚Р° " << this << endl;
 }
-Pay::~Pay() {//деструктор
-	cout << "Деструктор для объекта " << this << endl;
+Pay::~Pay() {//РґРµСЃС‚СЂСѓРєС‚РѕСЂ
+	cout << "Р”РµСЃС‚СЂСѓРєС‚РѕСЂ РґР»СЏ РѕР±СЉРµРєС‚Р° " << this << endl;
 }
 
-string Pay::get_Name() {//извлечение фио
+string Pay::get_Name() {//РёР·РІР»РµС‡РµРЅРёРµ С„РёРѕ
 	return this->name;
 }
-void Pay::set_Name(string name) {//присвоение фио
+void Pay::set_Name(string name) {//РїСЂРёСЃРІРѕРµРЅРёРµ С„РёРѕ
 	this->name = name;
 }
-double Pay::get_Salary() {//извлечение з/п
+double Pay::get_Salary() {//РёР·РІР»РµС‡РµРЅРёРµ Р·/Рї
 	return this->salary;
 }
-void Pay::set_Salary(double salary) {//присвоение з/п
+void Pay::set_Salary(double salary) {//РїСЂРёСЃРІРѕРµРЅРёРµ Р·/Рї
 	this->salary = salary;
 }
-int Pay::get_Bonus() {//извлечение премии
+int Pay::get_Bonus() {//РёР·РІР»РµС‡РµРЅРёРµ РїСЂРµРјРёРё
 	return this->bonus;
 }
-void Pay::set_Bonus(int bonus) {//присвоение премии
+void Pay::set_Bonus(int bonus) {//РїСЂРёСЃРІРѕРµРЅРёРµ РїСЂРµРјРёРё
 	this->bonus = bonus;
 }
-void Pay::Print() {//вывод параметров класса Pay
-	cout << "ФИО: " << this->name << endl << "ОКЛАД: " << this->salary << endl << "ПРЕМИЯ: " << this->bonus << " %" << endl << endl;
+void Pay::Print() {//РІС‹РІРѕРґ РїР°СЂР°РјРµС‚СЂРѕРІ РєР»Р°СЃСЃР° Pay
+	cout << "Р¤РРћ: " << this->name << endl << "РћРљР›РђР”: " << this->salary << endl << "РџР Р•РњРРЇ: " << this->bonus << " %" << endl << endl;
 }
