@@ -1,24 +1,24 @@
-#pragma once //предотвращает повторную загрузку заголовочного файла, если он уже был включен.
-#include "progression.h" //объявления классов
-#include <cmath> //для возведения в степень
+п»ї#pragma once //РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµС‚ РїРѕРІС‚РѕСЂРЅСѓСЋ Р·Р°РіСЂСѓР·РєСѓ Р·Р°РіРѕР»РѕРІРѕС‡РЅРѕРіРѕ С„Р°Р№Р»Р°, РµСЃР»Рё РѕРЅ СѓР¶Рµ Р±С‹Р» РІРєР»СЋС‡РµРЅ.
+#include "progression.h" //РѕР±СЉСЏРІР»РµРЅРёСЏ РєР»Р°СЃСЃРѕРІ
+#include <cmath> //РґР»СЏ РІРѕР·РІРµРґРµРЅРёСЏ РІ СЃС‚РµРїРµРЅСЊ
 
-Progression::Progression(double first = 1, double second = 1) { //объявление конструктора класса Progression
-	cout << "Вызов конструктора класса Progression("<<first<<", "<<second<<")" << endl;
-	this->first = first;//присваивает значение параметра first конструктора полю first объекта
-	this->second = second;//присваивает значение параметра second конструктора полю second объекта
+Progression::Progression(double first = 1, double second = 1) { //РѕР±СЉСЏРІР»РµРЅРёРµ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РєР»Р°СЃСЃР° Progression
+	cout << "Р’С‹Р·РѕРІ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РєР»Р°СЃСЃР° Progression("<<first<<", "<<second<<")" << endl;
+	this->first = first;//РїСЂРёСЃРІР°РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° first РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕР»СЋ first РѕР±СЉРµРєС‚Р°
+	this->second = second;//РїСЂРёСЃРІР°РёРІР°РµС‚ Р·РЅР°С‡РµРЅРёРµ РїР°СЂР°РјРµС‚СЂР° second РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂР° РїРѕР»СЋ second РѕР±СЉРµРєС‚Р°
 };
 
-double Progression::element(int j) {//вычисляю aj = a0 * r^j (j-ый элемент прогрессии)
-	cout << "Вызов метода element("<<j<<")" << endl;
+double Progression::element(int j) {//РІС‹С‡РёСЃР»СЏСЋ aj = a0 * r^j (j-С‹Р№ СЌР»РµРјРµРЅС‚ РїСЂРѕРіСЂРµСЃСЃРёРё)
+	cout << "Р’С‹Р·РѕРІ РјРµС‚РѕРґР° element("<<j<<")" << endl;
 	return first * pow(second, j);
 }
 
-void Progression::setFirst(double a0) {//устанавливаю число a0
-	cout << "Private поле first(a0) = "<< a0 << endl;
+void Progression::setFirst(double a0) {//СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋ С‡РёСЃР»Рѕ a0
+	cout << "Private РїРѕР»Рµ first(a0) = "<< a0 << endl;
 	this->first = a0;
 }
 
-void Progression::setSecond(double r) { //устанавливаю число r
-	cout << "Private поле second(r) = " << r << endl;
+void Progression::setSecond(double r) { //СѓСЃС‚Р°РЅР°РІР»РёРІР°СЋ С‡РёСЃР»Рѕ r
+	cout << "Private РїРѕР»Рµ second(r) = " << r << endl;
 	this->second = r;
 }

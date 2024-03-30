@@ -1,14 +1,14 @@
-#pragma once //предотвращает повторную загрузку заголовочного файла, если он уже был включен
-#include <iostream> //стандартные потоки ввода и вывода
+п»ї#pragma once //РїСЂРµРґРѕС‚РІСЂР°С‰Р°РµС‚ РїРѕРІС‚РѕСЂРЅСѓСЋ Р·Р°РіСЂСѓР·РєСѓ Р·Р°РіРѕР»РѕРІРѕС‡РЅРѕРіРѕ С„Р°Р№Р»Р°, РµСЃР»Рё РѕРЅ СѓР¶Рµ Р±С‹Р» РІРєР»СЋС‡РµРЅ
+#include <iostream> //СЃС‚Р°РЅРґР°СЂС‚РЅС‹Рµ РїРѕС‚РѕРєРё РІРІРѕРґР° Рё РІС‹РІРѕРґР°
 using namespace std;
 
-class Progression { //объявление класса Progression
-private: //объявление private полей класса Progression
-	double first;//объявляет private поле first типа double
-	double second;//объявляет private поле second типа double
-public://объявление public методов класса Progression.
-	Progression(double, double); //объявляет конструктор класса Progression, который принимает два double параметра.
-	double element(int); //объявляет метод element(), который принимает int параметр и возвращает double значение.
-	void setFirst(double);//объявляет метод setFirst(), который принимает double параметр.
-	void setSecond(double); //объявляет метод setSecond(), который принимает double параметр.
+class Progression { //РѕР±СЉСЏРІР»РµРЅРёРµ РєР»Р°СЃСЃР° Progression
+private: //РѕР±СЉСЏРІР»РµРЅРёРµ private РїРѕР»РµР№ РєР»Р°СЃСЃР° Progression
+	double first;//РѕР±СЉСЏРІР»СЏРµС‚ private РїРѕР»Рµ first С‚РёРїР° double
+	double second;//РѕР±СЉСЏРІР»СЏРµС‚ private РїРѕР»Рµ second С‚РёРїР° double
+public://РѕР±СЉСЏРІР»РµРЅРёРµ public РјРµС‚РѕРґРѕРІ РєР»Р°СЃСЃР° Progression.
+	Progression(double, double); //РѕР±СЉСЏРІР»СЏРµС‚ РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РєР»Р°СЃСЃР° Progression, РєРѕС‚РѕСЂС‹Р№ РїСЂРёРЅРёРјР°РµС‚ РґРІР° double РїР°СЂР°РјРµС‚СЂР°.
+	double element(int); //РѕР±СЉСЏРІР»СЏРµС‚ РјРµС‚РѕРґ element(), РєРѕС‚РѕСЂС‹Р№ РїСЂРёРЅРёРјР°РµС‚ int РїР°СЂР°РјРµС‚СЂ Рё РІРѕР·РІСЂР°С‰Р°РµС‚ double Р·РЅР°С‡РµРЅРёРµ.
+	void setFirst(double);//РѕР±СЉСЏРІР»СЏРµС‚ РјРµС‚РѕРґ setFirst(), РєРѕС‚РѕСЂС‹Р№ РїСЂРёРЅРёРјР°РµС‚ double РїР°СЂР°РјРµС‚СЂ.
+	void setSecond(double); //РѕР±СЉСЏРІР»СЏРµС‚ РјРµС‚РѕРґ setSecond(), РєРѕС‚РѕСЂС‹Р№ РїСЂРёРЅРёРјР°РµС‚ double РїР°СЂР°РјРµС‚СЂ.
 };
