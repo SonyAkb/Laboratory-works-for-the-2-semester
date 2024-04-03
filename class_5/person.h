@@ -9,8 +9,7 @@ class Person : public Object {
 		int a;
 
 		cout << "Введите имя: ";
-		stream.ignore();
-		getline(stream, temp);
+		cin >> temp;
 		p.set_name(temp);
 
 		cout << "Введите возраст: ";
@@ -64,7 +63,7 @@ public:
 	};
 
 	void Out_put() override {//вывод параметров класса person
-		cout << "ФИО: " << this->name << endl << "Возраст: " << this->age;
+		cout << "Имя: " << this->name << endl << "Возраст: " << this->age;
 	}
 };
 
