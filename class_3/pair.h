@@ -13,20 +13,19 @@ public:
 	~Pair();//деструктор класса
 	void Print();
 
-	void operator+(int x){
+	Pair operator+(const int& x){
 		cout << endl << "Вызов оператора + для " << this << endl;
-		first += x;
+		return (Pair(this->first + x, this->second));
 	}
 
-	void operator+(double y){
+	Pair operator+(const double& y){
 		cout << endl << "Вызов оператора + для " << this << endl;
-		second += y;
+		return (Pair(this->first, this->second + y));
 	}
 
-	void operator-(const Pair& para) {
+	Pair operator-(const Pair& para) {
 		cout << "Вызов оператора - для " << this << endl;
-		first -= para.first;
-		second -= para.second;
+		return (Pair(this->first - para.first, this->second - para.second));
 	}
 
 	void operator=(const Pair& para) {

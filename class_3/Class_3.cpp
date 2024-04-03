@@ -20,10 +20,7 @@ int main() {
 
 	c = b;
 	cout << "c = " << c << endl << endl;
-	a - b;
-	cout << "Вычитание a - b: " << a << " - " << b << " = " << a << endl ;
-	a + number_1;
-	cout << "a + " << number_1 << " = " << a << endl;
-	b + number_2;
-	cout << "b + " << number_2 << " = " << b << endl;
+	cout << "Вычитание a - b: " << a << " - " << b << " = " << a - b << endl;
+	cout << "a + " << number_1 << " = " << a + number_1 << endl;
+	cout << "b + " << number_2 << " = " << b+ number_2 << endl;
 }
