@@ -36,7 +36,7 @@ public:
 	}
 
 	friend ostream& operator <<(ostream& stream, const Pair& p) {
-		stream << "(" << p.first << ";" << p.second << ")";
+		stream << "(" << p.first << ":" << p.second << ")";
 		return stream;
 	}
 };

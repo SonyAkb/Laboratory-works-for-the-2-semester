@@ -26,6 +26,6 @@ Pair::~Pair() {//деструктор
 }
 
 void Pair::Print() {//вывод параметров класса person
-	cout << "(" << this->first <<  " ; " << this->second << ")" << endl;
+	cout << "(" << this->first <<  " : " << this->second << ")" << endl;
 }
 
