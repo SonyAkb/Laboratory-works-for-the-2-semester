@@ -17,7 +17,6 @@ int main(){
     cout << "list_1" << endl;
     cout << list_1 << endl << endl;
     
-
     creature_list_rand(list_1);
     cout << "list_1" << endl;
     cout << list_1 << endl << endl;
@@ -63,7 +62,7 @@ int main(){
     cout << *(iter + 1);
     cout << endl;
     
-    cout << "Вывод элемента 2 list_3 с помощью Iterator с НАЧАЛА" << endl;
+    cout << "Вывод элемента 2 list_3 с помощью Iterator с КОНЦА" << endl;
     iter = list_3.last_el();
     cout << *(iter - 3);
     cout << endl << endl;
