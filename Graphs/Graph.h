@@ -1,19 +1,20 @@
 #pragma once
+#include "other functions.h"
+#include <SFML/Graphics.hpp>
 #include <vector>
 #include <queue>
 #include <iomanip>
 #include <set>
-using namespace std;
 
 
 template <class T>
 class Graph {
 private:
-	vector<T> vertex_list; //вектор вершин
-	vector<vector<int>> adjMatrix;//матрица смежности
-	vector<vector<int>> shortest_paths_matrix; //матрица кратчайших расстояний
-	vector<vector<int>> second_matrix;//вторая матрица для флойда
-	vector<int> label_list;
+	std::vector<T> vertex_list; //вектор вершин
+	std::vector<std::vector<int>> adjMatrix;//матрица смежности
+	std::vector<std::vector<int>> shortest_paths_matrix; //матрица кратчайших расстояний
+	std::vector<std::vector<int>> second_matrix;//вторая матрица для флойда
+	std::vector<int> label_list;
 public:
 	Graph(const int& size = 0);//конструктор с размером графа
 	~Graph() {};//деструктор
@@ -23,7 +24,7 @@ public:
 	int get_vert_pos(const T& data);//ИНДЕКС вершины с переданными данными
 	int get_amount_verts();//количество существующих вершин
 	int get_weight(const T& vert_1, const T& vert_2);//вес пути между вершинами
-	vector<T> get_neighbors(const T& data);//вектор соседей элемента с переданными данными
+	std::vector<T> get_neighbors(const T& data);//вектор соседей элемента с переданными данными
 	void insert_edge_orient(const T& vert_1, const T& vert_2, int weight = 1); //вставка ребра между двумя узлами - ОРИЕНТИРОВАННЫЙ граф
 	//void insert_edge_not_orient(const T& vert_1, const T& vert_2, int weight = 1); //вставка ребра между двумя узлами - НЕ ориентированный граф
 	void erase_edge_orient(const T& vert_1, const T& vert_2);//удаление ребра между двумя узлами
@@ -31,56 +32,179 @@ public:
 	void print_matrix();//печать матрицы смежности
 	int get_amount_edge_orient();//количество ребер - ОРИЕНТИРОВАННЫЙ граф
 	//int get_amount_edge_not_orient();//количество ребер - НЕ ориентированный граф
-	vector<T> DFS(T& start_verts, vector<bool>& visited_verts, vector<T>& vect);//обход графа в ГЛУБИНУ
-	vector<T> BFS(T& start_verts, vector<bool>& visited_verts, vector<T>& vect);//обход графа в ШИРИНУ
+	std::vector<T> DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ГЛУБИНУ
+	std::vector<T> BFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ШИРИНУ
 	
 	void all_matr() {
 		this->print_matrix();
 
-		cout << "Матрица кратчайших расстояний" << endl;
-		cout << setw(7) << "*";
+		std::cout << "Матрица кратчайших расстояний" << std::endl;
+		std::cout << std::setw(7) << "*";
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(7) << vertex_list[i];
+			std::cout << std::setw(7) << vertex_list[i];
 		}
-		cout << endl;
+		std::cout << std::endl;
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(7) << vertex_list[i];
+			std::cout << std::setw(7) << vertex_list[i];
 			for (int j = 0; j < this->vertex_list.size(); j++) {
-				cout << setw(7) << this->shortest_paths_matrix[i][j];	
+				std::cout << std::setw(7) << this->shortest_paths_matrix[i][j];
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
-		cout << endl;
-		cout << "Вторая матрица" << endl;
-		cout << setw(7) << "*";
+		std::cout << std::endl;
+		std::cout << "Вторая матрица" << std::endl;
+		std::cout << std::setw(7) << "*";
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(7) << vertex_list[i];
+			std::cout << std::setw(7) << vertex_list[i];
 		}
-		cout << endl;
+		std::cout << std::endl;
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(7) << vertex_list[i];
+			std::cout << std::setw(7) << vertex_list[i];
 			for (int j = 0; j < this->vertex_list.size(); j++) {
-				cout << setw(7) << this->second_matrix[i][j];
+				std::cout << std::setw(7) << this->second_matrix[i][j];
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
-		cout << endl;
+		std::cout << std::endl;
 	}
 	
 	//алгоритм дейкстеры
 	void fill_labels(T& start_vertex);//заполнение меток расстояния
-	bool all_visited(vector<bool>& visited_verts);//все вершины посещены?
-	vector<pair<T,int>> Dijkstra(T& start_vertex);//алгоритм дейкстры
-	//void shortestPath(int src);
-
-	//флойд
+	bool all_visited(std::vector<bool>& visited_verts);//все вершины посещены?
+	std::vector<std::pair<T,int>> Dijkstra(T& start_vertex);//алгоритм дейкстры
+	//алгоритм флойда
 	void Floyd();
-	vector<tuple<T, T, vector<T>>> PrintSP();
+	std::vector<std::tuple<T, T, std::vector<T>>> PrintSP();
+
+	void Draw(sf::RenderWindow& window);
+	void Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex);
+	void Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2);
 };
 
 template <class T>
+void Graph<T>::Draw(sf::RenderWindow& window) {
+	sf::Vector2u size_window = window.getSize();
+	unsigned int width = size_window.x;
+	unsigned int height = size_window.y;
+
+	unsigned int zero_x = width / 2 + 170;//условный центр графа по x
+	unsigned int zero_y = height / 2;//условный центр графа по y
+
+	int default_radius = 80 + this->vertex_list.size() * 15;
+	float default_angle = 360 / this->vertex_list.size();
+	//std::cout << default_angle << "---" << std::endl;
+
+	std::map<T, sf::Vector2f> Positions;
+	int x = 50, y = 50;
+	for (int i = 0; i < this->vertex_list.size(); i++) {//иду по всем вершинам
+		Positions[this->vertex_list[i]] = calculating_node_coordinates(sf::Vector2f(zero_x, zero_y - default_radius), sf::Vector2f(zero_x, zero_y), default_angle * i);
+		Draw_node(window, Positions, this->vertex_list[i]);
+	}
+
+	for (int i = 0; i < this->adjMatrix.size(); i++) {
+		for (int j = 0; j < this->adjMatrix.size(); j++) {
+			if (this->adjMatrix[i][j] != 0 && this->adjMatrix[i][j] != 10000) {
+				Draw_edge(window, Positions, vertex_list[i], vertex_list[j]);
+			}
+		}
+	}
+}
+
+template <class T>
+void Graph<T>::Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex) {
+	sf::Vector2f position = positions[vertex];//позиция узла
+	int radiys = 20;
+	sf::CircleShape circle_1(radiys);//генерирую круг
+	circle_1.setFillColor(button_color);//цвет внутри круга
+	circle_1.setOutlineColor(text_color);//цвет снаружи круга
+	circle_1.setOutlineThickness(2);//толщина внешнего контура
+	circle_1.setPosition(position.x - radiys, position.y - radiys);//позиция
+
+	sf::Text text_1;
+	sf::Font font;
+	font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+	text_1.setFont(font);
+
+	text_1.setString(std::to_string(vertex));//настраиваю текст
+	text_1.setFillColor(text_color);
+	text_1.setCharacterSize(radiys);
+
+	sf::FloatRect textRect = text_1.getLocalBounds();//центрую текст
+	text_1.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text_1.setPosition(sf::Vector2f(position.x, position.y));
+
+
+	window.draw(circle_1);//рисую круг
+	window.draw(text_1);//рисую текст
+}
+
+
+template <class T>
+void Graph<T>::Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2) {
+	sf::Vector2f positions_1 = positions[vertex_1];
+	sf::Vector2f positions_2 = positions[vertex_2];
+
+	positions_1 = point_on_the_node_boundary(positions_2, positions_1, 22);
+	positions_2 = point_on_the_node_boundary(positions_1, positions_2, 22);
+	
+	sf::ConvexShape line_2;
+	line_2.setPointCount(4);
+
+	if ((positions_1.x < positions_2.x && positions_1.y < positions_2.y) ||
+		(positions_1.x > positions_2.x && positions_1.y > positions_2.y)) {
+		line_2.setPoint(0, sf::Vector2f(positions_1.x - 2, positions_1.y - 2));
+		line_2.setPoint(1, sf::Vector2f(positions_1.x + 2, positions_1.y + 2));
+
+		line_2.setPoint(2, sf::Vector2f(positions_2.x + 2, positions_2.y + 2));
+		line_2.setPoint(3, sf::Vector2f(positions_2.x - 2, positions_2.y - 2));
+
+		
+	}
+	else {
+		line_2.setPoint(0, sf::Vector2f(positions_1.x - 1, positions_1.y - 1));
+		line_2.setPoint(1, sf::Vector2f(positions_1.x + 1, positions_1.y + 1));
+
+		line_2.setPoint(2, sf::Vector2f(positions_2.x + 1, positions_2.y + 1));
+		line_2.setPoint(3, sf::Vector2f(positions_2.x - 1, positions_2.y - 1));
+
+		
+	}
+	line_2.setFillColor(sf::Color(117, 90, 87));
+	
+	sf::VertexArray myTriangles(Triangles, 3);
+	myTriangles[0].position = Vector2f(positions[vertex_2].x, positions[vertex_2].y);
+	myTriangles[1].position = Vector2f(positions[vertex_2].x - 10, positions[vertex_2].y + 20);
+	myTriangles[2].position = Vector2f(positions[vertex_2].x - 10, positions[vertex_2].y + 20);
+
+	//sf::VertexArray line(sf::Lines, 2);
+	//line[0].position = positions[vertex_1];
+	//line[1].position = positions[vertex_2];
+
+	//line[0].position.x -= 1;
+	//line[1].position.x -= 1;
+
+	////line[0].position.y -= 1;
+	////line[1].position.y -= 1;
+
+	//line[0].color = sf::Color(117, 90, 87);
+	//line[1].color = sf::Color(193, 135, 107);
+
+	//for (int i = 0; i < 3; i++) {
+	//	line[0].position.x += 1;
+	//	line[1].position.x += 1;
+
+	//	//line[0].position.y += 1;
+	//	//line[1].position.y += 1;
+
+	//	window.draw(line, 2);
+	//}
+
+	window.draw(line_2);
+	
+}
+template <class T>
 Graph<T>::Graph(const int& size) {//конструктор с размером графа
-	this->adjMatrix = vector<vector<T>>(size, vector<T>(size));//устанавливаю матрицу смежности
+	this->adjMatrix = std::vector<std::vector<T>>(size, std::vector<T>(size));//устанавливаю матрицу смежности
 	for (int i = 0; i < size; i++) {//иду по строкам
 		for (int j = 0; j < size; j++) {//иду по столбцам
 			this->adjMatrix[i][j] = 0;
@@ -96,10 +220,10 @@ bool Graph<T>::is_empty() {//граф пуст?
 template <class T>
 void Graph<T>::insert_vertex(const T& data) {//вставка вершины
 	this->vertex_list.push_back(data);//добавляю новый узел в вектор весх узлов
-	vector<int> tmp_1(vertex_list.size(), 0);//вектор с 0 для добавленного узла
-	vector<int> tmp_2(vertex_list.size(), 0);
+	std::vector<int> tmp_1(vertex_list.size(), 0);//вектор с 0 для добавленного узла
+	std::vector<int> tmp_2(vertex_list.size(), 0);
 	
-	vector<int> tmp_3(vertex_list.size(), 10000);
+	std::vector<int> tmp_3(vertex_list.size(), 10000);
 	tmp_3[vertex_list.size() - 1] = 0;
 	this->adjMatrix.push_back(tmp_1);//добавляю в матрицу новую строку
 	this->second_matrix.push_back(tmp_2);
@@ -159,15 +283,15 @@ int Graph<T>::get_weight(const T& vert_1, const T& vert_2) {//вес пути между вер
 	int position_1 = this->get_vert_pos(vert_1);//индекс узла
 	int position_2 = this->get_vert_pos(vert_2);//индекс узла
 	if (position_1 == -1 || position_2 == -1) {//если к-л узла нет
-		cout << "Один из узлов не существует" << endl;
+		std::cout << "Один из узлов не существует" << std::endl;
 		return 0;
 	}
 	return this->adjMatrix[position_1][position_2];
 }
 
 template <class T>
-vector<T> Graph<T>::get_neighbors(const T& data) {//вектор соседей элемента с переданными данными, только те соседи куда можно перейти
-	vector<T> nbrs_list;//вектор соседей
+std::vector<T> Graph<T>::get_neighbors(const T& data) {//вектор соседей элемента с переданными данными, только те соседи куда можно перейти
+	std::vector<T> nbrs_list;//вектор соседей
 	int pos = this->get_vert_pos(data);//индекс узла в матрице смежности
 	if (pos != -1) {//если узел существует
 		for (int i = 0; i < this->vertex_list.size(); i++) {//прохожу по всем узлам
@@ -182,14 +306,14 @@ vector<T> Graph<T>::get_neighbors(const T& data) {//вектор соседей элемента с пе
 template <class T>
 void Graph<T>::insert_edge_orient(const T& vert_1, const T& vert_2, int weight) { //вставка ребра между двумя узлами
 	if (this->get_vert_pos(vert_1) == -1 || this->get_vert_pos(vert_2) == -1) {
-		cout << "Один из узлов не существует" << endl;
+		std::cout << "Один из узлов не существует" << std::endl;
 		return;
 	}
 	else {
 		int position_1 = this->get_vert_pos(vert_1);//индекс узла
 		int position_2 = this->get_vert_pos(vert_2);//индекс узла
 		if (this->adjMatrix[position_1][position_2] != 0 && this->adjMatrix[position_1][position_2] != 10000) {
-			cout << "Ребро уже есть!!" << endl;
+			std::cout << "Ребро уже есть!!" << std::endl;
 			return;
 		}
 		else {
@@ -201,7 +325,7 @@ void Graph<T>::insert_edge_orient(const T& vert_1, const T& vert_2, int weight) 
 template <class T>
 void  Graph<T>::erase_edge_orient(const T& vert_1, const T& vert_2) {
 	if (this->get_vert_pos(vert_1) == -1 || this->get_vert_pos(vert_2) == -1) {
-		cout << "Один из узлов не существует" << endl;
+		std::cout << "Один из узлов не существует" << std::endl;
 		return;
 	}
 	else {
@@ -235,27 +359,27 @@ void  Graph<T>::erase_edge_orient(const T& vert_1, const T& vert_2) {
 template <class T>
 void Graph<T>::print_matrix() {//печать матрицы смежности
 	if (this->is_empty()) {
-		cout << "Граф пуст" << endl;
+		std::cout << "Граф пуст" << std::endl;
 		return;
 	}
 	else {
-		cout << "Матрица смежности графа" << endl;
-		cout << setw(4) << "*";
+		std::cout << "Матрица смежности графа" << std::endl;
+		std::cout << std::setw(4) << "*";
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(4) << vertex_list[i];
+			std::cout << std::setw(4) << vertex_list[i];
 		}
-		cout << endl;
+		std::cout << std::endl;
 		for (int i = 0; i < this->vertex_list.size(); i++) {
-			cout << setw(4) << vertex_list[i];
+			std::cout << std::setw(4) << vertex_list[i];
 			for (int j = 0; j < this->vertex_list.size(); j++) {
 				if (this->adjMatrix[i][j] == 10000) {
-					cout << "    ";
+					std::cout << "    ";
 				}
 				else {
-					cout << setw(4) << this->adjMatrix[i][j];
+					std::cout << std::setw(4) << this->adjMatrix[i][j];
 				}
 			}
-			cout << endl;
+			std::cout << std::endl;
 		}
 	}
 }
@@ -296,11 +420,11 @@ int Graph<T>::get_amount_edge_orient() {//количество ребер - ОРИЕНТИРОВАННЫЙ гра
 //}
 
 template <class T>
-vector<T> Graph<T>::DFS(T& start_verts, vector<bool>& visited_verts, vector<T>& vect) {//обход графа в глубину
-	cout << "Вершина " << start_verts << " посещена" << endl;
+std::vector<T> Graph<T>::DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect) {//обход графа в глубину
+	std::cout << "Вершина " << start_verts << " посещена" << std::endl;
 	vect.push_back(start_verts);
 	visited_verts[this->get_vert_pos(start_verts)] = true;//отмечаю, что вершина посещена
-	vector<T> neigbors = this->get_neighbors(start_verts);//соседи данной вершины
+	std::vector<T> neigbors = this->get_neighbors(start_verts);//соседи данной вершины
 	for (int i = 0; i < neigbors.size(); ++i) {
 		if (!visited_verts[this->get_vert_pos(neigbors[i])]) {//если узел еще не посещен
 			this->DFS(neigbors[i], visited_verts, vect);//посещаю узел
@@ -310,15 +434,15 @@ vector<T> Graph<T>::DFS(T& start_verts, vector<bool>& visited_verts, vector<T>& 
 }
 
 template <class T>
-vector<T> Graph<T>::BFS(T& start_verts, vector<bool>& visited_verts, vector<T>& vect) {
-	queue<T> q; // Используем очередь для хранения вершин
+std::vector<T> Graph<T>::BFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect) {
+	std::queue<T> q; // Используем очередь для хранения вершин
 	q.push(start_verts); // Начинаем обход с начальной вершины
 	visited_verts[get_vert_pos(start_verts)] = true; // Помечаем начальную вершину как посещенную
 
 	while (!q.empty()) {//пока очередь не опустеет
 		T current = q.front();//первый элемент в очереди
 		q.pop();//удаляю первый элемент
-		cout << "Вершина " << current << " обработана" << endl; // Выводим текущую вершину
+		std::cout << "Вершина " << current << " обработана" << std::endl; // Выводим текущую вершину
 		vect.push_back(current);
 		for (int i = 0; i < adjMatrix[get_vert_pos(current)].size(); ++i) {//пока не пройду все элементы в строке матрицы графов
 			if (adjMatrix[get_vert_pos(current)][i] > 0 && !visited_verts[i]) {//если между вершинами есть дорогоа и вершина еще не посещена
@@ -333,15 +457,15 @@ vector<T> Graph<T>::BFS(T& start_verts, vector<bool>& visited_verts, vector<T>& 
 
 template <class T>
 void Graph<T>::fill_labels(T& start_vertex) {//заполнение меток расстояния
-	vector<int> tmp_1(this->vertex_list.size(), 1000000);//метки расстояния
+	std::vector<int> tmp_1(this->vertex_list.size(), 1000000);//метки расстояния
 	this->label_list = tmp_1;//устанавливаю
 	int pos = this->get_vert_pos(start_vertex);//считываю позицию индекс начальной вершины
-	cout << "начальная вершина " << pos << endl;
+	std::cout << "начальная вершина " << pos << std::endl;
 	this->label_list[pos] = 0;//начальная вершина, поэтому 0
 }
 
 template <class T>
-bool Graph<T>::all_visited(vector<bool>& visited_verts) {//все вершины посещены?
+bool Graph<T>::all_visited(std::vector<bool>& visited_verts) {//все вершины посещены?
 	bool flag = true;
 	for (int i = 0; i < this->vertex_list.size() && flag; i++) {//прохожу по всем вершинам
 		if (visited_verts[i] != true) {//проверяю каждую вершину на посещение
@@ -350,16 +474,16 @@ bool Graph<T>::all_visited(vector<bool>& visited_verts) {//все вершины посещены?
 	}
 
 	for (int i = 0; i < this->vertex_list.size(); i++) {//прохожу по всем вершинам
-		cout << visited_verts[i] << " ";
+		std::cout << visited_verts[i] << " ";
 	}
 
-	cout << endl << "-------" << endl;
+	std::cout << std::endl << "-------" << std::endl;
 	return flag;
 }
 
 template <class T>
-vector<pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
-	vector<pair<T, int>> vect_of_distances;
+std::vector<std::pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
+	std::vector<std::pair<T, int>> vect_of_distances;
 	for (int i = 0; i < this->vertex_list.size(); i++) {
 		for (int j = 0; j < this->vertex_list.size(); j++) {
 			if (this->adjMatrix[i][j] < 0) {//проверка на недопустимое расстояние между узлами
@@ -370,14 +494,14 @@ vector<pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
 	if (this->get_vert_pos(start_vertex) == -1) {//проверка на корректность
 		return vect_of_distances;
 	}
-	vector<bool> visited_verts(this->vertex_list.size(), false);
+	std::vector<bool> visited_verts(this->vertex_list.size(), false);
 	//vector<bool> visited_verts(this->vertex_list.size());
 	//fill(visited_verts.begin(), visited_verts.end(), false);
 	
 
 	this->fill_labels(start_vertex);
 	T current_src = start_vertex;
-	vector<T> neighbors;
+	std::vector<T> neighbors;
 	//T* min_neighbor_ptr = nullptr;
 
 
@@ -409,19 +533,19 @@ vector<pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
 			current_src = *min_neighbor_ptr;
 		}
 	}
-	pair<T, int> para_dist;
+	std::pair<T, int> para_dist;
 	for (int i = 0; i < this->get_vert_pos(start_vertex); i++) {
-		cout << "Кратчайшее расстояние от вершины " << start_vertex <<
+		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
 			" до вершины " << vertex_list[i] << " равно " <<
-			label_list[this->get_vert_pos(this->vertex_list[i])] << endl;
+			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
 		para_dist.first = vertex_list[i];
 		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
 		vect_of_distances.push_back(para_dist);
 	}
 	for (int i = this->get_vert_pos(start_vertex) + 1; i < this->vertex_list.size(); i++) {
-		cout << "Кратчайшее расстояние от вершины " << start_vertex <<
+		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
 			" до вершины " << vertex_list[i] << " равно " <<
-			label_list[this->get_vert_pos(this->vertex_list[i])] << endl;
+			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
 		para_dist.first = vertex_list[i];
 		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
 		vect_of_distances.push_back(para_dist);
@@ -496,9 +620,9 @@ void Graph<T>::Floyd() {
 }
 
 template<class T>
-vector<tuple<T, T, vector<T>>> Graph<T>::PrintSP() {
+std::vector<std::tuple<T, T, std::vector<T>>> Graph<T>::PrintSP() {
 	int cur = 0, col = 0;
-	vector<tuple<T, T, vector<T>>> vector_of_dists;
+	std::vector<std::tuple<T, T, std::vector<T>>> vector_of_dists;
 	for (int i = 0, size = this->vertex_list.size(); i < size; ++i) {
 		std::cout << "Кратчайший путь от вершины " << this->vertex_list[i]; // Вывод исходной вершины на экран
 		for (int j = 0; j < size; ++j) {
@@ -511,7 +635,7 @@ vector<tuple<T, T, vector<T>>> Graph<T>::PrintSP() {
 
 				std::cout << " к вершине " << this->vertex_list[j]	<< ": ";// Вывод промежуточной вершины на экран
 				std::cout << this->vertex_list[i] << " ";//Вывод на экран исходной вершины
-				vector<T> vect_of_way;
+				std::vector<T> vect_of_way;
 				vect_of_way.push_back(this->vertex_list[i]);
 				
 
@@ -532,7 +656,7 @@ vector<tuple<T, T, vector<T>>> Graph<T>::PrintSP() {
 				cout << endl;*/
 
 				std::cout << std::endl;
-				std::tuple < T, T, vector<T>> tuple_1(this->vertex_list[i], this->vertex_list[j], vect_of_way);
+				std::tuple < T, T, std::vector<T>> tuple_1(this->vertex_list[i], this->vertex_list[j], vect_of_way);
 				vector_of_dists.push_back(tuple_1);
 			}
 			
