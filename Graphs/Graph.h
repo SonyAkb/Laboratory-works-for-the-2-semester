@@ -348,14 +348,23 @@ void Graph<T>::insert_edge_orient(const T& vert_1, const T& vert_2, int weight) 
 	else {
 		int position_1 = this->get_vert_pos(vert_1);//индекс узла
 		int position_2 = this->get_vert_pos(vert_2);//индекс узла
-		if (this->adjMatrix[position_1][position_2] != 0 && this->adjMatrix[position_1][position_2] != 10000) {
+		/*if (this->adjMatrix[position_1][position_2] != 0 && this->adjMatrix[position_1][position_2] != 10000) {
 			std::cout << "Ребро уже есть!!" << std::endl;
 			return;
 		}
 		else {
 			this->adjMatrix[position_1][position_2] = weight;
 			this->second_matrix[position_1][position_2] = vert_2;
+		}*/
+		if (this->adjMatrix[position_2][position_1] != 0 && this->adjMatrix[position_2][position_1] != 10000) {
+			this->adjMatrix[position_1][position_2] = weight;
+			this->adjMatrix[position_2][position_1] = weight;
 		}
+		else {
+			this->adjMatrix[position_1][position_2] = weight;
+		}
+
+		this->second_matrix[position_1][position_2] = vert_2;
 	}
 }
 template <class T>
@@ -1066,7 +1075,7 @@ void add_a_vertex_completely(Graph<T>& Graf_1) {
 
 template <class T>
 void delete_a_vertex_completely(Graph<T>& Graf_1) {
-	std::string str_vertex = enter_the_data(L"Введите название вершины, которую хотите добавить (int)");
+	std::string str_vertex = enter_the_data(L"Введите имя вершины, которую хотите удалить (int)");
 	if (string_to_int_bool(str_vertex)) {
 		int vert_int = string_to_int(str_vertex);//вершина
 		if (Graf_1.get_vert_pos(vert_int) != -1) {
@@ -1085,5 +1094,50 @@ void delete_a_vertex_completely(Graph<T>& Graf_1) {
 template <class T>
 void add_an_edge_completely(Graph<T>& Graf_1) {
 	std::string vertex_1, vertex_2, content;
-	enter_the_three_data(L"111", L"2222", L"3333", vertex_1, vertex_2, content);
+	enter_the_three_data(L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
+	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
+		if (string_to_int_bool(content)) {//расстояние - число?
+			int content_int = string_to_int(content);
+			if (content_int > 0) {//растояние положительное?
+				int vertex_1_int = string_to_int(vertex_1);
+				int vertex_2_int = string_to_int(vertex_2);
+				if (Graf_1.get_vert_pos(vertex_1_int) != -1 && Graf_1.get_vert_pos(vertex_2_int) != -1) {//вершины есть в графе?
+					Graf_1.insert_edge_orient(vertex_1_int, vertex_2_int, content_int);
+					error_or_success_message(L"Ребро добавлено", L"Успех");
+				}
+				else {
+					error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ошибка");
+				}
+			}
+			else {
+				error_or_success_message(L"Расстояние между вершинами не корректно", L"Ошибка");
+			}
+		}
+		else {
+			error_or_success_message(L"Расстояние между вершинами не корректно", L"Ай-ай-ай");
+		}
+	}
+	else {
+		error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ай-ай-ай");
+	}
+}
+
+template <class T>
+void delete_an_edge_completely(Graph<T>& Graf_1) {
+	std::string vertex_1, vertex_2;
+	enter_the_two_data(L"Введите первую вершину", L"Введите вторую вершину", vertex_1, vertex_2);
+	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
+		int vertex_1_int = string_to_int(vertex_1);
+		int vertex_2_int = string_to_int(vertex_2);
+		if (Graf_1.get_vert_pos(vertex_1_int) != -1 && Graf_1.get_vert_pos(vertex_2_int) != -1) {//вершины есть в графе?
+			Graf_1.erase_edge_orient(vertex_1_int, vertex_2_int);
+			error_or_success_message(L"Ребро удалено", L"Успех");
+		}
+		else {
+			error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ошибка");
+		}
+	}
+	else {
+		error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ай-ай-ай");
+	}
 }

@@ -39,9 +39,9 @@ int main() {
     Graf_2.insert_edge_orient(3, 5, 30);
     //Graf_2.insert_edge_orient(7, 8, 20);
 
-    Graf_2.all_matr();
+    /*Graf_2.all_matr();
     Graf_2.Floyd();
-    Graf_2.PrintSP();
+    Graf_2.PrintSP();*/
 
     Graf_2.insert_edge_orient(4, 6, 31);
     Graf_2.insert_edge_orient(4, 5, 39);
@@ -55,7 +55,7 @@ int main() {
     std::cout << std::endl;
     
 
-    Graf_2.erase_edge_orient(6, 5);
+    //Graf_2.erase_edge_orient(6, 5);
 
     Graf_2.all_matr();
     std::cout << std::endl;
@@ -80,7 +80,7 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
 
-    //Graf_2.Dijkstra_1(tmp_1);
+    Graf_2.Dijkstra_1(tmp_1);
 
     /*std::vector<bool> vect_2(6, false);
     std::vector<int> vect_2_1;
@@ -118,7 +118,7 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(1000, 570), "Graph - menu");//главное окно
     jackInput.loadFromFile("ofont.ru_Nikoleta.ttf");
-    int tmp_size_y = window.getSize().y / 2 - 265;
+    int tmp_size_y = window.getSize().y / 2 - 230;
 
     sf::Text menu;
     menu.setFont(jackInput);
@@ -126,8 +126,6 @@ int main() {
     menu.setFillColor(text_color);
     menu.setCharacterSize(40);
     menu.setPosition(150, tmp_size_y);
-
-    
 
     RectButton button_1(sf::Vector2f(360, 40), sf::Vector2f(20, tmp_size_y+= 50));
     button_1.setButtonFont(jackInput);
@@ -151,15 +149,11 @@ int main() {
 
     RectButton button_6(sf::Vector2f(360, 40), sf::Vector2f(20, tmp_size_y += 50));
     button_6.setButtonFont(jackInput);
-    button_6.setButtonLable(L"Добавить ребро в граф", text_color, 30);
+    button_6.setButtonLable(L"Добавить(Изменить) ребро", text_color, 30);
 
     RectButton button_7(sf::Vector2f(360, 40), sf::Vector2f(20, tmp_size_y += 50));
     button_7.setButtonFont(jackInput);
     button_7.setButtonLable(L"Удалить ребро из графа", text_color, 30);
-
-    RectButton button_8(sf::Vector2f(360, 40), sf::Vector2f(20, tmp_size_y += 50));
-    button_8.setButtonFont(jackInput);
-    button_8.setButtonLable(L"Изменить вес ребра", text_color, 30);
 
     RectButton button_exit(sf::Vector2f(360, 40), sf::Vector2f(20, tmp_size_y += 80));
     button_exit.setButtonFont(jackInput);
@@ -177,7 +171,6 @@ int main() {
         button_5.getButtonStatus(window, event);
         button_6.getButtonStatus(window, event);
         button_7.getButtonStatus(window, event);
-        button_8.getButtonStatus(window, event);
         button_exit.getButtonStatus(window, event);
 
         while (window.pollEvent(event)) {
@@ -207,9 +200,8 @@ int main() {
                         add_an_edge_completely(Graf_2);
                     }
                     else if (button_7.isPressed) {//удалить ребро
-                        error_or_success_message(L"цццццц", L"ууууууу");
+                        delete_an_edge_completely(Graf_2);
                     }
-                    
 
                     //window.setSize(sf::Vector2u(640, 480));//изменение размера окна
                 }
@@ -227,7 +219,6 @@ int main() {
         button_5.draw(window);
         button_6.draw(window);
         button_7.draw(window);
-        button_8.draw(window);
         button_exit.draw(window);
 
         window.display();

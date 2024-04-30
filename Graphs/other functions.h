@@ -126,37 +126,59 @@ std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
     return textBox.getCurrentText();//извлекаю введенный текст
 }
 
-void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string content_1, std::string content_2, std::string content_3) {//получение данных от пользователя
-    sf::RenderWindow window(sf::VideoMode(700, 350), L"Ведите...", sf::Style::Titlebar | sf::Style::Close);
+void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string& content_1, std::string& content_2, std::string& content_3) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 470), L"Добавить ребро...", sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
     font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
 
-    RectButton button_1(sf::Vector2f(340, 40), sf::Vector2f(325, 240));
+    RectButton button_1(sf::Vector2f(260, 40), sf::Vector2f(window.getSize().x / 2 - 130, window.getSize().y - 80));
     button_1.setButtonFont(font);
     button_1.setButtonLable(L"Продолжить", text_color, 30);
+
+    int def_pos_y = 20;
 
     sf::Text text_mes_1;
     text_mes_1.setFont(font);
     text_mes_1.setString(mes_1);
     text_mes_1.setFillColor(text_color);
     text_mes_1.setCharacterSize(30);
-    text_mes_1.setPosition(30, 70);
+    text_mes_1.setPosition(30, def_pos_y);
 
-    sdx::TextBox::Text text("", 124, 220);//Текстовый бокс
-    text.setSize(20);
-    sdx::TextBox textBox(440, 32, 130, 160, 2);
+    sdx::TextBox::Text text_1("", 124, 220);//Текстовый бокс
+    text_1.setSize(20);
+    sdx::TextBox textBox_1(440, 32, 130, def_pos_y += 60, 2);
 
-    sdx::TextBox::Text text_2("", 124, 270);//Текстовый бокс
+    sf::Text text_mes_2;
+    text_mes_2.setFont(font);
+    text_mes_2.setString(mes_2);
+    text_mes_2.setFillColor(text_color);
+    text_mes_2.setCharacterSize(30);
+    text_mes_2.setPosition(30, def_pos_y += 60);
+
+    sdx::TextBox::Text text_2("", 130, 210);//Текстовый бокс
     text_2.setSize(20);
-    sdx::TextBox textBox_2(440, 32, 130, 210, 2);
+    sdx::TextBox textBox_2(440, 32, 130, def_pos_y += 60, 2);
+
+    sf::Text text_mes_3;
+    text_mes_3.setFont(font);
+    text_mes_3.setString(mes_3);
+    text_mes_3.setFillColor(text_color);
+    text_mes_3.setCharacterSize(30);
+    text_mes_3.setPosition(30, def_pos_y += 60);
+
+    sdx::TextBox::Text text_3("", 130, 210);//Текстовый бокс
+    text_3.setSize(20);
+    sdx::TextBox textBox_3(440, 32, 130, def_pos_y += 60, 2);
 
     while (window.isOpen()) {
         sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
         sf::Event event;
         button_1.getButtonStatus(window, event);
         while (window.pollEvent(event)) {
-            textBox.handleEvent(event);
+            textBox_1.handleEvent(event);
+            textBox_2.handleEvent(event);
+            textBox_3.handleEvent(event);
 
             if (event.type == sf::Event::Closed) {
                 window.close();
@@ -168,16 +190,91 @@ void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring m
                     }
                 }
             }
-
         }
         window.clear(background_color);
+
         button_1.draw(window);
-        textBox.draw(window);
+        textBox_1.draw(window);
         textBox_2.draw(window);
+        textBox_3.draw(window);
+        
         window.draw(text_mes_1);
+        window.draw(text_mes_2);
+        window.draw(text_mes_3);
+
         window.display();
     }
-    //return textBox.getCurrentText();//извлекаю введенный текст
+    content_1 = textBox_1.getCurrentText();//извлекаю введенный текст
+    content_2 = textBox_2.getCurrentText();//извлекаю введенный текст
+    content_3 = textBox_3.getCurrentText();//извлекаю введенный текст
+}
+
+void enter_the_two_data(std::wstring mes_1, std::wstring mes_2, std::string& content_1, std::string& content_2) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 370), L"Удалить ребро...", sf::Style::Titlebar | sf::Style::Close);
+
+    sf::Font font;
+    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+    RectButton button_1(sf::Vector2f(260, 40), sf::Vector2f(window.getSize().x / 2 - 130, window.getSize().y - 80));
+    button_1.setButtonFont(font);
+    button_1.setButtonLable(L"Продолжить", text_color, 30);
+
+    int def_pos_y = 20;
+
+    sf::Text text_mes_1;
+    text_mes_1.setFont(font);
+    text_mes_1.setString(mes_1);
+    text_mes_1.setFillColor(text_color);
+    text_mes_1.setCharacterSize(30);
+    text_mes_1.setPosition(30, def_pos_y);
+
+    sdx::TextBox::Text text_1("", 124, 220);//Текстовый бокс
+    text_1.setSize(20);
+    sdx::TextBox textBox_1(440, 32, 130, def_pos_y += 60, 2);
+
+    sf::Text text_mes_2;
+    text_mes_2.setFont(font);
+    text_mes_2.setString(mes_2);
+    text_mes_2.setFillColor(text_color);
+    text_mes_2.setCharacterSize(30);
+    text_mes_2.setPosition(30, def_pos_y += 60);
+
+    sdx::TextBox::Text text_2("", 130, 210);//Текстовый бокс
+    text_2.setSize(20);
+    sdx::TextBox textBox_2(440, 32, 130, def_pos_y += 60, 2);
+
+    while (window.isOpen()) {
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Event event;
+        button_1.getButtonStatus(window, event);
+        while (window.pollEvent(event)) {
+            textBox_1.handleEvent(event);
+            textBox_2.handleEvent(event);
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.key.code == sf::Mouse::Left) {
+                    if (button_1.isPressed) {
+                        window.close();
+                    }
+                }
+            }
+        }
+        window.clear(background_color);
+
+        button_1.draw(window);
+        textBox_1.draw(window);
+        textBox_2.draw(window);
+
+        window.draw(text_mes_1);
+        window.draw(text_mes_2);
+
+        window.display();
+    }
+    content_1 = textBox_1.getCurrentText();//извлекаю введенный текст
+    content_2 = textBox_2.getCurrentText();//извлекаю введенный текст
 }
 
 void error_or_success_message(std::wstring message, std::wstring title) {//сообщение о выполнении операции
