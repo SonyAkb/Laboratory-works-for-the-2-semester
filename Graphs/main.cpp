@@ -24,9 +24,9 @@ int main() {
     Graf_2.insert_vertex(4);
     Graf_2.insert_vertex(5);
     Graf_2.insert_vertex(6);
-    /*Graf_2.insert_vertex(7);
-    Graf_2.insert_vertex(8);
-    Graf_2.insert_vertex(9);
+    //Graf_2.insert_vertex(7);
+    //Graf_2.insert_vertex(8);
+    /*Graf_2.insert_vertex(9);
     Graf_2.insert_vertex(10);
     Graf_2.insert_vertex(11);
     Graf_2.insert_vertex(12);*/
@@ -37,6 +37,7 @@ int main() {
     Graf_2.insert_edge_orient(2, 4, 20);
     Graf_2.insert_edge_orient(2, 1, 28);
     Graf_2.insert_edge_orient(3, 5, 30);
+    //Graf_2.insert_edge_orient(7, 8, 20);
 
     Graf_2.all_matr();
     Graf_2.Floyd();
@@ -63,7 +64,7 @@ int main() {
     //Graf_2.erase_vertex(2);
     Graf_2.print_matrix();
     std::cout << std::endl;
-    tmp_1 = 2;
+    tmp_1 = 6;
 
     std::cout << "количество ребер " << Graf_2.get_amount_edge_orient() << std::endl;
     std::cout << "соседи " << std::endl;
@@ -79,6 +80,7 @@ int main() {
     std::cout << std::endl;
     std::cout << std::endl;
 
+    //Graf_2.Dijkstra_1(tmp_1);
 
     /*std::vector<bool> vect_2(6, false);
     std::vector<int> vect_2_1;
@@ -186,6 +188,29 @@ int main() {
                     if (button_exit.isPressed) {
                         window.close();
                     }
+                    else if (button_1.isPressed) {//обходы дерева
+                        all_actions_to_bypass(Graf_2);
+                    }
+                    else if (button_2.isPressed) {//алгоритм дейкстеры
+                        //running_Dijkstra_algorithm(Graf_2);
+                    }
+                    else if (button_3.isPressed) {
+                        running_Floyd_algorithm(Graf_2);
+                    }
+                    else if (button_4.isPressed) {//Добавить вершину в граф
+                        add_a_vertex_completely(Graf_2);
+                    }
+                    else if (button_5.isPressed) {//удалить вершину
+                        delete_a_vertex_completely(Graf_2);
+                    }
+                    else if (button_6.isPressed) {//добавить ребро
+                        add_an_edge_completely(Graf_2);
+                    }
+                    else if (button_7.isPressed) {//удалить ребро
+                        error_or_success_message(L"цццццц", L"ууууууу");
+                    }
+                    
+
                     //window.setSize(sf::Vector2u(640, 480));//изменение размера окна
                 }
             }

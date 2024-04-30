@@ -1,8 +1,12 @@
 #pragma once
 #include <vector>
+//#include <iostream>
+#include <sstream>
 #include <cmath>
+#include <string>
 #include "sfml_button.hpp"
 #include "textbox.hpp"
+#define PI 3.14159265
 
 sf::Color background_color(236, 205, 177);//фон
 sf::Color button_color(231, 221, 213);//кнопка
@@ -12,9 +16,7 @@ sf::Color text_color(39, 16, 7);//текст
 sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//вычислияю координаты 3 точки
 
 	sf::Vector2f third_point;
-	float angle_in_radians = angle * (3.14 / 180);
-	//third_point.x = std::cos(angle_in_radians) * (first_point.x - second_point.x) + std::sin(angle_in_radians) * (first_point.y - second_point.y) + second_point.x;
-	//third_point.y = std::cos(angle_in_radians) * (first_point.x - second_point.x) - std::sin(angle_in_radians) * (first_point.y - second_point.y) + second_point.y;
+	float angle_in_radians = angle * (PI / 180);
 	third_point.x = std::cos(angle_in_radians) * (first_point.x - second_point.x) - std::sin(angle_in_radians) * (first_point.y - second_point.y) + second_point.x;
 	third_point.y = std::sin(angle_in_radians) * (first_point.x - second_point.x) + std::cos(angle_in_radians) * (first_point.y - second_point.y) + second_point.y;
 
@@ -37,5 +39,188 @@ sf::Vector2f point_on_the_node_boundary(sf::Vector2f first_point, sf::Vector2f s
 	double x = first_point.x + distance * cos(alpha);
 	double y = first_point.y + distance * sin(alpha);
 	return sf::Vector2f(x, y);
+}
+
+double triangleArea(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {// Функция для вычисления площади треугольника
+	return fabs((pos_1.x * (pos_2.y - pos_3.y) + pos_2.x * (pos_3.y - pos_1.y) + pos_3.x * (pos_1.y - pos_2.y)) / 2.0);
+}
+
+double sideLength(sf::Vector2f pos_1, sf::Vector2f pos_2) {// Функция для вычисления длины стороны треугольника
+	return sqrt(pow(pos_2.x - pos_1.x, 2) + pow(pos_2.y - pos_1.y, 2));
+}
+
+double find_angle(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {//ищу угол по трем координатам треугольника
+	double area = triangleArea(pos_1, pos_2, pos_3);
+	
+	double ab = sideLength(pos_1, pos_2);// Вычисление длин сторон треугольника
+	double ac = sideLength(pos_1, pos_3);
+	double bc = sideLength(pos_2, pos_3);
+
+	double angle = acos((ab * ab + ac * ac - bc * bc) / (2 * ab * ac));// Вычисление угла между сторонами AB и AC
+	return angle * 180 / PI;
+
+}
+
+int string_to_int(const std::string& s) { //из строки делаю int
+    std::istringstream i(s);
+    int x;
+    if (!(i >> x))
+        return -1;
+    return x;
+}
+
+bool string_to_int_bool(const std::string& s) { //проверяю можно ли сделать int из string
+    std::istringstream i(s);
+    int x;
+    if (!(i >> x))
+        return false;
+    return true;
+}
+
+std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 350), L"Ведите...", sf::Style::Titlebar | sf::Style::Close);
+
+    sf::Font font;
+    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+    RectButton button_1(sf::Vector2f(340, 40), sf::Vector2f(325, 240));
+    button_1.setButtonFont(font);
+    button_1.setButtonLable(L"Продолжить", text_color, 30);
+
+    sf::Text text_mes;
+    text_mes.setFont(font);
+    text_mes.setString(mes);
+    text_mes.setFillColor(text_color);
+    text_mes.setCharacterSize(30);
+    text_mes.setPosition(30, 70);
+
+    sdx::TextBox::Text text("", 124, 220);//Текстовый бокс
+    text.setSize(20);
+    sdx::TextBox textBox(440, 32, 130, 160, 2);
+
+    while (window.isOpen()) {
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Event event;
+        button_1.getButtonStatus(window, event);
+        while (window.pollEvent(event)) {
+            textBox.handleEvent(event);
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.key.code == sf::Mouse::Left) {
+                    if (button_1.isPressed) {
+                        window.close();
+                    }
+                }
+            }
+
+        }
+        window.clear(background_color);
+        button_1.draw(window);
+        textBox.draw(window);
+        window.draw(text_mes);
+        window.display();
+    }
+    return textBox.getCurrentText();//извлекаю введенный текст
+}
+
+void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string content_1, std::string content_2, std::string content_3) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 350), L"Ведите...", sf::Style::Titlebar | sf::Style::Close);
+
+    sf::Font font;
+    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+    RectButton button_1(sf::Vector2f(340, 40), sf::Vector2f(325, 240));
+    button_1.setButtonFont(font);
+    button_1.setButtonLable(L"Продолжить", text_color, 30);
+
+    sf::Text text_mes_1;
+    text_mes_1.setFont(font);
+    text_mes_1.setString(mes_1);
+    text_mes_1.setFillColor(text_color);
+    text_mes_1.setCharacterSize(30);
+    text_mes_1.setPosition(30, 70);
+
+    sdx::TextBox::Text text("", 124, 220);//Текстовый бокс
+    text.setSize(20);
+    sdx::TextBox textBox(440, 32, 130, 160, 2);
+
+    sdx::TextBox::Text text_2("", 124, 270);//Текстовый бокс
+    text_2.setSize(20);
+    sdx::TextBox textBox_2(440, 32, 130, 210, 2);
+
+    while (window.isOpen()) {
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Event event;
+        button_1.getButtonStatus(window, event);
+        while (window.pollEvent(event)) {
+            textBox.handleEvent(event);
+
+            if (event.type == sf::Event::Closed) {
+                window.close();
+            }
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.key.code == sf::Mouse::Left) {
+                    if (button_1.isPressed) {
+                        window.close();
+                    }
+                }
+            }
+
+        }
+        window.clear(background_color);
+        button_1.draw(window);
+        textBox.draw(window);
+        textBox_2.draw(window);
+        window.draw(text_mes_1);
+        window.display();
+    }
+    //return textBox.getCurrentText();//извлекаю введенный текст
+}
+
+void error_or_success_message(std::wstring message, std::wstring title) {//сообщение о выполнении операции
+    sf::RenderWindow window(sf::VideoMode(message.size() * 20, 250), title);
+
+    sf::Font font;
+    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+    sf::Text mes;
+    mes.setFont(font);
+    mes.setString(message);
+    mes.setFillColor(sf::Color::Black);
+    mes.setCharacterSize(40);
+    mes.setPosition(30, 45);
+
+    RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, 140));//Вертикальная печать дерева
+    button1.setButtonFont(font);
+    button1.setButtonLable(L"Ok", sf::Color::Black, 30);
+
+    while (window.isOpen())
+    {
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Event event;
+        button1.getButtonStatus(window, event);
+
+        while (window.pollEvent(event))
+        {
+            if (event.type == sf::Event::Closed)
+                window.close();
+            if (event.type == sf::Event::MouseButtonPressed) {
+                if (event.key.code == sf::Mouse::Left) {
+                    if (button1.isPressed) {
+                        window.close();
+                    }
+                }
+            }
+        }
+        window.clear(background_color);
+
+        button1.draw(window);
+        window.draw(mes);
+
+        window.display();
+    }
 }
 
