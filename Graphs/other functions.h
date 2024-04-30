@@ -1,4 +1,4 @@
-#pragma once
+п»ї#pragma once
 #include <vector>
 #include <iostream>
 #include <sstream>
@@ -9,12 +9,12 @@
 #include "textbox.hpp"
 #define PI 3.14159265
 
-sf::Color background_color(236, 205, 177);//фон
-sf::Color button_color(231, 221, 213);//кнопка
-sf::Color button_press_color(169, 105, 70);//кнопка нажата
-sf::Color text_color(39, 16, 7);//текст
+sf::Color background_color(236, 205, 177);//С„РѕРЅ
+sf::Color button_color(231, 221, 213);//РєРЅРѕРїРєР°
+sf::Color button_press_color(169, 105, 70);//РєРЅРѕРїРєР° РЅР°Р¶Р°С‚Р°
+sf::Color text_color(39, 16, 7);//С‚РµРєСЃС‚
 
-sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//вычислияю координаты 3 точки
+sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//РІС‹С‡РёСЃР»РёСЏСЋ РєРѕРѕСЂРґРёРЅР°С‚С‹ 3 С‚РѕС‡РєРё
 	sf::Vector2f third_point;
 	float angle_in_radians = angle * (PI / 180);
 	third_point.x = std::cos(angle_in_radians) * (first_point.x - second_point.x) - std::sin(angle_in_radians) * (first_point.y - second_point.y) + second_point.x;
@@ -22,43 +22,43 @@ sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f
 	return third_point;
 }
 
-double beam_length(sf::Vector2f first_point, sf::Vector2f second_point) {//длина вектора
+double beam_length(sf::Vector2f first_point, sf::Vector2f second_point) {//РґР»РёРЅР° РІРµРєС‚РѕСЂР°
 	double dx = second_point.x - first_point.x;
 	double dy = second_point.y - first_point.y;
-	double distSq = dx * dx + dy * dy;// Вычисляем квадрат расстояния между точками
-	double length = sqrt(distSq);// Извлекаем квадратный корень, чтобы получить длину луча
+	double distSq = dx * dx + dy * dy;// Р’С‹С‡РёСЃР»СЏРµРј РєРІР°РґСЂР°С‚ СЂР°СЃСЃС‚РѕСЏРЅРёСЏ РјРµР¶РґСѓ С‚РѕС‡РєР°РјРё
+	double length = sqrt(distSq);// РР·РІР»РµРєР°РµРј РєРІР°РґСЂР°С‚РЅС‹Р№ РєРѕСЂРµРЅСЊ, С‡С‚РѕР±С‹ РїРѕР»СѓС‡РёС‚СЊ РґР»РёРЅСѓ Р»СѓС‡Р°
 	return length;
 }
 
-sf::Vector2f point_on_the_node_boundary(sf::Vector2f first_point, sf::Vector2f second_point, double minus) {//координаты до точки
+sf::Vector2f point_on_the_node_boundary(sf::Vector2f first_point, sf::Vector2f second_point, double minus) {//РєРѕРѕСЂРґРёРЅР°С‚С‹ РґРѕ С‚РѕС‡РєРё
 	double distance = beam_length(first_point, second_point) - minus;
-	double alpha = atan2(second_point.y - first_point.y, second_point.x - first_point.x);// Находим угол альфа между лучом и осью X
+	double alpha = atan2(second_point.y - first_point.y, second_point.x - first_point.x);// РќР°С…РѕРґРёРј СѓРіРѕР» Р°Р»СЊС„Р° РјРµР¶РґСѓ Р»СѓС‡РѕРј Рё РѕСЃСЊСЋ X
 	double x = first_point.x + distance * cos(alpha);
 	double y = first_point.y + distance * sin(alpha);
 	return sf::Vector2f(x, y);
 }
 
-double triangleArea(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {// Функция для вычисления площади треугольника
+double triangleArea(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РїР»РѕС‰Р°РґРё С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	return fabs((pos_1.x * (pos_2.y - pos_3.y) + pos_2.x * (pos_3.y - pos_1.y) + pos_3.x * (pos_1.y - pos_2.y)) / 2.0);
 }
 
-double sideLength(sf::Vector2f pos_1, sf::Vector2f pos_2) {// Функция для вычисления длины стороны треугольника
+double sideLength(sf::Vector2f pos_1, sf::Vector2f pos_2) {// Р¤СѓРЅРєС†РёСЏ РґР»СЏ РІС‹С‡РёСЃР»РµРЅРёСЏ РґР»РёРЅС‹ СЃС‚РѕСЂРѕРЅС‹ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	return sqrt(pow(pos_2.x - pos_1.x, 2) + pow(pos_2.y - pos_1.y, 2));
 }
 
-double find_angle(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {//ищу угол по трем координатам треугольника
+double find_angle(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {//РёС‰Сѓ СѓРіРѕР» РїРѕ С‚СЂРµРј РєРѕРѕСЂРґРёРЅР°С‚Р°Рј С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	double area = triangleArea(pos_1, pos_2, pos_3);
 	
-	double ab = sideLength(pos_1, pos_2);// Вычисление длин сторон треугольника
+	double ab = sideLength(pos_1, pos_2);// Р’С‹С‡РёСЃР»РµРЅРёРµ РґР»РёРЅ СЃС‚РѕСЂРѕРЅ С‚СЂРµСѓРіРѕР»СЊРЅРёРєР°
 	double ac = sideLength(pos_1, pos_3);
 	double bc = sideLength(pos_2, pos_3);
 
-	double angle = acos((ab * ab + ac * ac - bc * bc) / (2 * ab * ac));// Вычисление угла между сторонами AB и AC
+	double angle = acos((ab * ab + ac * ac - bc * bc) / (2 * ab * ac));// Р’С‹С‡РёСЃР»РµРЅРёРµ СѓРіР»Р° РјРµР¶РґСѓ СЃС‚РѕСЂРѕРЅР°РјРё AB Рё AC
 	return angle * 180 / PI;
 
 }
 
-int string_to_int(const std::string& s) { //из строки делаю int
+int string_to_int(const std::string& s) { //РёР· СЃС‚СЂРѕРєРё РґРµР»Р°СЋ int
     std::istringstream i(s);
     int x;
     if (!(i >> x))
@@ -66,7 +66,7 @@ int string_to_int(const std::string& s) { //из строки делаю int
     return x;
 }
 
-bool string_to_int_bool(const std::string& s) { //проверяю можно ли сделать int из string
+bool string_to_int_bool(const std::string& s) { //РїСЂРѕРІРµСЂСЏСЋ РјРѕР¶РЅРѕ Р»Рё СЃРґРµР»Р°С‚СЊ int РёР· string
     std::istringstream i(s);
     int x;
     if (!(i >> x))
@@ -74,15 +74,15 @@ bool string_to_int_bool(const std::string& s) { //проверяю можно ли сделать int 
     return true;
 }
 
-std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
-    sf::RenderWindow window(sf::VideoMode(700, 350), L"Ведите...", sf::Style::Titlebar | sf::Style::Close);
+std::string enter_the_data(std::wstring mes) {//РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
+    sf::RenderWindow window(sf::VideoMode(700, 350), L"Р’РµРґРёС‚Рµ...", sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
-    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+    font.loadFromFile("ofont.ru_Expressway.ttf");//Р·Р°РіСЂСѓР¶Р°СЋ С€СЂРёС„С‚
 
     RectButton button_1(sf::Vector2f(340, 40), sf::Vector2f(325, 240));
     button_1.setButtonFont(font);
-    button_1.setButtonLable(L"Продолжить", text_color, 30);
+    button_1.setButtonLable(L"РџСЂРѕРґРѕР»Р¶РёС‚СЊ", text_color, 30);
 
     sf::Text text_mes;
     text_mes.setFont(font);
@@ -91,12 +91,12 @@ std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
     text_mes.setCharacterSize(30);
     text_mes.setPosition(30, 70);
 
-    sdx::TextBox::Text text("", 124, 220);//Текстовый бокс
+    sdx::TextBox::Text text("", 124, 220);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text.setSize(20);
     sdx::TextBox textBox(440, 32, 130, 160, 2);
 
     while (window.isOpen()) {
-        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//РїРѕР·РёС†РёСЏ РјС‹С€Рё РІ РѕРєРЅРµ
         sf::Event event;
         button_1.getButtonStatus(window, event);
         while (window.pollEvent(event)) {
@@ -120,18 +120,18 @@ std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
         window.draw(text_mes);
         window.display();
     }
-    return textBox.getCurrentText();//извлекаю введенный текст
+    return textBox.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
 }
 
-void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string& content_1, std::string& content_2, std::string& content_3) {//получение данных от пользователя
+void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string& content_1, std::string& content_2, std::string& content_3) {//РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
     sf::RenderWindow window(sf::VideoMode(700, 470), title, sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
-    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+    font.loadFromFile("ofont.ru_Expressway.ttf");//Р·Р°РіСЂСѓР¶Р°СЋ С€СЂРёС„С‚
 
     RectButton button_1(sf::Vector2f(260, 40), sf::Vector2f(window.getSize().x / 2 - 130, window.getSize().y - 80));
     button_1.setButtonFont(font);
-    button_1.setButtonLable(L"Продолжить", text_color, 30);
+    button_1.setButtonLable(L"РџСЂРѕРґРѕР»Р¶РёС‚СЊ", text_color, 30);
 
     int def_pos_y = 20;
 
@@ -142,7 +142,7 @@ void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring m
     text_mes_1.setCharacterSize(30);
     text_mes_1.setPosition(30, def_pos_y);
 
-    sdx::TextBox::Text text_1("", 124, 220);//Текстовый бокс
+    sdx::TextBox::Text text_1("", 124, 220);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text_1.setSize(20);
     sdx::TextBox textBox_1(440, 32, 130, def_pos_y += 60, 2);
 
@@ -153,7 +153,7 @@ void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring m
     text_mes_2.setCharacterSize(30);
     text_mes_2.setPosition(30, def_pos_y += 60);
 
-    sdx::TextBox::Text text_2("", 130, 210);//Текстовый бокс
+    sdx::TextBox::Text text_2("", 130, 210);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text_2.setSize(20);
     sdx::TextBox textBox_2(440, 32, 130, def_pos_y += 60, 2);
 
@@ -164,12 +164,12 @@ void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring m
     text_mes_3.setCharacterSize(30);
     text_mes_3.setPosition(30, def_pos_y += 60);
 
-    sdx::TextBox::Text text_3("", 130, 210);//Текстовый бокс
+    sdx::TextBox::Text text_3("", 130, 210);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text_3.setSize(20);
     sdx::TextBox textBox_3(440, 32, 130, def_pos_y += 60, 2);
 
     while (window.isOpen()) {
-        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//РїРѕР·РёС†РёСЏ РјС‹С€Рё РІ РѕРєРЅРµ
         sf::Event event;
         button_1.getButtonStatus(window, event);
         while (window.pollEvent(event)) {
@@ -200,20 +200,20 @@ void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring m
 
         window.display();
     }
-    content_1 = textBox_1.getCurrentText();//извлекаю введенный текст
-    content_2 = textBox_2.getCurrentText();//извлекаю введенный текст
-    content_3 = textBox_3.getCurrentText();//извлекаю введенный текст
+    content_1 = textBox_1.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
+    content_2 = textBox_2.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
+    content_3 = textBox_3.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
 }
 
-void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::string& content_1, std::string& content_2) {//получение данных от пользователя
+void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::string& content_1, std::string& content_2) {//РїРѕР»СѓС‡РµРЅРёРµ РґР°РЅРЅС‹С… РѕС‚ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ
     sf::RenderWindow window(sf::VideoMode(700, 370), title, sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
-    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+    font.loadFromFile("ofont.ru_Expressway.ttf");//Р·Р°РіСЂСѓР¶Р°СЋ С€СЂРёС„С‚
 
     RectButton button_1(sf::Vector2f(260, 40), sf::Vector2f(window.getSize().x / 2 - 130, window.getSize().y - 80));
     button_1.setButtonFont(font);
-    button_1.setButtonLable(L"Продолжить", text_color, 30);
+    button_1.setButtonLable(L"РџСЂРѕРґРѕР»Р¶РёС‚СЊ", text_color, 30);
 
     int def_pos_y = 20;
 
@@ -224,7 +224,7 @@ void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes
     text_mes_1.setCharacterSize(30);
     text_mes_1.setPosition(30, def_pos_y);
 
-    sdx::TextBox::Text text_1("", 124, 220);//Текстовый бокс
+    sdx::TextBox::Text text_1("", 124, 220);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text_1.setSize(20);
     sdx::TextBox textBox_1(440, 32, 130, def_pos_y += 60, 2);
 
@@ -235,12 +235,12 @@ void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes
     text_mes_2.setCharacterSize(30);
     text_mes_2.setPosition(30, def_pos_y += 60);
 
-    sdx::TextBox::Text text_2("", 130, 210);//Текстовый бокс
+    sdx::TextBox::Text text_2("", 130, 210);//РўРµРєСЃС‚РѕРІС‹Р№ Р±РѕРєСЃ
     text_2.setSize(20);
     sdx::TextBox textBox_2(440, 32, 130, def_pos_y += 60, 2);
 
     while (window.isOpen()) {
-        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//РїРѕР·РёС†РёСЏ РјС‹С€Рё РІ РѕРєРЅРµ
         sf::Event event;
         button_1.getButtonStatus(window, event);
         while (window.pollEvent(event)) {
@@ -268,15 +268,15 @@ void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes
 
         window.display();
     }
-    content_1 = textBox_1.getCurrentText();//извлекаю введенный текст
-    content_2 = textBox_2.getCurrentText();//извлекаю введенный текст
+    content_1 = textBox_1.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
+    content_2 = textBox_2.getCurrentText();//РёР·РІР»РµРєР°СЋ РІРІРµРґРµРЅРЅС‹Р№ С‚РµРєСЃС‚
 }
 
-void error_or_success_message(std::wstring message, std::wstring title) {//сообщение о выполнении операции
+void error_or_success_message(std::wstring message, std::wstring title) {//СЃРѕРѕР±С‰РµРЅРёРµ Рѕ РІС‹РїРѕР»РЅРµРЅРёРё РѕРїРµСЂР°С†РёРё
     sf::RenderWindow window(sf::VideoMode(message.size() * 20, 250), title);
 
     sf::Font font;
-    font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+    font.loadFromFile("ofont.ru_Expressway.ttf");//Р·Р°РіСЂСѓР¶Р°СЋ С€СЂРёС„С‚
 
     sf::Text mes;
     mes.setFont(font);
@@ -285,13 +285,13 @@ void error_or_success_message(std::wstring message, std::wstring title) {//сообщ
     mes.setCharacterSize(40);
     mes.setPosition(30, 45);
 
-    RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, 140));//Вертикальная печать дерева
+    RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, 140));//Р’РµСЂС‚РёРєР°Р»СЊРЅР°СЏ РїРµС‡Р°С‚СЊ РґРµСЂРµРІР°
     button1.setButtonFont(font);
     button1.setButtonLable(L"Ok", sf::Color::Black, 30);
 
     while (window.isOpen())
     {
-        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+        sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//РїРѕР·РёС†РёСЏ РјС‹С€Рё РІ РѕРєРЅРµ
         sf::Event event;
         button1.getButtonStatus(window, event);
 
