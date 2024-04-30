@@ -14,7 +14,7 @@ private:
 	std::vector<std::vector<int>> adjMatrix;//матрица смежности
 	std::vector<std::vector<int>> shortest_paths_matrix; //матрица кратчайших расстояний
 	std::vector<std::vector<int>> second_matrix;//вторая матрица для флойда
-	std::vector<int> label_list;
+	//std::vector<int> label_list;
 public:
 	Graph(const int& size = 0);//конструктор с размером графа
 	~Graph() {};//деструктор
@@ -28,54 +28,54 @@ public:
 	void insert_edge_orient(const T& vert_1, const T& vert_2, int weight = 1); //вставка ребра между двумя узлами - ОРИЕНТИРОВАННЫЙ граф
 	void erase_edge_orient(const T& vert_1, const T& vert_2);//удаление ребра между двумя узлами
 	
-	void print_matrix();//печать матрицы смежности
+	//void print_matrix();//печать матрицы смежности
 	int get_amount_edge_orient();//количество ребер - ОРИЕНТИРОВАННЫЙ граф
 	std::vector<T> DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ГЛУБИНУ
 	std::vector<T> BFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ШИРИНУ
 
-	bool all_vertices_are_available(T vertex);//можно ли попасть во все вершины?
+	//bool all_vertices_are_available(T vertex);//можно ли попасть во все вершины?
 	
-	void all_matr() {/////////////////////////убрать
-		this->print_matrix();
+	//void all_matr() {/////////////////////////убрать
+	//	this->print_matrix();
 
-		std::cout << "Матрица кратчайших расстояний" << std::endl;
-		std::cout << std::setw(7) << "*";
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(7) << vertex_list[i];
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(7) << vertex_list[i];
-			for (int j = 0; j < this->vertex_list.size(); j++) {
-				std::cout << std::setw(7) << this->shortest_paths_matrix[i][j];
-			}
-			std::cout << std::endl;
-		}
-		std::cout << std::endl;
-		std::cout << "Вторая матрица" << std::endl;
-		std::cout << std::setw(7) << "*";
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(7) << vertex_list[i];
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(7) << vertex_list[i];
-			for (int j = 0; j < this->vertex_list.size(); j++) {
-				std::cout << std::setw(7) << this->second_matrix[i][j];
-			}
-			std::cout << std::endl;
-		}
-		std::cout << std::endl;
-	}
+	//	std::cout << "Матрица кратчайших расстояний" << std::endl;
+	//	std::cout << std::setw(7) << "*";
+	//	for (int i = 0; i < this->vertex_list.size(); i++) {
+	//		std::cout << std::setw(7) << vertex_list[i];
+	//	}
+	//	std::cout << std::endl;
+	//	for (int i = 0; i < this->vertex_list.size(); i++) {
+	//		std::cout << std::setw(7) << vertex_list[i];
+	//		for (int j = 0; j < this->vertex_list.size(); j++) {
+	//			std::cout << std::setw(7) << this->shortest_paths_matrix[i][j];
+	//		}
+	//		std::cout << std::endl;
+	//	}
+	//	std::cout << std::endl;
+	//	std::cout << "Вторая матрица" << std::endl;
+	//	std::cout << std::setw(7) << "*";
+	//	for (int i = 0; i < this->vertex_list.size(); i++) {
+	//		std::cout << std::setw(7) << vertex_list[i];
+	//	}
+	//	std::cout << std::endl;
+	//	for (int i = 0; i < this->vertex_list.size(); i++) {
+	//		std::cout << std::setw(7) << vertex_list[i];
+	//		for (int j = 0; j < this->vertex_list.size(); j++) {
+	//			std::cout << std::setw(7) << this->second_matrix[i][j];
+	//		}
+	//		std::cout << std::endl;
+	//	}
+	//	std::cout << std::endl;
+	//}
 	//алгоритм дейкстеры
-	void fill_labels(T& start_vertex);//заполнение меток расстояния
-	bool all_visited(std::vector<bool>& visited_verts);//все вершины посещены?
-	std::vector<std::pair<T,int>> Dijkstra(T& start_vertex);//алгоритм дейкстры
+	//void fill_labels(T& start_vertex);//заполнение меток расстояния
+	//bool all_visited(std::vector<bool>& visited_verts);//все вершины посещены?
+	//std::vector<std::pair<T,int>> Dijkstra(T& start_vertex);//алгоритм дейкстры
 	//*********
-	bool AllVisited(bool* visitedVerts);
-	void FillLabels(T& startVertex);
-	int Dijkstra_1(T& startVertex);
-
+	//bool AllVisited(bool* visitedVerts);
+	//void FillLabels(T& startVertex);
+	//int Dijkstra_1(T& startVertex);
+	std::vector<std::pair<T, int>> Dijkstra_3(T& startVertex);
 	//алгоритм флойда
 	void Floyd();
 	std::vector<std::tuple<T, T, std::vector<T>>> PrintSP();
@@ -86,13 +86,13 @@ public:
 	void Draw_distance(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2);//отрисовываю расстояние
 };
 
-template <class T>
-bool Graph<T>::all_vertices_are_available(T vertex_0) {//можно ли попасть во все вершины? : проверка для дейкстеры
-	std::vector<T> vector_graf;
-	std::vector<bool> v_bool_1(this->get_amount_verts(), false);
-	this->DFS(vertex_0, v_bool_1, vector_graf);//обход в глубину
-	return vector_graf.size() == this->get_amount_verts();
-}
+//template <class T>
+//bool Graph<T>::all_vertices_are_available(T vertex_0) {//можно ли попасть во все вершины? : проверка для дейкстеры
+//	std::vector<T> vector_graf;
+//	std::vector<bool> v_bool_1(this->get_amount_verts(), false);
+//	this->DFS(vertex_0, v_bool_1, vector_graf);//обход в глубину
+//	return vector_graf.size() == this->get_amount_verts();
+//}
 
 template <class T>
 void Graph<T>::Draw_distance(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2) {
@@ -104,7 +104,6 @@ void Graph<T>::Draw_distance(sf::RenderWindow& window, std::map < T, sf::Vector2
 
 		positions_1 = point_on_the_node_boundary(positions_2, positions_1, 22);
 		positions_2 = point_on_the_node_boundary(positions_1, positions_2, 22);
-
 		positions_1 = point_on_the_node_boundary(positions_2, positions_1, sideLength(positions_1, positions_2) / 3 * 2);
 
 		sf::Text text_1;
@@ -239,6 +238,7 @@ void Graph<T>::Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& 
 	window.draw(myTriangles);
 	window.draw(triangleStrip);
 }
+
 template <class T>
 Graph<T>::Graph(const int& size) {//конструктор с размером графа
 	this->adjMatrix = std::vector<std::vector<T>>(size, std::vector<T>(size));//устанавливаю матрицу смежности
@@ -381,33 +381,33 @@ void  Graph<T>::erase_edge_orient(const T& vert_1, const T& vert_2) {
 	}
 }
 
-template <class T>
-void Graph<T>::print_matrix() {//печать матрицы смежности
-	if (this->is_empty()) {
-		std::cout << "Граф пуст" << std::endl;
-		return;
-	}
-	else {
-		std::cout << "Матрица смежности графа" << std::endl;
-		std::cout << std::setw(4) << "*";
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(4) << vertex_list[i];
-		}
-		std::cout << std::endl;
-		for (int i = 0; i < this->vertex_list.size(); i++) {
-			std::cout << std::setw(4) << vertex_list[i];
-			for (int j = 0; j < this->vertex_list.size(); j++) {
-				if (this->adjMatrix[i][j] == 10000) {
-					std::cout << "    ";
-				}
-				else {
-					std::cout << std::setw(4) << this->adjMatrix[i][j];
-				}
-			}
-			std::cout << std::endl;
-		}
-	}
-}
+//template <class T>
+//void Graph<T>::print_matrix() {//печать матрицы смежности
+//	if (this->is_empty()) {
+//		std::cout << "Граф пуст" << std::endl;
+//		return;
+//	}
+//	else {
+//		std::cout << "Матрица смежности графа" << std::endl;
+//		std::cout << std::setw(4) << "*";
+//		for (int i = 0; i < this->vertex_list.size(); i++) {
+//			std::cout << std::setw(4) << vertex_list[i];
+//		}
+//		std::cout << std::endl;
+//		for (int i = 0; i < this->vertex_list.size(); i++) {
+//			std::cout << std::setw(4) << vertex_list[i];
+//			for (int j = 0; j < this->vertex_list.size(); j++) {
+//				if (this->adjMatrix[i][j] == 10000) {
+//					std::cout << "    ";
+//				}
+//				else {
+//					std::cout << std::setw(4) << this->adjMatrix[i][j];
+//				}
+//			}
+//			std::cout << std::endl;
+//		}
+//	}
+//}
 
 template <class T>
 int Graph<T>::get_amount_edge_orient() {//количество ребер - ОРИЕНТИРОВАННЫЙ граф
@@ -463,235 +463,303 @@ std::vector<T> Graph<T>::BFS(T& start_verts, std::vector<bool>& visited_verts, s
 }
 
 //***********
-template<class T>
-bool Graph<T>::AllVisited(bool* visitedVerts) {
-	/* Устанавливаем в флажок начальное значение false,
-	так как при объявлении переменные лучше
-	инициализировать сразу */
-	bool flag = true;
-	/* В цикле проверяем, если в массиве посещенных
-	вершин есть хотя бы одно значение false, то флажок
-	переводится в значение false */
-	for (int i = 0, size = this->vertex_list.size(); i < size;	++i) {
-		if (visitedVerts[i] != true)
-			flag = false;
-	}
-	if (flag == false)
-		return false;
-	/* Если флажок равен false, то не все вершины
-	посещены, функция возвращает значение false */
-	else return true;
-	/* Если флажок равен true, то все вершины
-	посещены, функция возвращает true */
-}
+//template<class T>
+//bool Graph<T>::AllVisited(bool* visitedVerts) {
+//	/* Устанавливаем в флажок начальное значение false,
+//	так как при объявлении переменные лучше
+//	инициализировать сразу */
+//	bool flag = true;
+//	/* В цикле проверяем, если в массиве посещенных
+//	вершин есть хотя бы одно значение false, то флажок
+//	переводится в значение false */
+//	for (int i = 0, size = this->vertex_list.size(); i < size;	++i) {
+//		if (visitedVerts[i] != true)
+//			flag = false;
+//	}
+//	if (flag == false)
+//		return false;
+//	/* Если флажок равен false, то не все вершины
+//	посещены, функция возвращает значение false */
+//	else return true;
+//	/* Если флажок равен true, то все вершины
+//	посещены, функция возвращает true */
+//}
+
+//template<class T>
+//void Graph<T>::FillLabels(T& startVertex) {
+//	this->label_list.clear();
+//	for (int i = 0, size = vertex_list.size(); i < size;++i) {
+//		this->label_list.push_back(1000000);
+//		/* Заполнение списка меток значениями 1000000 */
+//	}
+//	int pos = this->get_vert_pos(startVertex);
+//	/* По индексу вершины, от которой требуется найти
+//	кратчайшие расстояния до всех остальных,
+//	устанавливается метка 0 */
+//	this->label_list[pos] = 0;
+//}
+/*visited - массив посещенных вершин( индекс равен номеру вершины);
+w - матрицы путей(хранит вес ребер), где несуществующие ребра имеют бесконечный вес;
+D - массив минимальных путей;
+INT_MAX - Максимальный размер типа int, принимаемый за бесконечность;
+st - номер источника*/
 
 template<class T>
-void Graph<T>::FillLabels(T& startVertex) {
-	this->label_list.clear();
-	for (int i = 0, size = vertex_list.size(); i < size;++i) {
-		this->label_list.push_back(1000000);
-		/* Заполнение списка меток значениями 1000000 */
+std::vector<std::pair<T, int>> Graph<T>::Dijkstra_3(T& start_vertex){
+	int number_of_vertices = this->get_amount_verts();//количество вершин
+	std::vector<std::vector<int >> the_path_matrix;//матрицы путей(хранит вес ребер), где несуществующие ребра имеют бесконечный вес
+	the_path_matrix.resize(number_of_vertices);
+	int start_vertex_index = this->get_vert_pos(start_vertex);//индекс вершины
+	for (int i = 0; i < number_of_vertices; i++)
+		the_path_matrix[i].resize(number_of_vertices);
+
+	for (int i = 0; i < number_of_vertices; i++) {//заполняю матрицу путей
+		for (int j = 0; j < number_of_vertices; j++) {
+			if (this->adjMatrix[i][j] != 0) {//если есть ребро
+				the_path_matrix[i][j] = this->adjMatrix[i][j];
+			}
+			else {
+				the_path_matrix[i][j] = 10000;
+			}
+		}
 	}
-	int pos = this->get_vert_pos(startVertex);
-	/* По индексу вершины, от которой требуется найти
-	кратчайшие расстояния до всех остальных,
-	устанавливается метка 0 */
-	this->label_list[pos] = 0;
+
+	std::vector<bool> visited(number_of_vertices, false);//посещенные вершины, изначально посещенных нет
+	visited[start_vertex_index] = true;//текущая вершина посещена
+	std::vector<int> minimum_paths(number_of_vertices);
+	for (int i = 0; i < number_of_vertices; i++){
+		minimum_paths[i] = the_path_matrix[start_vertex_index][i];
+	}
+	minimum_paths[start_vertex_index] = 0;
+	int index_1 = 0, index_2 = 0;
+	for (int i = 0; i < number_of_vertices; i++){
+		int min_way = 10000;
+		for (int j = 0; j < number_of_vertices; j++){
+			if (!visited[j] && minimum_paths[j] < min_way){
+				min_way = minimum_paths[j];
+				index_1 = j;
+			}
+		}
+		index_2 = index_1;//запоминаю индекс
+		visited[index_2] = true;//вершина посещена
+		for (int j = 0; j < number_of_vertices; j++){//пока не пройду все вершины
+			if (!visited[j] && the_path_matrix[index_2][j] != 10000 && minimum_paths[index_2] != 10000 && (minimum_paths[index_2] + the_path_matrix[index_2][j] < minimum_paths[j])){
+				minimum_paths[j] = minimum_paths[index_2] + the_path_matrix[index_2][j];
+			}
+		}
+	}
+	std::vector<std::pair<T, int>> vect_of_way;//вектор путей
+
+	std::cout << "Стоимость пути из начальной вершины до остальных(Алгоритм Дейкстры):\t\n";
+	for (int i = 0; i < number_of_vertices; i++){
+		//std::pair<T, int> para_way;
+		//para_way.first = this->vertex_list[i];
+		if (minimum_paths[i] != 10000){
+			//para_way.second = minimum_paths[i];
+			vect_of_way.push_back(std::pair(this->vertex_list[i], minimum_paths[i]));
+			std::cout << this->vertex_list[start_vertex_index] << " -> " << this->vertex_list[i] << " = " << minimum_paths[i] << std::endl;
+		}
+		else {
+			vect_of_way.push_back(std::pair(this->vertex_list[i], -1));
+			std::cout << this->vertex_list[start_vertex_index] << " -> " << this->vertex_list[i] << " = " << "маршрут недоступен" << std::endl;
+		}
+	}
+	return vect_of_way;
 }
 
-template<class T>
-int Graph<T>::Dijkstra_1(T& startVertex) {
-	for (int i = 0, size = this->vertex_list.size(); i <
-		size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			if (this->adjMatrix[i][j] < 0)
-				/* Проверяем, что граф не содержит ребер
-				отрицательного веса */
-				return -1;
-		}
-	}
-	/* Объявление опорной вершины абстрактного типа T,
-	счетчика, переменной для определения
-	минимальной метки */
-	T curSrc; int counter = 0;
-	int minLabel = 1000000;
-	// Создаем вектор из соседей текущей начальной вершины
-	std::vector<T> neighbors = this->get_neighbors(startVertex);
-	this->FillLabels(startVertex);
-	/* Проверяем, если в векторе меток метка по индексу,
-   соответствующему индексу соседа в векторе вершин vertList,
-   больше, чем сумма метки текущей начальной вершины и ребра
-	от этой вершины до соседа, то нужно в векторе меток
-	по этому индексу поставить сумму метки начальной вершины
-	и ребра от нее до соседа */
-	for (int i = 0; i < neighbors.size(); ++i) {
-		if (this->label_list[this->get_vert_pos(startVertex)] + this->get_weight(startVertex, neighbors[i]) < this->label_list[this->get_vert_pos(neighbors[i])]){
-			this->label_list[this->get_vert_pos(neighbors[i])] = this->get_weight(startVertex, neighbors[i]);
-		}
-		if (this->label_list[this->get_vert_pos(neighbors[i])] < minLabel)
-			minLabel = this->label_list[this->get_vert_pos(neighbors[i])];
-		/* Определяем наименьшую метку у соседних
-		опорной вершине вершин */
-	}
-	// Проверяем, что рассмотрели всех соседей
-	for (int i = 0; i < neighbors.size(); ++i) {
-		if (this->label_list[this->get_vert_pos(neighbors[i])]	!= 1000000)
-			counter += 1;
-	}
-	/* Фиксируем, что начальная вершина теперь считается
-	посещенной (так как всех соседей посмотрели) */
-	std::vector<bool> visitedVerts(this->get_amount_verts(), false);
-	if (counter == neighbors.size())
-		visitedVerts[this->get_vert_pos(startVertex)] = true;
-	/* Ищем новую опорную вершину – такую, у которой из
-	всех соседей метка наименьшая */
-	for (int i = 0; i < neighbors.size(); ++i) {
-		if (this->label_list[this->get_vert_pos(neighbors[i])] == minLabel)
-			curSrc = neighbors[i];
-	}
-	/* Так как начальная вершина новая, то теперь мы
-	будем рассматривать ее соседей */
-	neighbors = this->get_neighbors(curSrc);
-	// Работаем, пока все вершины не будут считатьсяпосещенными
-	while (!all_visited(visitedVerts)) {
-		int count = 0;
-		minLabel = 10000;
-		for (int i = 0; i < neighbors.size(); ++i) {
-			// Проверяем, была ли вершина-сосед	уже рассмотрена ранее
-				if (visitedVerts[this ->get_vert_pos(neighbors[i])] != true) {
-					/* Проверяем, если в векторе меток метка по индексу,
-					соответствующему индексу соседа в векторе вершин
-					vertList, больше, чем сумма метки текущей начальной
-					вершины и ребра от этой вершины до соседа, то нужно
-					в векторе меток по этому индексу поставить сумму
-					метки начальной вершины и ребра от нее до соседа */
-					if (this->label_list[this->get_vert_pos(curSrc)]+ get_weight(curSrc, neighbors[i]) <	this->label_list[this->get_vert_pos(neighbors[i])]) {
-						this->label_list[this->get_vert_pos(neighbors[i])] = (this -> label_list[this->get_vert_pos(curSrc)] + this->get_weight(curSrc, neighbors[i]));
-					}
-					if (this->label_list[this->get_vert_pos(neighbors[i])] < minLabel) {
-						minLabel = this -> label_list[this->get_vert_pos(neighbors[i])];
-					}
-				}
-			count += 1; // Считаем соседей
-		}
-		/* Проверяем, что посетили всех соседей
-		текущей опорной вершины: если да, то текущая опорная
-		вершина отмечается как посещенная */
-		if (count == neighbors.size())
-			visitedVerts[this->get_vert_pos(curSrc)] = true;
-		// Ищем среди соседей новую опорную вершину
-		for (int i = 0; i < neighbors.size(); ++i) {
-			if (this->label_list[this -> get_vert_pos(neighbors[i])] == minLabel)
-				curSrc = neighbors[i];
-		}
-		// Заносим в вектор соседей соседей новой опорной вершины
-			neighbors = this->get_neighbors(curSrc);
-	}
-	// Вывод результатов на экран
-	for (int i = 0; i < this->get_vert_pos(startVertex); ++i) {
-		std::cout << "Кратчайшее расстояние от вершины "
-			<< startVertex
-			<< " до вершины " << this->vertex_list[i]
-			<< " равно "
-			<< this->label_list[this ->get_vert_pos(this->vertex_list[i])] << std::endl;
-	}
-	
-	for (int i = this->get_vert_pos(startVertex) + 1; i < this->vertex_list.size(); ++i) {
-		std::cout << "Кратчайшее расстояние от вершины "
-			<< startVertex
-			<< " до вершины " << this->vertex_list[i]
-			<< " равно "
-			<< this->label_list[this ->get_vert_pos(this->vertex_list[i])] << std::endl;
-	}
-}
+//template<class T>
+//int Graph<T>::Dijkstra_1(T& startVertex) {
+//	for (int i = 0, size = this->vertex_list.size(); i <
+//		size; ++i) {
+//		for (int j = 0; j < size; ++j) {
+//			if (this->adjMatrix[i][j] < 0)
+//				/* Проверяем, что граф не содержит ребер
+//				отрицательного веса */
+//				return -1;
+//		}
+//	}
+//	/* Объявление опорной вершины абстрактного типа T,
+//	счетчика, переменной для определения
+//	минимальной метки */
+//	T curSrc; int counter = 0;
+//	int minLabel = 1000000;
+//	// Создаем вектор из соседей текущей начальной вершины
+//	std::vector<T> neighbors = this->get_neighbors(startVertex);
+//	this->FillLabels(startVertex);
+//	/* Проверяем, если в векторе меток метка по индексу,
+//   соответствующему индексу соседа в векторе вершин vertList,
+//   больше, чем сумма метки текущей начальной вершины и ребра
+//	от этой вершины до соседа, то нужно в векторе меток
+//	по этому индексу поставить сумму метки начальной вершины
+//	и ребра от нее до соседа */
+//	for (int i = 0; i < neighbors.size(); ++i) {
+//		if (this->label_list[this->get_vert_pos(startVertex)] + this->get_weight(startVertex, neighbors[i]) < this->label_list[this->get_vert_pos(neighbors[i])]){
+//			this->label_list[this->get_vert_pos(neighbors[i])] = this->get_weight(startVertex, neighbors[i]);
+//		}
+//		if (this->label_list[this->get_vert_pos(neighbors[i])] < minLabel)
+//			minLabel = this->label_list[this->get_vert_pos(neighbors[i])];
+//		/* Определяем наименьшую метку у соседних
+//		опорной вершине вершин */
+//	}
+//	// Проверяем, что рассмотрели всех соседей
+//	for (int i = 0; i < neighbors.size(); ++i) {
+//		if (this->label_list[this->get_vert_pos(neighbors[i])]	!= 1000000)
+//			counter += 1;
+//	}
+//	/* Фиксируем, что начальная вершина теперь считается
+//	посещенной (так как всех соседей посмотрели) */
+//	std::vector<bool> visitedVerts(this->get_amount_verts(), false);
+//	if (counter == neighbors.size())
+//		visitedVerts[this->get_vert_pos(startVertex)] = true;
+//	/* Ищем новую опорную вершину – такую, у которой из
+//	всех соседей метка наименьшая */
+//	for (int i = 0; i < neighbors.size(); ++i) {
+//		if (this->label_list[this->get_vert_pos(neighbors[i])] == minLabel)
+//			curSrc = neighbors[i];
+//	}
+//	/* Так как начальная вершина новая, то теперь мы
+//	будем рассматривать ее соседей */
+//	neighbors = this->get_neighbors(curSrc);
+//	// Работаем, пока все вершины не будут считатьсяпосещенными
+//	while (!all_visited(visitedVerts)) {
+//		int count = 0;
+//		minLabel = 10000;
+//		for (int i = 0; i < neighbors.size(); ++i) {
+//			// Проверяем, была ли вершина-сосед	уже рассмотрена ранее
+//				if (visitedVerts[this ->get_vert_pos(neighbors[i])] != true) {
+//					/* Проверяем, если в векторе меток метка по индексу,
+//					соответствующему индексу соседа в векторе вершин
+//					vertList, больше, чем сумма метки текущей начальной
+//					вершины и ребра от этой вершины до соседа, то нужно
+//					в векторе меток по этому индексу поставить сумму
+//					метки начальной вершины и ребра от нее до соседа */
+//					if (this->label_list[this->get_vert_pos(curSrc)]+ get_weight(curSrc, neighbors[i]) <	this->label_list[this->get_vert_pos(neighbors[i])]) {
+//						this->label_list[this->get_vert_pos(neighbors[i])] = (this -> label_list[this->get_vert_pos(curSrc)] + this->get_weight(curSrc, neighbors[i]));
+//					}
+//					if (this->label_list[this->get_vert_pos(neighbors[i])] < minLabel) {
+//						minLabel = this -> label_list[this->get_vert_pos(neighbors[i])];
+//					}
+//				}
+//			count += 1; // Считаем соседей
+//		}
+//		/* Проверяем, что посетили всех соседей
+//		текущей опорной вершины: если да, то текущая опорная
+//		вершина отмечается как посещенная */
+//		if (count == neighbors.size())
+//			visitedVerts[this->get_vert_pos(curSrc)] = true;
+//		// Ищем среди соседей новую опорную вершину
+//		for (int i = 0; i < neighbors.size(); ++i) {
+//			if (this->label_list[this -> get_vert_pos(neighbors[i])] == minLabel)
+//				curSrc = neighbors[i];
+//		}
+//		// Заносим в вектор соседей соседей новой опорной вершины
+//			neighbors = this->get_neighbors(curSrc);
+//	}
+//	// Вывод результатов на экран
+//	for (int i = 0; i < this->get_vert_pos(startVertex); ++i) {
+//		std::cout << "Кратчайшее расстояние от вершины "
+//			<< startVertex
+//			<< " до вершины " << this->vertex_list[i]
+//			<< " равно "
+//			<< this->label_list[this ->get_vert_pos(this->vertex_list[i])] << std::endl;
+//	}
+//	
+//	for (int i = this->get_vert_pos(startVertex) + 1; i < this->vertex_list.size(); ++i) {
+//		std::cout << "Кратчайшее расстояние от вершины "
+//			<< startVertex
+//			<< " до вершины " << this->vertex_list[i]
+//			<< " равно "
+//			<< this->label_list[this ->get_vert_pos(this->vertex_list[i])] << std::endl;
+//	}
+//}
 
 //***********
 //----------------------------------
-template <class T>
-void Graph<T>::fill_labels(T& start_vertex) {//заполнение меток расстояния
-	std::vector<int> tmp_1(this->vertex_list.size(), 1000000);//метки расстояния
-	this->label_list = tmp_1;//устанавливаю
-	int pos = this->get_vert_pos(start_vertex);//считываю позицию индекс начальной вершины
-	std::cout << "начальная вершина " << pos << std::endl;
-	this->label_list[pos] = 0;//начальная вершина, поэтому 0
-}
+//template <class T>
+//void Graph<T>::fill_labels(T& start_vertex) {//заполнение меток расстояния
+//	std::vector<int> tmp_1(this->vertex_list.size(), 1000000);//метки расстояния
+//	this->label_list = tmp_1;//устанавливаю
+//	int pos = this->get_vert_pos(start_vertex);//считываю позицию индекс начальной вершины
+//	std::cout << "начальная вершина " << pos << std::endl;
+//	this->label_list[pos] = 0;//начальная вершина, поэтому 0
+//}
 
-template <class T>
-bool Graph<T>::all_visited(std::vector<bool>& visited_verts) {//все вершины посещены?
-	bool flag = true;
-	for (int i = 0; i < this->vertex_list.size() && flag; i++) {//прохожу по всем вершинам
-		if (visited_verts[i] != true) {//проверяю каждую вершину на посещение
-			flag = false;
-		}
-	}
-	for (int i = 0; i < this->vertex_list.size(); i++) {//прохожу по всем вершинам
-		std::cout << visited_verts[i] << " ";
-	}
-	std::cout << std::endl << "-------" << std::endl;
-	return flag;
-}
+//template <class T>
+//bool Graph<T>::all_visited(std::vector<bool>& visited_verts) {//все вершины посещены?
+//	bool flag = true;
+//	for (int i = 0; i < this->vertex_list.size() && flag; i++) {//прохожу по всем вершинам
+//		if (visited_verts[i] != true) {//проверяю каждую вершину на посещение
+//			flag = false;
+//		}
+//	}
+//	for (int i = 0; i < this->vertex_list.size(); i++) {//прохожу по всем вершинам
+//		std::cout << visited_verts[i] << " ";
+//	}
+//	std::cout << std::endl << "-------" << std::endl;
+//	return flag;
+//}
 
 
 
-template <class T>
-std::vector<std::pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
-	std::vector<std::pair<T, int>> vect_of_distances;
-	for (int i = 0; i < this->vertex_list.size(); i++) {
-		for (int j = 0; j < this->vertex_list.size(); j++) {
-			if (this->adjMatrix[i][j] < 0) {//проверка на недопустимое расстояние между узлами
-				return vect_of_distances;
-			}
-		}
-	}
-	if (this->get_vert_pos(start_vertex) == -1) {//проверка на корректность
-		return vect_of_distances;
-	}
-	std::vector<bool> visited_verts(this->vertex_list.size(), false);
-	this->fill_labels(start_vertex);
-	T current_src = start_vertex;
-	std::vector<T> neighbors;
-
-	while (!this->all_visited(visited_verts)) {
-		neighbors = this->get_neighbors(current_src);
-		int start_label = this->label_list[this->get_vert_pos(current_src)];
-		T* min_neighbor_ptr = nullptr;//самый близкий сосед
-		int min_W = 1000000;
-		for (int i = 0; i < neighbors.size(); i++) {
-			int weight = this->get_weight(current_src, neighbors[i]);
-			int n_index = this->get_vert_pos(neighbors[i]);
-			int next_label = this->label_list[n_index];
-			if (start_label + weight < next_label) {
-				this->label_list[n_index] = start_label + weight;
-			}
-			if (!visited_verts[n_index] && min_W > this->label_list[n_index]) {
-				min_W = this->label_list[n_index];
-				min_neighbor_ptr = &neighbors[i];
-			}
-		}
-		visited_verts[this->get_vert_pos(current_src)] = true;
-		if (min_neighbor_ptr != nullptr) {
-			current_src = *min_neighbor_ptr;
-		}
-	}
-	std::pair<T, int> para_dist;
-	for (int i = 0; i < this->get_vert_pos(start_vertex); i++) {
-		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
-			" до вершины " << vertex_list[i] << " равно " <<
-			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
-		para_dist.first = vertex_list[i];
-		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
-		vect_of_distances.push_back(para_dist);
-	}
-	for (int i = this->get_vert_pos(start_vertex) + 1; i < this->vertex_list.size(); i++) {
-		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
-			" до вершины " << vertex_list[i] << " равно " <<
-			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
-		para_dist.first = vertex_list[i];
-		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
-		vect_of_distances.push_back(para_dist);
-	}
-	return vect_of_distances;
-}
+//template <class T>
+//std::vector<std::pair<T, int>> Graph<T>::Dijkstra(T& start_vertex) {//алгоритм дейкстры
+//	std::vector<std::pair<T, int>> vect_of_distances;
+//	for (int i = 0; i < this->vertex_list.size(); i++) {
+//		for (int j = 0; j < this->vertex_list.size(); j++) {
+//			if (this->adjMatrix[i][j] < 0) {//проверка на недопустимое расстояние между узлами
+//				return vect_of_distances;
+//			}
+//		}
+//	}
+//	if (this->get_vert_pos(start_vertex) == -1) {//проверка на корректность
+//		return vect_of_distances;
+//	}
+//	std::vector<bool> visited_verts(this->vertex_list.size(), false);
+//	this->fill_labels(start_vertex);
+//	T current_src = start_vertex;
+//	std::vector<T> neighbors;
+//
+//	while (!this->all_visited(visited_verts)) {
+//		neighbors = this->get_neighbors(current_src);
+//		int start_label = this->label_list[this->get_vert_pos(current_src)];
+//		T* min_neighbor_ptr = nullptr;//самый близкий сосед
+//		int min_W = 1000000;
+//		for (int i = 0; i < neighbors.size(); i++) {
+//			int weight = this->get_weight(current_src, neighbors[i]);
+//			int n_index = this->get_vert_pos(neighbors[i]);
+//			int next_label = this->label_list[n_index];
+//			if (start_label + weight < next_label) {
+//				this->label_list[n_index] = start_label + weight;
+//			}
+//			if (!visited_verts[n_index] && min_W > this->label_list[n_index]) {
+//				min_W = this->label_list[n_index];
+//				min_neighbor_ptr = &neighbors[i];
+//			}
+//		}
+//		visited_verts[this->get_vert_pos(current_src)] = true;
+//		if (min_neighbor_ptr != nullptr) {
+//			current_src = *min_neighbor_ptr;
+//		}
+//	}
+//	std::pair<T, int> para_dist;
+//	for (int i = 0; i < this->get_vert_pos(start_vertex); i++) {
+//		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
+//			" до вершины " << vertex_list[i] << " равно " <<
+//			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
+//		para_dist.first = vertex_list[i];
+//		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
+//		vect_of_distances.push_back(para_dist);
+//	}
+//	for (int i = this->get_vert_pos(start_vertex) + 1; i < this->vertex_list.size(); i++) {
+//		std::cout << "Кратчайшее расстояние от вершины " << start_vertex <<
+//			" до вершины " << vertex_list[i] << " равно " <<
+//			label_list[this->get_vert_pos(this->vertex_list[i])] << std::endl;
+//		para_dist.first = vertex_list[i];
+//		para_dist.second = label_list[this->get_vert_pos(this->vertex_list[i])];
+//		vect_of_distances.push_back(para_dist);
+//	}
+//	return vect_of_distances;
+//}
 //---------------------------------------
 template<class T>
 void Graph<T>::Floyd() {
@@ -908,29 +976,89 @@ void running_Dijkstra_algorithm(Graph<T>& Graf_1) {
 	std::string vertex = enter_the_data(L"Введите вершину, с которой реализовать алгоритм Дейкстеры");
 	if (string_to_int_bool(vertex)) {
 		int vert_int = string_to_int(vertex);//вершина
-		int index_vert = Graf_1.get_vert_pos(vert_int);
-		if (index_vert != -1) {
-			if (Graf_1.all_vertices_are_available(vert_int)) {
-				std::vector<std::pair<T, int>> vect_of_distances = Graf_1.Dijkstra(vert_int);
-				std::vector<std::string> vect_wstring;
-				
-				for (int i = 0; i < vect_of_distances.size(); i++) {//иду по всем обходам
-					//std::string all_str = "от вершины " + vertex + " до вершины " + std::to_string(vect_of_distances[i].first) " = " + std::to_string(vect_of_distances[i].second);
-					std::string all_str = "от вершины " + vertex;
-					//собираю строку
-
-
-					//for (int j = 0; j < vector_graf[i].size(); j++) {
-					//	std::ostringstream buffet;//обрабатываю число с .
-					//	buffet << std::fixed << std::setprecision(0) << vector_graf[i][j];
-					//	all_str = all_str + buffet.str() + " ";//собираю строку
-					//}
-					vect_wstring.push_back(all_str);
-					std::cout << vect_wstring[i] << std::endl;
-				}
+		//int index_vert = Graf_1.get_vert_pos(vert_int);
+		if (Graf_1.get_vert_pos(vert_int) != -1) {//если вершина существует
+			//if (Graf_1.all_vertices_are_available(vert_int)) {
+				//std::vector<std::pair<T, int>> vect_of_distances = Graf_1.Dijkstra(vert_int);
+				//std::vector<std::string> vect_wstring;
+			std::vector<std::pair<int, int>> vect_3 = Graf_1.Dijkstra_3(vert_int);
+			for (int i = 0; i < Graf_1.get_amount_verts(); i++) {
+				std::cout << vect_3[i].first << " ----> " << vect_3[i].second << std::endl;
 			}
-			else {
-				error_or_success_message(L"Для данного графа нельзя реализовать алгоритм Дейкстеры(", L"Ошибка");
+
+			std::wstring first_str = L"Длина пути от вершины " + std::to_wstring(vert_int) + L" до остальных";
+			sf::RenderWindow window(sf::VideoMode(650, 200 + vect_3.size() * 40), L"Алгоритм Дейкстры");
+
+			sf::Font font;
+			font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+			sf::Text mes;
+			mes.setFont(font);
+			mes.setString(L"Алгоритм Дейкстры");
+			mes.setFillColor(sf::Color::Black);
+			mes.setCharacterSize(40);
+			mes.setPosition(window.getSize().x / 2 - 150, 15);
+
+			sf::Text text_1;
+			text_1.setFont(font);
+			text_1.setFillColor(sf::Color::Black);
+			text_1.setCharacterSize(40);
+
+			sf::Text text_2;
+			text_2.setFont(font);
+			text_2.setString(first_str);
+			text_2.setFillColor(sf::Color::Black);
+			text_2.setCharacterSize(40);
+			text_2.setPosition(30, 70);
+
+			RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, window.getSize().y - 80));//Вертикальная печать дерева
+			button1.setButtonFont(font);
+			button1.setButtonLable(L"Ok", sf::Color::Black, 30);
+
+			while (window.isOpen()) {
+				sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+				sf::Event event;
+				button1.getButtonStatus(window, event);
+
+				while (window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						window.close();
+					if (event.type == sf::Event::MouseButtonPressed) {
+						if (event.key.code == sf::Mouse::Left) {
+							if (button1.isPressed) {
+								window.close();
+							}
+						}
+					}
+				}
+				window.clear(background_color);
+
+				button1.draw(window);
+				window.draw(mes);
+				window.draw(text_2);
+
+				int def_pos_y = 80;
+
+				for (int i = 0; i < vect_3.size(); i++) {
+					int cur_ver = vect_3[i].first;
+					if (cur_ver != vert_int) {
+						std::wstring second_str;
+						if (vect_3[i].second != -1) {
+							second_str = std::to_wstring(vert_int) + L" -> " + std::to_wstring(vect_3[i].first) + L" = " + std::to_wstring(vect_3[i].second);
+						}
+						else {
+							second_str = std::to_wstring(vert_int) + L" -> " + std::to_wstring(vect_3[i].first) + L" = нет пути";
+						}
+						
+						text_1.setString(second_str);
+						text_1.setPosition(30, def_pos_y += 40);
+						window.draw(text_1);
+					}
+
+				}
+
+				window.display();
 			}
 		}
 		else {
@@ -1041,7 +1169,7 @@ void running_Floyd_algorithm(Graph<T> Graf_1) {//запуск алгоритма флойда
 				}
 			}
 			else {
-				error_or_success_message(L"Вершина ни с чем не связана", L"...");
+				error_or_success_message(L"Вершина не ведет куда-либо", L"...");
 			}
 
 		}
@@ -1056,7 +1184,7 @@ void running_Floyd_algorithm(Graph<T> Graf_1) {//запуск алгоритма флойда
 
 
 template <class T>
-void add_a_vertex_completely(Graph<T>& Graf_1) {
+void add_a_vertex_completely(Graph<T>& Graf_1) {//добавляю вершину
 	std::string str_vertex = enter_the_data(L"Введите название вершины, которую хотите добавить (int)");
 	if (string_to_int_bool(str_vertex)) {
 		int vert_int = string_to_int(str_vertex);//вершина
@@ -1074,7 +1202,7 @@ void add_a_vertex_completely(Graph<T>& Graf_1) {
 }
 
 template <class T>
-void delete_a_vertex_completely(Graph<T>& Graf_1) {
+void delete_a_vertex_completely(Graph<T>& Graf_1) {//удаляю вершину
 	std::string str_vertex = enter_the_data(L"Введите имя вершины, которую хотите удалить (int)");
 	if (string_to_int_bool(str_vertex)) {
 		int vert_int = string_to_int(str_vertex);//вершина
@@ -1092,9 +1220,9 @@ void delete_a_vertex_completely(Graph<T>& Graf_1) {
 }
 
 template <class T>
-void add_an_edge_completely(Graph<T>& Graf_1) {
+void add_an_edge_completely(Graph<T>& Graf_1) {//добавляю ребро
 	std::string vertex_1, vertex_2, content;
-	enter_the_three_data(L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
+	enter_the_three_data(L"Добавить/Изменить ребро...", L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
 	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
 		if (string_to_int_bool(content)) {//расстояние - число?
 			int content_int = string_to_int(content);
@@ -1123,9 +1251,9 @@ void add_an_edge_completely(Graph<T>& Graf_1) {
 }
 
 template <class T>
-void delete_an_edge_completely(Graph<T>& Graf_1) {
+void delete_an_edge_completely(Graph<T>& Graf_1) {//удаление ребра
 	std::string vertex_1, vertex_2;
-	enter_the_two_data(L"Введите первую вершину", L"Введите вторую вершину", vertex_1, vertex_2);
+	enter_the_two_data(L"Удалить ребро...", L"Введите первую вершину", L"Введите вторую вершину", vertex_1, vertex_2);
 	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
 		int vertex_1_int = string_to_int(vertex_1);
 		int vertex_2_int = string_to_int(vertex_2);

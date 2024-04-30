@@ -1,9 +1,10 @@
 #pragma once
 #include <vector>
-//#include <iostream>
+#include <iostream>
 #include <sstream>
 #include <cmath>
 #include <string>
+#include <utility>
 #include "sfml_button.hpp"
 #include "textbox.hpp"
 #define PI 3.14159265
@@ -14,13 +15,10 @@ sf::Color button_press_color(169, 105, 70);//кнопка нажата
 sf::Color text_color(39, 16, 7);//текст
 
 sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//вычислияю координаты 3 точки
-
 	sf::Vector2f third_point;
 	float angle_in_radians = angle * (PI / 180);
 	third_point.x = std::cos(angle_in_radians) * (first_point.x - second_point.x) - std::sin(angle_in_radians) * (first_point.y - second_point.y) + second_point.x;
 	third_point.y = std::sin(angle_in_radians) * (first_point.x - second_point.x) + std::cos(angle_in_radians) * (first_point.y - second_point.y) + second_point.y;
-
-	
 	return third_point;
 }
 
@@ -34,7 +32,6 @@ double beam_length(sf::Vector2f first_point, sf::Vector2f second_point) {//длина
 
 sf::Vector2f point_on_the_node_boundary(sf::Vector2f first_point, sf::Vector2f second_point, double minus) {//координаты до точки
 	double distance = beam_length(first_point, second_point) - minus;
-	
 	double alpha = atan2(second_point.y - first_point.y, second_point.x - first_point.x);// Находим угол альфа между лучом и осью X
 	double x = first_point.x + distance * cos(alpha);
 	double y = first_point.y + distance * sin(alpha);
@@ -126,8 +123,8 @@ std::string enter_the_data(std::wstring mes) {//получение данных от пользователя
     return textBox.getCurrentText();//извлекаю введенный текст
 }
 
-void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string& content_1, std::string& content_2, std::string& content_3) {//получение данных от пользователя
-    sf::RenderWindow window(sf::VideoMode(700, 470), L"Добавить ребро...", sf::Style::Titlebar | sf::Style::Close);
+void enter_the_three_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::wstring mes_3, std::string& content_1, std::string& content_2, std::string& content_3) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 470), title, sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
     font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
@@ -197,7 +194,6 @@ void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring m
         textBox_1.draw(window);
         textBox_2.draw(window);
         textBox_3.draw(window);
-        
         window.draw(text_mes_1);
         window.draw(text_mes_2);
         window.draw(text_mes_3);
@@ -209,8 +205,8 @@ void enter_the_three_data(std::wstring mes_1, std::wstring mes_2, std::wstring m
     content_3 = textBox_3.getCurrentText();//извлекаю введенный текст
 }
 
-void enter_the_two_data(std::wstring mes_1, std::wstring mes_2, std::string& content_1, std::string& content_2) {//получение данных от пользователя
-    sf::RenderWindow window(sf::VideoMode(700, 370), L"Удалить ребро...", sf::Style::Titlebar | sf::Style::Close);
+void enter_the_two_data(std::wstring title, std::wstring mes_1, std::wstring mes_2, std::string& content_1, std::string& content_2) {//получение данных от пользователя
+    sf::RenderWindow window(sf::VideoMode(700, 370), title, sf::Style::Titlebar | sf::Style::Close);
 
     sf::Font font;
     font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
@@ -267,7 +263,6 @@ void enter_the_two_data(std::wstring mes_1, std::wstring mes_2, std::string& con
         button_1.draw(window);
         textBox_1.draw(window);
         textBox_2.draw(window);
-
         window.draw(text_mes_1);
         window.draw(text_mes_2);
 
