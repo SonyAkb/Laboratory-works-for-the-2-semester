@@ -1,0 +1,372 @@
+﻿  main.cpp
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(19,25): warning C4244: инициализация: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,25): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,25): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,25): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,25): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,25): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,22): warning C4244: аргумент: преобразование "double" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,22): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,22): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,22): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(38,22): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,110): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(132,84): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(143,32): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(147,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(154,42): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(158,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(165,42): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(169,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,110): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(214,84): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(225,32): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(229,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(236,42): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(240,52): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(276,58): warning C4267: аргумент: преобразование из "size_t" в "unsigned int"; возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\other functions.h(288,83): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(11,15): warning C4244: аргумент: преобразование "time_t" в "unsigned int", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(33,27): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(35,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(35,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(35,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(35,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(35,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(39,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(39,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(39,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(39,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(39,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(43,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(43,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(43,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(43,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(43,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(47,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(47,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(47,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(47,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(47,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(51,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(51,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(51,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(51,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(51,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(55,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(55,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(55,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(55,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(55,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(59,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(59,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(59,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(59,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(59,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(63,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(63,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(63,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(63,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(63,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(67,76): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(67,76): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(67,76): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(67,76): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(67,76): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(71,79): warning C4244: аргумент: преобразование "int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(71,79): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(71,79): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(71,79): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(71,79): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,90): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(108,78): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,97): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,85): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,101): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(125,89): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,95): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:             T=int
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(142,83): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(68,13):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(17,16):
+  	выполняется компиляция ссылки на экземпляр класс шаблон функции "Graph<int>"
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(67,6):
+  	во время компиляции функции-члена класс шаблон "int Graph<int>::this_is_node(sf::Vector2f)"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(117,42):
+  		см. первую ссылку на "Graph<int>::this_is_node" в "main"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(69,13): warning C4244: инициализация: преобразование "T" в "int", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(69,13): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(69,13): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(69,13): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(69,13): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(361,21): warning C4267: инициализация: преобразование из "size_t" в "int"; возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(361,21):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(353,47):
+  	во время компиляции функции-члена класс шаблон "void Graph<int>::Draw(sf::RenderWindow &)"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(192,24):
+  		см. первую ссылку на "Graph<int>::Draw" в "main"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(362,22): warning C4244: инициализация: преобразование "unsigned __int64" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(574,24): warning C4244: инициализация: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(574,24):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(155,29):
+  	выполняется компиляция ссылки на экземпляр шаблон функции "void a_random_graph<int>(Graph<int> &,sf::RenderWindow &)"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,125): warning C4244: аргумент: преобразование "unsigned int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,125): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,125): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,125): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,125): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,117): warning C4244: аргумент: преобразование "unsigned int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,117): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,117): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,117): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,117): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,85): warning C4244: аргумент: преобразование "unsigned int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,85): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,85): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,85): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,85): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,70): warning C4244: аргумент: преобразование "unsigned int" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,70): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,70): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,70): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(578,70): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,108):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(158,29):
+  	выполняется компиляция ссылки на экземпляр шаблон функции "void traveling_salesman_is_completely<int>(Graph<int> &)"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244: аргумент: преобразование "T" в "T", возможна потеря данных
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         with
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:             T=unsigned int
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         ]
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         and
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         [
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:             T=float
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(631,83): warning C4244:         ]
+  (компиляция исходного файла "main.cpp")
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(253,31): warning C4267: return: преобразование из "size_t" в "int"; возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(253,31):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(199,34):
+  	во время компиляции функции-члена класс шаблон "Graph<int>::Graph(const int &)"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(17,16):
+  		см. первую ссылку на "Graph<int>::Graph" в "main"
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(252,34):
+  	во время компиляции функции-члена класс шаблон "int Graph<int>::get_amount_verts(void)"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(609,5):
+  		см. первую ссылку на "Graph<int>::get_amount_verts" в "traveling_salesman_is_completely"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(388,27): warning C4244: аргумент: преобразование "int" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(388,27):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(384,102):
+  	во время компиляции функции-члена класс шаблон "void Graph<int>::Draw_node(sf::RenderWindow &,std::map<T,sf::Vector2f,std::less<int>,std::allocator<std::pair<const T,sf::Vector2f>>> &,T)"
+          with
+          [
+              T=int
+          ]
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(364,12):
+  		см. первую ссылку на "Graph<int>::Draw_node" в "Graph<int>::Draw"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(192,24):
+  		см. первую ссылку на "Graph<int>::Draw" в "main"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(449,121): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(449,121):
+  контекст создания экземпляра шаблона (сначала самый старый)
+  	C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(412,116):
+  	во время компиляции функции-члена класс шаблон "void Graph<int>::Draw_edge(sf::RenderWindow &,std::map<T,sf::Vector2f,std::less<int>,std::allocator<std::pair<const T,sf::Vector2f>>> &,T,T)"
+          with
+          [
+              T=int
+          ]
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(370,14):
+  		см. первую ссылку на "Graph<int>::Draw_edge" в "Graph<int>::Draw"
+  		C:\Users\user\source\repos\Graphs\traveling_salesman\main.cpp(192,24):
+  		см. первую ссылку на "Graph<int>::Draw" в "main"
+  
+C:\Users\user\source\repos\Graphs\traveling_salesman\Graph.h(450,121): warning C4244: аргумент: преобразование "double" в "float", возможна потеря данных
+  (компиляция исходного файла "main.cpp")
+  
+  traveling_salesman.vcxproj -> C:\Users\user\source\repos\Graphs\x64\Debug\traveling_salesman.exe
