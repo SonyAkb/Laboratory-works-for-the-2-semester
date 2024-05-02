@@ -117,8 +117,9 @@ int main() {
 
         }
         window.clear(background_color);
-
-        Graf_2.Draw(window);
+        if (!Graf_2.is_empty()) {
+            Graf_2.Draw(window);
+        }
         window.draw(menu);
         button_1.draw(window);
         button_2.draw(window);

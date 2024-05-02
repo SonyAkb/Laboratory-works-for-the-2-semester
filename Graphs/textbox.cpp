@@ -1,6 +1,7 @@
 ﻿#include "textbox.hpp"
 
 namespace sdx {
+    sf::Color textbar_color(226, 243, 234);//фон текстбара
     TextBox::Text::Text(sf::String string, float x, float y) {
         font.loadFromFile("monospace.ttf");
         text.setFont(font);
@@ -23,7 +24,7 @@ namespace sdx {
         outerRect.setPosition(sf::Vector2f(0, 0));
         innerRect.setPosition(sf::Vector2f(2, 2));
         outerRect.setFillColor(sf::Color::Black);
-        innerRect.setFillColor(sf::Color::White);
+        innerRect.setFillColor(textbar_color);
 
         blinker.setSize(sf::Vector2f(1, 26));
         blinker.setPosition(sf::Vector2f(4, 3));
@@ -48,7 +49,7 @@ namespace sdx {
         outerRect.setPosition(sf::Vector2f(y1, y2));
         innerRect.setPosition(sf::Vector2f(y1 + z, y2 + z));
         outerRect.setFillColor(sf::Color::Black);
-        innerRect.setFillColor(sf::Color::White);
+        innerRect.setFillColor(textbar_color);
 
         blinker.setSize(sf::Vector2f(1, x2 - 2 * z - 2));
         blinker.setPosition(sf::Vector2f(y1 + z + 2, y2 + z + 1));
@@ -149,10 +150,10 @@ namespace sdx {
                 time = sf::Time::Zero;
                 blinker.setFillColor(sf::Color::Black);
             }
-            else if (time.asSeconds() > 0.5) blinker.setFillColor(sf::Color::White);
+            else if (time.asSeconds() > 0.5) blinker.setFillColor(textbar_color);
         }
         else {
-            blinker.setFillColor(sf::Color::White);
+            blinker.setFillColor(textbar_color);
             if (time.asSeconds() > 300) time = sf::Time::Zero;
         }
         if (focusChar == 0) blinker.setPosition(posX + thickness + 2, posY + thickness + 1);

@@ -9,10 +9,11 @@
 #include "textbox.hpp"
 #define PI 3.14159265
 
-sf::Color background_color(236, 205, 177);//фон
-sf::Color button_color(231, 221, 213);//кнопка
-sf::Color button_press_color(169, 105, 70);//кнопка нажата
-sf::Color text_color(39, 16, 7);//текст
+sf::Color background_color(173, 203, 181);//фон
+sf::Color button_color(124, 195, 152);//кнопка
+sf::Color button_press_color(98, 167, 124);//кнопка нажата
+sf::Color text_color(21, 54, 38);//текст
+sf::Color node_color(189, 224, 203);//цвет вершины
 
 sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//вычислияю координаты 3 точки
 	sf::Vector2f third_point;

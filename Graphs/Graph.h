@@ -259,7 +259,7 @@ void Graph<T>::Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& 
 	sf::Vector2f position = positions[vertex];//позиция узла
 	int radiys = 20;
 	sf::CircleShape circle_1(radiys);//генерирую круг
-	circle_1.setFillColor(button_color);//цвет внутри круга
+	circle_1.setFillColor(node_color);//цвет внутри круга
 	circle_1.setOutlineColor(text_color);//цвет снаружи круга
 	circle_1.setOutlineThickness(2);//толщина внешнего контура
 	circle_1.setPosition(position.x - radiys, position.y - radiys);//позиция
@@ -873,9 +873,9 @@ void add_an_edge_completely(Graph<T>& Graf_1) {//добавляю ребро
 	std::string vertex_1, vertex_2, content;
 	enter_the_three_data(L"Добавить/Изменить ребро...", L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
 	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
-		if (string_to_int_bool(content)) {//расстояние - число?
+		if (string_to_int_bool(content) && vertex_1 != vertex_2) {//расстояние - число?
 			int content_int = string_to_int(content);
-			if (content_int > 0) {//растояние положительное?
+			if (content_int > 0 && content_int < 10000) {//растояние положительное?
 				int vertex_1_int = string_to_int(vertex_1);
 				int vertex_2_int = string_to_int(vertex_2);
 				if (Graf_1.get_vert_pos(vertex_1_int) != -1 && Graf_1.get_vert_pos(vertex_2_int) != -1) {//вершины есть в графе?
