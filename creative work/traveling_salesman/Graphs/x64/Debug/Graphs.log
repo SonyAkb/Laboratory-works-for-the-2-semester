@@ -1,3 +1,0 @@
-﻿  textbox.cpp
-C:\Users\user\source\repos\Graphs\Graphs\textbox.cpp(137,78): warning C4267: =: преобразование из "size_t" в "unsigned int"; возможна потеря данных
-  Graphs.vcxproj -> C:\Users\user\source\repos\Graphs\x64\Debug\Graphs.exe
