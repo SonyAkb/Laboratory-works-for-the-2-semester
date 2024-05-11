@@ -1,0 +1,11 @@
+release/change_the_directory.o
+release/main.o
+release/main_window_1.o
+release/messgae_window.o
+release/save_data_window.o
+release/moc_change_the_directory.o
+release/moc_house.o
+release/moc_main_window_1.o
+release/moc_messgae_window.o
+release/moc_prices.o
+release/moc_save_data_window.o

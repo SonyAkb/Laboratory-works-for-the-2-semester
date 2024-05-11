@@ -1,0 +1,11 @@
+debug/change_the_directory.o
+debug/main.o
+debug/main_window_1.o
+debug/messgae_window.o
+debug/save_data_window.o
+debug/moc_change_the_directory.o
+debug/moc_house.o
+debug/moc_main_window_1.o
+debug/moc_messgae_window.o
+debug/moc_prices.o
+debug/moc_save_data_window.o
