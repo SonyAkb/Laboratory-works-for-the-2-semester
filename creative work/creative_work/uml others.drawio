@@ -1,9 +1,51 @@
-<mxfile host="app.diagrams.net" modified="2024-05-11T14:54:26.280Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 YaBrowser/24.4.0.0 Safari/537.36" version="24.4.0" etag="oVactEqXFQDDpN3OklWi" type="github">
+<mxfile host="app.diagrams.net" modified="2024-05-11T15:25:11.700Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.0.0 YaBrowser/24.4.0.0 Safari/537.36" etag="xoxzQbSxMBGiridQAbKg" version="24.4.0" type="github">
   <diagram name="Страница — 1" id="JQNwW3wPrWegnnGDs9R6">
-    <mxGraphModel>
+    <mxGraphModel dx="1099" dy="613" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-1" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;QDialog&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=center;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="275" y="460" width="90" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-2" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;- &lt;/span&gt;&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;*ui:&amp;nbsp;&lt;/span&gt;Ui&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;change_the_directory&lt;/span&gt;&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;br&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="160" y="280" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-3" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;+ change_the_directory&lt;/span&gt;(&lt;span style=&quot;&quot;&gt;QWidget&lt;/span&gt;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;*&lt;span style=&quot;&quot;&gt;parent&lt;/span&gt;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;=&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;nullptr&lt;/span&gt;): explicit&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;+ ~&lt;span style=&quot;&quot;&gt;change_the_directory&lt;/span&gt;();&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="160" y="310" width="320" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-4" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;signal_2&lt;/span&gt;(): void&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="160" y="350" width="320" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-5" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;+ slot_1&lt;/span&gt;(&lt;span style=&quot;&quot;&gt;Prices&lt;/span&gt;&amp;amp;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;catalog_1&lt;/span&gt;): void&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;- on_pushButton_change_cost_clicked&lt;/span&gt;(): void&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;- on_pushButton_cansel_clicked&lt;/span&gt;(): void&lt;span style=&quot;background-color: initial; white-space: normal;&quot;&gt;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="160" y="370" width="320" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-6" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;change_the_directory&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;fontColor=default;fontStyle=0;align=center;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="160" y="250" width="320" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-8" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;save_data_window&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=default;fontStyle=0;align=center;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="170" y="520" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-9" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;+ explicit&lt;/span&gt;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;save_data_window&lt;/span&gt;(&lt;span style=&quot;&quot;&gt;QWidget&lt;/span&gt;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;*&lt;span style=&quot;&quot;&gt;parent&lt;/span&gt;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;=&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;nullptr&lt;/span&gt;)&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;+ ~&lt;span style=&quot;&quot;&gt;save_data_window&lt;/span&gt;();&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="170" y="580" width="300" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-10" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;- *ui:&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;Ui&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;::&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;save_data_window&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="170" y="550" width="300" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-11" value="&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;+ &lt;/span&gt;&lt;span style=&quot;&quot;&gt;slot_3&lt;/span&gt;(&lt;span style=&quot;&quot;&gt;Prices&lt;/span&gt;&amp;amp;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;catalog_3&lt;/span&gt;,&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;House&lt;/span&gt;&amp;amp;&lt;span style=&quot;&quot;&gt; &lt;/span&gt;&lt;span style=&quot;&quot;&gt;house_3&lt;/span&gt;):&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;void&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;- on_pushButton_cansel_clicked&lt;/span&gt;():&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;void&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;&lt;div style=&quot;margin-top: 0px; margin-bottom: 0px;&quot;&gt;&lt;span style=&quot;&quot;&gt;- on_pushButton_save_clicked&lt;/span&gt;():&amp;nbsp;&lt;span style=&quot;background-color: initial;&quot;&gt;void&lt;/span&gt;&lt;span style=&quot;background-color: initial;&quot;&gt;&amp;nbsp;&lt;/span&gt;&lt;/div&gt;" style="rounded=0;whiteSpace=wrap;html=1;labelBackgroundColor=none;fontColor=default;fontStyle=0;align=left;fontFamily=Helvetica;" vertex="1" parent="1">
+          <mxGeometry x="170" y="620" width="300" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-13" value="" style="endArrow=blockThin;html=1;rounded=0;endFill=0;endSize=11;startSize=9;jumpSize=8;entryX=0.5;entryY=1;entryDx=0;entryDy=0;exitX=0.5;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="LR1rTOiZXWaB5XK9vRFE-8" target="LR1rTOiZXWaB5XK9vRFE-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="275" y="540" as="sourcePoint" />
+            <mxPoint x="325" y="490" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="LR1rTOiZXWaB5XK9vRFE-14" value="" style="endArrow=blockThin;html=1;rounded=0;endFill=0;endSize=11;startSize=9;jumpSize=8;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="LR1rTOiZXWaB5XK9vRFE-5" target="LR1rTOiZXWaB5XK9vRFE-1">
+          <mxGeometry width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="330" y="540" as="sourcePoint" />
+            <mxPoint x="330" y="500" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
       </root>
     </mxGraphModel>
   </diagram>
