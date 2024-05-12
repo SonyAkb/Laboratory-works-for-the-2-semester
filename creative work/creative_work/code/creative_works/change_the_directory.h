@@ -20,7 +20,7 @@ private:
 public slots:
     void slot_1(Prices& catalog_1);
 private slots:
-    void on_pushButton_change_cost_clicked(/*Prices& catalog_1*/);
+    void on_pushButton_change_cost_clicked();
     void on_pushButton_cansel_clicked();
 signals:
     void signal_2();

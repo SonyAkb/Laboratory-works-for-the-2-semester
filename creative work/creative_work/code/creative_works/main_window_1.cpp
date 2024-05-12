@@ -27,7 +27,6 @@ Main_Window_1::Main_Window_1(QWidget *parent)
     connect(this, &Main_Window_1::signal_3, window_4, &save_data_window::slot_3);
 }
 
-
 Main_Window_1::~Main_Window_1()
 {
     delete ui;
@@ -66,12 +65,10 @@ void Main_Window_1::on_calculate_but_clicked(){
     }
 }
 
-
 void Main_Window_1::on_change_prices_but_clicked(){
     window_3->show();
     emit signal_1(current_prices);
 }
-
 
 void Main_Window_1::on_save_data_but_clicked()
 {

@@ -32,11 +32,9 @@ void change_the_directory::slot_1(Prices &catalog_1)
     ui->lineEdit_electrics->setText(QString::number(catalog_1.electrics[1], 'f', 2));//электрика
     ui->lineEdit_floor_hot->setText(QString::number(catalog_1.underfloor_heating[1], 'f', 2));//теплый пол
     ui->lineEdit_delivery->setText(QString::number(catalog_1.delivery, 'f', 2));//доставка
-
-
 }
 
-void change_the_directory::on_pushButton_change_cost_clicked(/*Prices& catalog_1*/)
+void change_the_directory::on_pushButton_change_cost_clicked()
 {
     QFile file_1(QCoreApplication::applicationDirPath() + "/additional_files/all_the_prices.txt");//открываю файл с ценами
     if (!file_1.open(QIODevice::ReadOnly | QIODevice::Text)){

@@ -62,8 +62,8 @@ public:
     QWidget *verticalLayoutWidget_8;
     QVBoxLayout *sheathings;
     QLabel *label_sheathings;
-    QRadioButton *gkl_rb;
     QRadioButton *not_sh_rb;
+    QRadioButton *gkl_rb;
     QRadioButton *board_walls;
     QRadioButton *board_walls_ceiling;
     QPushButton *calculate_but;
@@ -258,18 +258,18 @@ public:
 
         sheathings->addWidget(label_sheathings);
 
-        gkl_rb = new QRadioButton(verticalLayoutWidget_8);
-        gkl_rb->setObjectName(QString::fromUtf8("gkl_rb"));
-        gkl_rb->setFont(font);
-
-        sheathings->addWidget(gkl_rb);
-
         not_sh_rb = new QRadioButton(verticalLayoutWidget_8);
         not_sh_rb->setObjectName(QString::fromUtf8("not_sh_rb"));
         not_sh_rb->setFont(font);
         not_sh_rb->setAutoRepeat(false);
 
         sheathings->addWidget(not_sh_rb);
+
+        gkl_rb = new QRadioButton(verticalLayoutWidget_8);
+        gkl_rb->setObjectName(QString::fromUtf8("gkl_rb"));
+        gkl_rb->setFont(font);
+
+        sheathings->addWidget(gkl_rb);
 
         board_walls = new QRadioButton(verticalLayoutWidget_8);
         board_walls->setObjectName(QString::fromUtf8("board_walls"));
@@ -305,7 +305,7 @@ public:
         change_prices_but->setFont(font);
         gridLayoutWidget = new QWidget(centralwidget);
         gridLayoutWidget->setObjectName(QString::fromUtf8("gridLayoutWidget"));
-        gridLayoutWidget->setGeometry(QRect(340, 460, 324, 51));
+        gridLayoutWidget->setGeometry(QRect(340, 460, 261, 51));
         gridLayout = new QGridLayout(gridLayoutWidget);
         gridLayout->setObjectName(QString::fromUtf8("gridLayout"));
         gridLayout->setContentsMargins(0, 0, 0, 0);
@@ -400,8 +400,8 @@ public:
         no_underfloor_heating_rb->setText(QApplication::translate("Main_Window_1", "\320\275\320\265 \320\275\321\203\320\266\320\265\320\275", nullptr));
         yes_underfloor_heating_rb->setText(QApplication::translate("Main_Window_1", "\320\275\321\203\320\266\320\265\320\275", nullptr));
         label_sheathings->setText(QApplication::translate("Main_Window_1", "\320\236\320\261\321\210\320\270\320\262\320\272\320\260", nullptr));
-        gkl_rb->setText(QApplication::translate("Main_Window_1", "\320\223\320\232\320\233", nullptr));
         not_sh_rb->setText(QApplication::translate("Main_Window_1", "\320\275\320\265 \320\275\321\203\320\266\320\275\320\260", nullptr));
+        gkl_rb->setText(QApplication::translate("Main_Window_1", "\320\223\320\232\320\233", nullptr));
         board_walls->setText(QApplication::translate("Main_Window_1", "\320\262\320\260\320\263\320\276\320\275\320\272\320\260: \321\201\321\202\320\265\320\275\321\213", nullptr));
         board_walls_ceiling->setText(QApplication::translate("Main_Window_1", "\320\262\320\260\320\263\320\276\320\275\320\272\320\260: \321\201\321\202\320\265\320\275\321\213 + \320\277\320\276\321\202\320\276\320\273\320\276\320\272", nullptr));
         calculate_but->setText(QApplication::translate("Main_Window_1", "\320\240\320\260\321\201\321\207\320\270\321\202\320\260\321\202\321\214", nullptr));

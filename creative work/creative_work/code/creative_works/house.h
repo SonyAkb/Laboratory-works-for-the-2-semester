@@ -2,8 +2,7 @@
 #define HOUSE_H
 #include "prices.h"
 #include <cmath>
-class House : public QObject {//класс дом
-    Q_OBJECT
+class House {//класс дом
 public:
     int floor;//этаж: 0 - первый, 1 - первый + мансарда, 2 - второй
     double S_external_first;//плащадь внешняя 1 этаж
@@ -46,7 +45,7 @@ public:
         else if (list_index[0] == 1){//1 этаж + мансарда
             double approximate_width = sqrt(S_external_first);//примерная длина по квадрату
             S_external_all = S_external_first + ((approximate_width - 2) * approximate_width);//снаружи вся S
-            S_internal_all = S_internal_all * 0.87;//внутри вся S
+            S_internal_all = S_external_all * 0.87;//внутри вся S
         }
         else{//2 этажа
             S_external_all = S_external_first * 2;//снаружи вся S

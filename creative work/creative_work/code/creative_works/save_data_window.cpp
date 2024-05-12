@@ -51,7 +51,7 @@ void save_data_window::on_pushButton_save_clicked()
         file_Path += ".txt";
     }
 
-    QFile file_1(file_Path /*+ ".txt"*/);//открываю файл с расширением txt
+    QFile file_1(file_Path);//открываю файл с расширением txt
     if (file_1.open(QIODevice::WriteOnly | QIODevice::Append)){
         file_1.write((QDateTime::currentDateTime().toString("yyyy-MM-dd_hh-mm-ss").toStdString() + "\n").c_str());
         file_1.write((ui->label_name->text().toStdString() + " " + ui->lineEdit_name->text().toStdString() + "\n").c_str());

@@ -353,18 +353,6 @@
       </widget>
      </item>
      <item>
-      <widget class="QRadioButton" name="gkl_rb">
-       <property name="font">
-        <font>
-         <pointsize>18</pointsize>
-        </font>
-       </property>
-       <property name="text">
-        <string>ГКЛ</string>
-       </property>
-      </widget>
-     </item>
-     <item>
       <widget class="QRadioButton" name="not_sh_rb">
        <property name="font">
         <font>
@@ -376,6 +364,18 @@
        </property>
        <property name="autoRepeat">
         <bool>false</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QRadioButton" name="gkl_rb">
+       <property name="font">
+        <font>
+         <pointsize>18</pointsize>
+        </font>
+       </property>
+       <property name="text">
+        <string>ГКЛ</string>
        </property>
       </widget>
      </item>
@@ -470,7 +470,7 @@
      <rect>
       <x>340</x>
       <y>460</y>
-      <width>324</width>
+      <width>261</width>
       <height>51</height>
      </rect>
     </property>

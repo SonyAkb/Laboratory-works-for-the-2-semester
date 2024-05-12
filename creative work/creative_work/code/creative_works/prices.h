@@ -6,10 +6,8 @@
 #include <QFile>
 #include <QString>
 #include <QTextStream>
-#include <Qt>
 
-class Prices: public QObject{
-    Q_OBJECT
+class Prices{
 public:
     std::vector<std::vector<QString>> the_text_catalog{{"1 этаж", "1 этаж + мансарда", "2 этажа"},
                                                            {"винтовой","свайный"},
@@ -45,7 +43,7 @@ public:
         return true;
     }
 };
-
+#endif // PRICES_H
 /*
 43000
 36000
@@ -60,4 +58,4 @@ public:
 5000
 160000
 */
-#endif // PRICES_H
+

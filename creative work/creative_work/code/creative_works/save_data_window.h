@@ -17,11 +17,8 @@ class save_data_window : public QDialog
 public:
     explicit save_data_window(QWidget *parent = nullptr);
     ~save_data_window();
-
 private:
     Ui::save_data_window *ui;
-
-
 public slots:
     void slot_3(Prices& catalog_3, House& house_3);
 private slots:

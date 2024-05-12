@@ -39,7 +39,4 @@ signals:
 public slots:
     void slot_2();
 };
-
-
-
 #endif // MAIN_WINDOW_1_H
