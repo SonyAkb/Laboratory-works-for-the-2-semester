@@ -6,8 +6,8 @@
 #include <iostream>
 #include <string>
 
-const sf::Color defaultHovered = sf::Color(199, 207, 183);//цвет кнопки
-const sf::Color defaultPressed = sf::Color(157, 173, 127);//цвет кнопки если она нажата
+const sf::Color defaultHovered = sf::Color(98, 167, 124);//цвет кнопки
+const sf::Color defaultPressed = sf::Color(124, 195, 152);//цвет кнопки если она нажата
 
 class Button{
 public:
