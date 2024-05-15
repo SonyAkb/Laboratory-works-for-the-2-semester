@@ -9,16 +9,23 @@
 template <class T>
 class Graph {
 private:
+	std::map<T, sf::Vector2f> Positions_vert;
+	std::vector<sf::Vector2f> coord_of_the_vert;//координаты вершин
 	std::vector<T> vertex_list; //вектор вершин
 	std::vector<std::vector<int>> adjMatrix;//матрица смежности
-	std::vector<std::vector<int>> shortest_paths_matrix; //матрица кратчайших расстояний
-	std::vector<std::vector<int>> second_matrix;//вторая матрица для флойда
 public:
 	Graph(const int& size = 0);//конструктор с размером графа
 	~Graph() {};//деструктор
 	bool is_empty();//граф пуст?
-	void insert_vertex(const T& vert);//вставка вершины
+	void insert_vertex(const T& vert, sf::Vector2f coords);//вставка вершины
 	void erase_vertex(const T& vert);//удаление вершины
+
+	void change_the_vertex_position(T vertex_0, sf::Vector2f new_coords);//изменение позиции вершины
+	void rename_a_vertex(int index, T new_name);//периименование вершины
+
+	T get_vert_T(const int& index);
+	bool is_it_possible_to_solve_the_traveling_salesman_problem();//проверяю можно ли запустить коммивояжера
+
 	int get_vert_pos(const T& data);//ИНДЕКС вершины с переданными данными
 	int get_amount_verts();//количество существующих вершин
 	int get_weight(const T& vert_1, const T& vert_2);//вес пути между вершинами
@@ -26,19 +33,216 @@ public:
 	void insert_edge_orient(const T& vert_1, const T& vert_2, int weight = 1); //вставка ребра между двумя узлами - ОРИЕНТИРОВАННЫЙ граф
 	void erase_edge_orient(const T& vert_1, const T& vert_2);//удаление ребра между двумя узлами
 	int get_amount_edge_orient();//количество ребер - ОРИЕНТИРОВАННЫЙ граф
-	std::vector<T> DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ГЛУБИНУ
-	std::vector<T> BFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ШИРИНУ
 
-	std::vector<std::pair<T, int>> Dijkstra_3(T& startVertex);//алгоритм дейкстеры
-	
-	void Floyd();//алгоритм флойда
-	std::vector<std::tuple<T, T, std::vector<T>>> reading_the_length_vector_from_Floyd();
+	void clear_the_graph();//очищаю граф
+	int this_is_node(sf::Vector2f cur_coord);//это корды вершины?
 
 	void Draw(sf::RenderWindow& window);//отрисовываю граф полностью
 	void Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex);//отрисовываю вершину
 	void Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2);//отрисовываю ребро
 	void Draw_distance(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2);//отрисовываю расстояние
+
+	std::vector<T> the_traveling_salesman_task(T& vertex_start);//решение задачи коммивояжера
+	std::vector<T> DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect);//обход графа в ГЛУБИНУ
+	int path_length(std::vector<T> vect_1); //длина пути
 };
+
+template <class T>
+int Graph<T>::path_length(std::vector<T> vect_1) {//общая длина маршрута
+	int the_sum_of_the_lengths = 0;
+	for (int i = 0; i < this->get_amount_verts(); i++) {
+		the_sum_of_the_lengths += this->adjMatrix[get_vert_pos(vect_1[i])][get_vert_pos(vect_1[i + 1])];
+	}
+	return the_sum_of_the_lengths;
+}
+
+template <class T>
+std::vector<T> Graph<T>::the_traveling_salesman_task(T& vertex_start) {//решение задачи коммивояжера
+	int memory_i_1, memory_j_1, memory_i_2 = -1, memory_j_2 = -1, num_of_positive_paths;
+	int min_path, min_i_path, min_j_path, max_zero;
+	bool flag_status = false;//найден ли нормальный путь
+	int quantity_of_nodes = this->get_amount_verts();
+	std::vector<std::vector<int>> matrix_of_conditions = copyNestedVector(this->adjMatrix);
+	std::vector<T> vect_of_paths;
+	for (int i = 0; i < quantity_of_nodes; i++) {//заполняю матрицу смежности
+		for (int j = 0; j < quantity_of_nodes; j++) {
+			if (matrix_of_conditions[i][j] == 0) {//если нет пути
+				matrix_of_conditions[i][j] = -1;//заполняю, т.к. нет пути из текущего города 1 в текущий город 2
+			}
+		}
+	}
+	for (int v = 0; v < quantity_of_nodes; v++) {//прохожу по всем городам
+		// необходим один элемент в столбце или строке, который будет единственным возможным путем
+		flag_status = false;//найден искомый элемент?
+		for (int i = 0; (i < quantity_of_nodes) && (flag_status == false); i++) {//пока не пройду все элементы или не найден необходимый элемент
+			num_of_positive_paths = 0;//количество положительных путей
+			for (int j = 0; j < quantity_of_nodes && num_of_positive_paths < 2; j++) {//прохожу по столбцам
+				if (matrix_of_conditions[i][j] >= 0) {//если есть неотмеченный путь между этими узлами
+					memory_i_1 = i;//запоминаю строку
+					memory_j_1 = j;//запоминаю столбец
+					num_of_positive_paths++;//увеличиваю количество положительных путей
+				}
+			}
+			if (num_of_positive_paths == 1) {//если есть только одно положительное значение в столбце
+				flag_status = true;//найден только 1 путь
+			}
+		}
+		for (int j = 0; (j < quantity_of_nodes) && (flag_status == false); j++) {//пока не пройду все элементы или не найден необходимый элемент
+			num_of_positive_paths = 0;//количество положительных путей
+			for (int i = 0; i < quantity_of_nodes && num_of_positive_paths < 2; i++) {//прохожу по строкам
+				if (matrix_of_conditions[i][j] >= 0) {//если есть неотмеченный путь между этими узлами
+					memory_i_1 = i;//запоминаю строку
+					memory_j_1 = j;//запоминаю столбец
+					num_of_positive_paths++;//увеличиваю количество положительных путей
+				}
+			}
+			if (num_of_positive_paths == 1) {//если есть только одно положительное значение в строке
+				flag_status = true;//найден только 1 путь
+			}
+		}
+		if (flag_status == true) {//найден только один нормальный путь
+			makebase(memory_i_1, memory_j_1, matrix_of_conditions, quantity_of_nodes);//пересобираю матрицу смежности с учетом найденного пути, помечаю элемент как базовый
+		}
+		else {//если не найден ни одного нормального пути
+			for (int i = 0; i < quantity_of_nodes; i++) {//иду по строкам матрицы - редукция строк
+				min_path = 100000;//недостижимый максимум
+				for (int j = 0; j < quantity_of_nodes; j++) {//ищу минимум в строке
+					if (matrix_of_conditions[i][j] >= 0 && matrix_of_conditions[i][j] < min_path) {//если меньше текущего минимума (нули не учитываю)
+						min_path = matrix_of_conditions[i][j];//обновляю минимум
+					}
+				}
+				for (int j = 0; j < quantity_of_nodes; j++) {//иду по строке
+					if (matrix_of_conditions[i][j] >= 0) { //если положительное значение, т.е. существует неотмеченный путь
+						matrix_of_conditions[i][j] -= min_path; //из каждого нормального значения в строке вычитаю найденный минимум
+					}
+				}
+			}
+			for (int j = 0; j < quantity_of_nodes; j++) {//иду по столбцам матрицы - редукция столбцов
+				min_path = 100000;//недостижимый максимум
+				for (int i = 0; i < quantity_of_nodes; i++) {//ищу минимум в столбце
+					if (matrix_of_conditions[i][j] >= 0 && matrix_of_conditions[i][j] < min_path) {//если меньше текущего минимума (нули не учитываю)
+						min_path = matrix_of_conditions[i][j];//обновляю минимум
+					}
+				}
+				for (int i = 0; i < quantity_of_nodes; i++) {//иду по столбцу
+					if (matrix_of_conditions[i][j] >= 0) {//если положительное значение, т.е. существует неотмеченный путь
+						matrix_of_conditions[i][j] -= min_path;//из каждего нормального значения в столбце вычитаю найденный минимум
+					}
+				}
+			}
+			//проверка нулевых значений и поиск базовых значений
+			max_zero = -1;//недостижимый минимум
+			for (int i = 0; i < quantity_of_nodes; i++) {//иду по строкам матрицы
+				for (int j = 0; j < quantity_of_nodes; j++) {//иду по столбцам матрицы
+					if (matrix_of_conditions[i][j] == 0) {//если найден зануленый элемент
+						min_i_path = 100000;//недостижимый максимум строки
+						min_j_path = 100000;//недостижимый максимум столбца
+						for (int i_2 = 0; i_2 < quantity_of_nodes; i_2++) {//оцениваю нули строк
+							if (matrix_of_conditions[i_2][j] >= 0 && i_2 != i && matrix_of_conditions[i_2][j] < min_i_path) {//если есть путь, элемент не равен текущему, меньше текущего минимума
+								min_i_path = matrix_of_conditions[i_2][j];//текущий минимум обновлен
+							}
+						}
+						for (int j_2 = 0; j_2 < quantity_of_nodes; j_2++) {//оцениваю нули столбцов
+							if (matrix_of_conditions[i][j_2] >= 0 && j_2 != j && matrix_of_conditions[i][j_2] < min_j_path) {//если есть путь, элемент не равен текущему, меньше текущего минимума
+								min_j_path = matrix_of_conditions[i][j_2];//текущий минимум обновлен
+							}
+						}
+						if (min_i_path + min_j_path > max_zero) {
+							max_zero = min_i_path + min_j_path;//обновляю максимум - сумма индексов минимальных элементов в текущих строке и столбце
+							memory_i_2 = i;//запоминаю строку
+							memory_j_2 = j;//запоминаю столбец
+						}
+					}
+				}
+			}
+			if (memory_i_2 == -1 || memory_j_2 == -1) {
+				return vect_of_paths;
+			}
+			makebase(memory_i_2, memory_j_2, matrix_of_conditions, quantity_of_nodes);//пересобираю матрицу смежности с учетом найденного пути, помечаю элемент как базовый
+		}
+	}
+	memory_i_1 = this->get_vert_pos(vertex_start);//вектор пути
+	vect_of_paths.push_back(this->vertex_list[memory_i_1]);//добавляю первоначальный город
+	for (int c = 0; c < quantity_of_nodes; c++) {//проход по всем городам
+		bool flag_1 = true;
+		for (int j = 0; j < quantity_of_nodes && flag_1; j++) {//поиск следующего города, который является базовым значением
+			if (matrix_of_conditions[memory_i_1][j] == -2) {//является ли текущий город базовым значением
+				vect_of_paths.push_back(this->vertex_list[j]);
+				memory_i_1 = j; //обновление значения переменной
+				flag_1 = false;//выход из цикла поиска следующего города.
+			}
+		}
+	}
+	return vect_of_paths;
+}
+
+template <class T>
+int Graph<T>::this_is_node(sf::Vector2f cur_coord) {//это корды вершины?
+	int x_cur = cur_coord.x;
+	int y_cur = cur_coord.y;
+	for (int i = 0; i < this->vertex_list.size(); i++) {
+		if (this->coord_of_the_vert[i].x + 22 > cur_coord.x && this->coord_of_the_vert[i].x - 22 < cur_coord.x &&
+			this->coord_of_the_vert[i].y + 22 > cur_coord.y && this->coord_of_the_vert[i].y - 22 < cur_coord.y) {
+
+			return i;//индекс вершины
+		}
+	}
+	return -1;
+}
+
+template <class T>
+void Graph<T>::clear_the_graph() {//очищаю граф
+	this->adjMatrix = std::vector<std::vector<T>>(0, std::vector<T>(0));
+	this->Positions_vert = std::map<T, sf::Vector2f>();
+	this->vertex_list = std::vector<T>();
+	this->coord_of_the_vert = std::vector<sf::Vector2f>();
+}
+
+template <class T>
+std::vector<T> Graph<T>::DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect) {//обход графа в глубину
+	vect.push_back(start_verts);//добавляю текущую вершину в вектор
+	visited_verts[this->get_vert_pos(start_verts)] = true;//отмечаю, что вершина посещена
+	std::vector<T> neigbors = this->get_neighbors(start_verts);//соседи данной вершины
+	for (int i = 0; i < neigbors.size(); ++i) {//прохожу по всем соседям
+		if (!visited_verts[this->get_vert_pos(neigbors[i])]) {//если узел еще не посещен
+			this->DFS(neigbors[i], visited_verts, vect);//посещаю узел
+		}
+	}
+	return vect;
+}
+
+template <class T>
+bool Graph<T>::is_it_possible_to_solve_the_traveling_salesman_problem() {//проверяю можно ли запустить коммивояжера
+	bool flag = true;
+	for (int i = 0; i < this->get_amount_verts() && flag; i++) {//возможно ли из каждой вершины попасть в каждую?
+		std::vector<T> vect;
+		std::vector<bool> visited_verts( this->get_amount_verts() , false );
+		if (!(DFS(this->vertex_list[i], visited_verts, vect).size() == this->get_amount_verts())) {
+			flag = false;
+		}
+	}
+	return flag;
+}
+
+template <class T>
+T Graph<T>::get_vert_T(const int& index) {
+	return this->vertex_list[index];
+}
+
+template <class T>
+void Graph<T>::rename_a_vertex(int index, T new_name) {//смена имени для вершины
+	T old_name = this->vertex_list[index];//старое имя
+	sf::Vector2f static_coords = this->Positions_vert[old_name];//запоминаю корды
+	this->Positions_vert.erase(old_name);//удаляю старое имя
+	this->Positions_vert[new_name] = static_coords;//старые корды по новому имени
+	this->vertex_list[index] = new_name;//меняю имя в списке вершин
+}
+
+template <class T>
+void Graph<T>::change_the_vertex_position(T vertex_0, sf::Vector2f new_coords) {//изменяю позицию вершины
+	this->Positions_vert[vertex_0] = new_coords;//присваиваю новые координаты
+	this->coord_of_the_vert[this->get_vert_pos(vertex_0)] = new_coords;
+}
 
 template <class T>
 Graph<T>::Graph(const int& size) {//конструктор с размером графа
@@ -56,21 +260,14 @@ bool Graph<T>::is_empty() {//граф пуст?
 }
 
 template <class T>
-void Graph<T>::insert_vertex(const T& data) {//вставка вершины
+void Graph<T>::insert_vertex(const T& data, sf::Vector2f coords) {//вставка вершины
 	this->vertex_list.push_back(data);//добавляю новый узел в вектор весх узлов
 	std::vector<int> tmp_1(vertex_list.size(), 0);//вектор с 0 для добавленного узла
-	std::vector<int> tmp_2(vertex_list.size(), 0);
-	
-	std::vector<int> tmp_3(vertex_list.size(), 10000);
-	tmp_3[vertex_list.size() - 1] = 0;
 	this->adjMatrix.push_back(tmp_1);//добавляю в матрицу новую строку
-	this->second_matrix.push_back(tmp_2);
-	this->shortest_paths_matrix.push_back(tmp_3);
+	this->coord_of_the_vert.push_back(coords);
+	this->Positions_vert[data] = coords;
 	for (int i = 0; i < vertex_list.size() - 1; i++) {
 		this->adjMatrix[i].push_back(0);//добавляю новый столбец для нового узла
-		this->second_matrix[i].push_back(0);
-		this->shortest_paths_matrix[i].push_back(10000);
-
 	}
 }
 
@@ -79,20 +276,13 @@ void Graph<T>::erase_vertex(const T& data) {//удаление вершины
 	int index_vert = this->get_vert_pos(data);
 	if (index_vert != -1) {//если такая вершина существует
 		this->vertex_list.erase(this->vertex_list.begin() + index_vert);//удаляю вершину из вектора узлов
+		this->coord_of_the_vert.erase(this->coord_of_the_vert.begin() + index_vert);//удаляю вершину из вектора координат
 		
 		this->adjMatrix[index_vert].erase(this->adjMatrix[index_vert].begin(), this->adjMatrix[index_vert].end());
 		this->adjMatrix.erase(this->adjMatrix.begin() + index_vert);
-
-		this->shortest_paths_matrix[index_vert].erase(this->shortest_paths_matrix[index_vert].begin(), this->shortest_paths_matrix[index_vert].end());
-		this->shortest_paths_matrix.erase(this->shortest_paths_matrix.begin() + index_vert);
-
-		this->second_matrix[index_vert].erase(this->second_matrix[index_vert].begin(), this->second_matrix[index_vert].end());
-		this->second_matrix.erase(this->second_matrix.begin() + index_vert);
-
+		this->Positions_vert.erase(data);
 		for (int i = 0; i < vertex_list.size(); i++) {
 			this->adjMatrix[i].erase(this->adjMatrix[i].begin() + index_vert);
-			this->shortest_paths_matrix[i].erase(this->shortest_paths_matrix[i].begin() + index_vert);
-			this->second_matrix[i].erase(this->second_matrix[i].begin() + index_vert);
 		}
 	}
 }
@@ -131,7 +321,7 @@ std::vector<T> Graph<T>::get_neighbors(const T& data) {//вектор сосед
 	int pos = this->get_vert_pos(data);//индекс узла в матрице смежности
 	if (pos != -1) {//если узел существует
 		for (int i = 0; i < this->vertex_list.size(); i++) {//прохожу по всем узлам
-			if (this->adjMatrix[pos][i] != 0 && this->adjMatrix[pos][i] != 10000) {//если есть путь между необходимым узлом и к-л другим
+			if (this->adjMatrix[pos][i] != 0) {//если есть путь между необходимым узлом и к-л другим
 				nbrs_list.push_back(this->vertex_list[i]);
 			}
 		}
@@ -147,15 +337,8 @@ void Graph<T>::insert_edge_orient(const T& vert_1, const T& vert_2, int weight) 
 	else {
 		int position_1 = this->get_vert_pos(vert_1);//индекс узла
 		int position_2 = this->get_vert_pos(vert_2);//индекс узла
-		if (this->adjMatrix[position_2][position_1] != 0 && this->adjMatrix[position_2][position_1] != 10000) {
-			this->adjMatrix[position_1][position_2] = weight;
-			this->adjMatrix[position_2][position_1] = weight;
-		}
-		else {
-			this->adjMatrix[position_1][position_2] = weight;
-		}
 
-		this->second_matrix[position_1][position_2] = vert_2;
+		this->adjMatrix[position_1][position_2] = weight;
 	}
 }
 
@@ -168,7 +351,6 @@ void  Graph<T>::erase_edge_orient(const T& vert_1, const T& vert_2) {
 		int position_1 = this->get_vert_pos(vert_1);//индекс узла
 		int position_2 = this->get_vert_pos(vert_2);//индекс узла
 		this->adjMatrix[position_1][position_2] = 0;
-		this->shortest_paths_matrix[position_1][position_2] = 10000;
 	}
 }
 
@@ -179,7 +361,7 @@ int Graph<T>::get_amount_edge_orient() {//количество ребер - ОР
 		for (int i = 0; i < this->vertex_list.size(); i++) {//иду по строкам
 			for (int j = 0; j < this->vertex_list.size(); j++) {//иду по столбцам
 				if (this->adjMatrix[i][j] != 0) {
-					if (!(this->adjMatrix[i][j] != 0 && this->adjMatrix[i][j] != 10000 && this->adjMatrix[j][i] != 10000 && this->adjMatrix[j][i] != 0 && i > j)) {
+					if (!(this->adjMatrix[i][j] != 0 && this->adjMatrix[j][i] != 0 && i > j)) {
 						amount++;
 					}
 					
@@ -192,31 +374,27 @@ int Graph<T>::get_amount_edge_orient() {//количество ребер - ОР
 
 template <class T>
 void Graph<T>::Draw_distance(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2) {
-	if (!((this->adjMatrix[this->get_vert_pos(vertex_2)][this->get_vert_pos(vertex_1)] == this->adjMatrix[this->get_vert_pos(vertex_1)][this->get_vert_pos(vertex_2)]) &&
-		this->get_vert_pos(vertex_1) > this->get_vert_pos(vertex_2))) { //чтоб дубликатов не было
-		sf::Color arrow_color(100, 100, 100);//циферки
-		sf::Vector2f positions_1 = positions[vertex_1];
-		sf::Vector2f positions_2 = positions[vertex_2];
+	sf::Vector2f positions_1 = positions[vertex_1];
+	sf::Vector2f positions_2 = positions[vertex_2];
 
-		positions_1 = point_on_the_node_boundary(positions_2, positions_1, 22);
-		positions_2 = point_on_the_node_boundary(positions_1, positions_2, 22);
-		positions_1 = point_on_the_node_boundary(positions_2, positions_1, sideLength(positions_1, positions_2) / 3 * 2);
+	positions_1 = point_on_the_node_boundary(positions_2, positions_1, 22);
+	positions_2 = point_on_the_node_boundary(positions_1, positions_2, 22);
+	sf::Vector2f positions_new = point_on_the_node_boundary(positions_1, positions_2, sideLength(positions_1, positions_2) / 4);
 
-		sf::Text text_1;
-		sf::Font font;
-		font.loadFromFile("ofont.ru_Desyatiy.ttf");//загружаю шрифт
-		text_1.setFont(font);
+	sf::Text text_1;
+	sf::Font font;
+	font.loadFromFile("ofont.ru_Desyatiy.ttf");//загружаю шрифт
+	text_1.setFont(font);
 
-		text_1.setString(std::to_string(this->adjMatrix[this->get_vert_pos(vertex_1)][this->get_vert_pos(vertex_2)]));//настраиваю текст
-		text_1.setFillColor(text_color);
-		text_1.setCharacterSize(25);
+	text_1.setString(std::to_string(this->adjMatrix[this->get_vert_pos(vertex_1)][this->get_vert_pos(vertex_2)]));//настраиваю текст
+	text_1.setFillColor(text_color);
+	text_1.setCharacterSize(25);
 
-		sf::FloatRect textRect = text_1.getLocalBounds();//центрую текст
-		text_1.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-		text_1.setPosition(positions_1);
+	sf::FloatRect textRect = text_1.getLocalBounds();//центрую текст
+	text_1.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+	text_1.setPosition(positions_new);
 
-		window.draw(text_1);
-	}
+	window.draw(text_1);
 }
 
 template <class T>
@@ -230,25 +408,21 @@ void Graph<T>::Draw(sf::RenderWindow& window) {
 
 	int default_radius = 80 + this->vertex_list.size() * 15;
 	float default_angle = 360 / this->vertex_list.size();
-
-	std::map<T, sf::Vector2f> Positions;
-	int x = 50, y = 50;
 	for (int i = 0; i < this->vertex_list.size(); i++) {//иду по всем вершинам
-		Positions[this->vertex_list[i]] = calculating_node_coordinates(sf::Vector2f(zero_x, zero_y - default_radius), sf::Vector2f(zero_x, zero_y), default_angle * i);
-		Draw_node(window, Positions, this->vertex_list[i]);
+		Draw_node(window, this->Positions_vert, this->vertex_list[i]);
 	}
 
 	for (int i = 0; i < this->adjMatrix.size(); i++) {//прохожу по матрице смежности
 		for (int j = 0; j < this->adjMatrix.size(); j++) {//прохожу по матрице смежности
-			if (this->adjMatrix[i][j] != 0 && this->adjMatrix[i][j] != 10000) {
-				Draw_edge(window, Positions, vertex_list[i], vertex_list[j]);//рисую стрелку
+			if (this->adjMatrix[i][j] != 0) {
+				Draw_edge(window, this->Positions_vert, vertex_list[i], vertex_list[j]);//рисую стрелку
 			}
 		}
 	}
 	for (int i = 0; i < this->adjMatrix.size(); i++) {//прохожу по матрице смежности
 		for (int j = 0; j < this->adjMatrix.size(); j++) {//прохожу по матрице смежности
-			if (this->adjMatrix[i][j] != 0 && this->adjMatrix[i][j] != 10000) {
-				Draw_distance(window, Positions, vertex_list[i], vertex_list[j]);//пишу расстояние
+			if (this->adjMatrix[i][j] != 0) {
+				Draw_distance(window, this->Positions_vert, vertex_list[i], vertex_list[j]);//пишу расстояние
 			}
 		}
 	}
@@ -256,6 +430,7 @@ void Graph<T>::Draw(sf::RenderWindow& window) {
 
 template <class T>
 void Graph<T>::Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex) {
+	sf::Color node_color(222, 232, 201);//вершина
 	sf::Vector2f position = positions[vertex];//позиция узла
 	int radiys = 20;
 	sf::CircleShape circle_1(radiys);//генерирую круг
@@ -277,7 +452,6 @@ void Graph<T>::Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& 
 	text_1.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
 	text_1.setPosition(sf::Vector2f(position.x, position.y));
 
-
 	window.draw(circle_1);//рисую круг
 	window.draw(text_1);//рисую текст
 }
@@ -285,7 +459,7 @@ void Graph<T>::Draw_node(sf::RenderWindow& window, std::map < T, sf::Vector2f>& 
 template <class T>
 void Graph<T>::Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& positions, T vertex_1, T vertex_2) {//рисую ребро
 
-	sf::Color arrow_color(117, 90, 87);//стрелка
+	sf::Color arrow_color(115, 135, 100);//стрелка
 
 	sf::Vector2f positions_1 = positions[vertex_1];
 	sf::Vector2f positions_2 = positions[vertex_2];
@@ -335,510 +509,15 @@ void Graph<T>::Draw_edge(sf::RenderWindow& window, std::map < T, sf::Vector2f>& 
 	window.draw(triangleStrip);
 }
 
-template <class T>
-std::vector<T> Graph<T>::DFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect) {//обход графа в глубину
-	vect.push_back(start_verts);
-	visited_verts[this->get_vert_pos(start_verts)] = true;//отмечаю, что вершина посещена
-	std::vector<T> neigbors = this->get_neighbors(start_verts);//соседи данной вершины
-	for (int i = 0; i < neigbors.size(); ++i) {
-		if (!visited_verts[this->get_vert_pos(neigbors[i])]) {//если узел еще не посещен
-			this->DFS(neigbors[i], visited_verts, vect);//посещаю узел
-		}
-	}
-	return vect;
-}
-
-template <class T>
-std::vector<T> Graph<T>::BFS(T& start_verts, std::vector<bool>& visited_verts, std::vector<T>& vect) {
-	std::queue<T> q; // Используем очередь для хранения вершин
-	q.push(start_verts); // Начинаем обход с начальной вершины
-	visited_verts[get_vert_pos(start_verts)] = true; // Помечаем начальную вершину как посещенную
-
-	while (!q.empty()) {//пока очередь не опустеет
-		T current = q.front();//первый элемент в очереди
-		q.pop();//удаляю первый элемент
-		vect.push_back(current);
-		for (int i = 0; i < adjMatrix[get_vert_pos(current)].size(); ++i) {//пока не пройду все элементы в строке матрицы графов
-			if (adjMatrix[get_vert_pos(current)][i] > 0 && !visited_verts[i]) {//если между вершинами есть дорогоа и вершина еще не посещена
-				q.push(vertex_list[i]);//добавляю вершину в очередь ожидания посещения
-				visited_verts[i] = true;//отмечаю, что вершина посещена
-			}
-		}
-	}
-	return vect;
-}
-
-template<class T>
-std::vector<std::pair<T, int>> Graph<T>::Dijkstra_3(T& start_vertex){
-	int number_of_vertices = this->get_amount_verts();//количество вершин
-	std::vector<std::vector<int >> the_path_matrix;//матрицы путей(хранит вес ребер), где несуществующие ребра имеют бесконечный вес
-	the_path_matrix.resize(number_of_vertices);
-	int start_vertex_index = this->get_vert_pos(start_vertex);//индекс вершины
-	for (int i = 0; i < number_of_vertices; i++)
-		the_path_matrix[i].resize(number_of_vertices);
-
-	for (int i = 0; i < number_of_vertices; i++) {//заполняю матрицу путей
-		for (int j = 0; j < number_of_vertices; j++) {
-			if (this->adjMatrix[i][j] != 0) {//если есть ребро
-				the_path_matrix[i][j] = this->adjMatrix[i][j];
-			}
-			else {
-				the_path_matrix[i][j] = 10000;
-			}
-		}
-	}
-
-	std::vector<bool> visited(number_of_vertices, false);//посещенные вершины, изначально посещенных нет
-	visited[start_vertex_index] = true;//текущая вершина посещена
-	std::vector<int> minimum_paths(number_of_vertices);
-	for (int i = 0; i < number_of_vertices; i++){
-		minimum_paths[i] = the_path_matrix[start_vertex_index][i];
-	}
-	minimum_paths[start_vertex_index] = 0;
-	int index_1 = 0, index_2 = 0;
-	for (int i = 0; i < number_of_vertices; i++){
-		int min_way = 10000;
-		for (int j = 0; j < number_of_vertices; j++){
-			if (!visited[j] && minimum_paths[j] < min_way){
-				min_way = minimum_paths[j];
-				index_1 = j;
-			}
-		}
-		index_2 = index_1;//запоминаю индекс
-		visited[index_2] = true;//вершина посещена
-		for (int j = 0; j < number_of_vertices; j++){//пока не пройду все вершины
-			if (!visited[j] && the_path_matrix[index_2][j] != 10000 && minimum_paths[index_2] != 10000 && (minimum_paths[index_2] + the_path_matrix[index_2][j] < minimum_paths[j])){
-				minimum_paths[j] = minimum_paths[index_2] + the_path_matrix[index_2][j];
-			}
-		}
-	}
-	std::vector<std::pair<T, int>> vect_of_way;//вектор путей
-
-	for (int i = 0; i < number_of_vertices; i++){
-		if (minimum_paths[i] != 10000){
-			vect_of_way.push_back(std::pair(this->vertex_list[i], minimum_paths[i]));
-		}
-		else {
-			vect_of_way.push_back(std::pair(this->vertex_list[i], -1));
-		}
-	}
-	return vect_of_way;
-}
-
-template<class T>
-void Graph<T>::Floyd() {
-	struct Route {
-		std::vector<T> Verts; // Вершины маршрута
-		int weight{ 0 }; // Вес маршрута
-		bool isVertexExists(const T vertex) const {//проверка: маршрут проходит через эту вершину или нет?
-			return std::find(Verts.cbegin(), Verts.cend(), vertex) != Verts.cend();
-		}
-	};
-	for (int i = 0, size = this->vertex_list.size(); i < size; ++i) {//прохожу по всем вершинам
-		std::vector<Route> routes;// Вектор всевозможных маршрутов из текущей вершины
-		{
-			std::queue<Route> routesToWatch;// Очередь вершин, которые нужно просмотреть 
-			{
-				Route route; // Создание нового маршрута
-				route.Verts.push_back(this->vertex_list[i]);// Добавление в маршрут текущей вершины
-				routesToWatch.push(route);// Добавление маршрута в очередь
-			}
-			while (!routesToWatch.empty()) {// Цикл работает, пока очередь не пуста
-				Route currentRoute = routesToWatch.front();//Запоминание маршрута, находящегося в голове очереди
-				routesToWatch.pop();// Удаление маршрута из головы очереди
-				routes.push_back(currentRoute);// Добавление нового маршрута в вектор маршрутов
-				const T lastRouteVertex = currentRoute.Verts.back();//Создание и инициализация последней вершины маршрута
-				for (const T& neighbor : this->get_neighbors(lastRouteVertex)) {//Цикл работает для всех соседей последней вершины текущего рассматриваемого маршрута
-					if (!currentRoute.isVertexExists(neighbor)) {//Если в текущем маршруте нет вершины, соседней с последней вершиной маршрута, то создаем новый маршрут(копия)
-						Route routeToWatch = currentRoute;
-						routeToWatch.Verts.push_back(neighbor);//Затем в маршрут-копию помещается сосед последней вершины currentRoute
-						routeToWatch.weight += this->adjMatrix[this->get_vert_pos(lastRouteVertex)][this->get_vert_pos(neighbor)];//У нового маршрута увеличивается вес	(так как в него только что добавили еще одну вершину)
-						routesToWatch.push(routeToWatch);// В очередь заносится этот маршрут-копия
-					}
-				}
-			}
-			routes.erase(routes.begin());//Удаление первого маршрута из вектора	маршрутов
-		}
-		// Массив ассоциаций: 
-		std::map<T, std::pair<T, int>> shortestRoutes;
-		{
-			for (const Route& route : routes) {// В цикле будут выявлены кратчайшие маршруты
-				const T endVertex = route.Verts.back();//Создание и инициализация последней	вершины маршрута
-				const T stepVertex = route.Verts[1];//Создание и инициализация промежуточной вершины, в которую надо делать шаг
-				/* нужно посмотреть shortestRoutes:
-				если там до endVertex находится более короткий путь,
-				то его не трогать; если его там нет для
-				endVertex, то добавить пару; если он есть,
-				но длиннее, то его изменить */
-				if (shortestRoutes.find(endVertex) == shortestRoutes.end()) {
-					shortestRoutes.insert(std::make_pair(endVertex,	std::make_pair(stepVertex, route.weight)));
-				}
-				else {
-					const int minimWeight =	shortestRoutes[endVertex].second;
-					if (minimWeight > route.weight) {
-						shortestRoutes[endVertex] = std::make_pair(stepVertex, route.weight);
-					}
-				}
-			}
-		}
-		for (const std::pair<const T, std::pair<T, int>>& shortestRoute : shortestRoutes) {// Цикл заполнения матриц данными
-			const T endVertex = shortestRoute.first;//Извлечение конечной вершины текущего рассматриваемого кратчайшего пути
-			const T stepVertex = shortestRoute.second.first;// Извлечение промежуточной вершины
-			const int minWeight = shortestRoute.second.second;// Извлечение веса кратчайшего маршрута
-			this->shortest_paths_matrix[i][this->get_vert_pos(endVertex)] = minWeight;// Заполнение первой матрицы
-			this->second_matrix[i][this->get_vert_pos(endVertex)] = stepVertex; // Заполнение второй матрицы
-		}
-	}
-}
-
-template<class T>
-std::vector<std::tuple<T, T, std::vector<T>>> Graph<T>::reading_the_length_vector_from_Floyd() {
-	int cur = 0, col = 0;
-	std::vector<std::tuple<T, T, std::vector<T>>> vector_of_dists;
-	for (int i = 0, size = this->vertex_list.size(); i < size; ++i) {
-		for (int j = 0; j < size; ++j) {
-			if (this->second_matrix[i][j] != 0) {// Проверка, что есть следующая(промежуточная) вершина
-				col = j;// Запоминаем конечную вершину (в которую идем) 
-				cur = this->second_matrix[i][j];// Присвоение в cur промежуточной вершины
-
-				std::vector<T> vect_of_way;
-				vect_of_way.push_back(this->vertex_list[i]);
-				while (cur != 0) {//Цикл, который идет по второй матрице; в нем изменяется промежуточная вершина
-					vect_of_way.push_back(cur);
-						if (this->second_matrix[this ->get_vert_pos(cur)][col] != 0) {// Проверка, что есть следующая промежуточная вершина
-							cur = this->second_matrix[this ->get_vert_pos(cur)][col];// Если есть, то она присваивается в cur
-						}
-						else { // Если нет, то cur обнуляется, цикл завершится
-							cur = 0; 
-						}
-				}
-				std::tuple < T, T, std::vector<T>> tuple_1(this->vertex_list[i], this->vertex_list[j], vect_of_way);
-				vector_of_dists.push_back(tuple_1);
-			}
-		}
-	}
-	return vector_of_dists;
-}
-
-template <class T>
-void Graph_traversal(Graph<T> Graf_1, T vertex_0) {//вывод всех обходов дерева
-	std::vector<std::vector<T>> vector_graf(2);
-	std::vector<bool> v_bool_1(Graf_1.get_amount_verts(), false);
-	std::vector<bool> v_bool_2(Graf_1.get_amount_verts(), false);
-	std::vector<std::string> vect_wstring;
-	
-	Graf_1.DFS(vertex_0, v_bool_1, vector_graf[0]);//обход в глубину
-	Graf_1.BFS(vertex_0, v_bool_2, vector_graf[1]);//обход в ширину
-
-	for (int i = 0; i < 2; i++) {//иду по всем обходам
-		std::string all_str = "";//собираю строку
-		for (int j = 0; j < vector_graf[i].size(); j++) {
-			std::ostringstream buffet;//обрабатываю число с .
-			buffet << std::fixed << std::setprecision(0) << vector_graf[i][j];
-			all_str = all_str + buffet.str() + " ";//собираю строку
-		}
-		vect_wstring.push_back(all_str);
-	}
-
-	sf::RenderWindow window(sf::VideoMode(500 + Graf_1.get_amount_verts() * 10, 380), L"Обходы бинарного дерева");
-
-	sf::Font font;
-	font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
-
-	sf::Text obxod_binary_tree;
-	obxod_binary_tree.setFont(font);
-	obxod_binary_tree.setString(L"Обходы графа с вершины " + std::to_wstring(vertex_0));
-	obxod_binary_tree.setFillColor(text_color);
-	obxod_binary_tree.setCharacterSize(50);
-	obxod_binary_tree.setPosition(30, 10);
-
-	sf::Text obxod_1_name;
-	obxod_1_name.setFont(font);
-	obxod_1_name.setString(L"Обход в ширину");
-	obxod_1_name.setFillColor(text_color);
-	obxod_1_name.setCharacterSize(40);
-	obxod_1_name.setPosition(30, 80);
-
-	sf::Text obxod_1_value;
-	obxod_1_value.setFont(font);
-	obxod_1_value.setString(vect_wstring[0]);
-	obxod_1_value.setFillColor(text_color);
-	obxod_1_value.setCharacterSize(40);
-	obxod_1_value.setPosition(30, 130);
-
-	sf::Text obxod_2_name;
-	obxod_2_name.setFont(font);
-	obxod_2_name.setString(L"Обход в глубину");
-	obxod_2_name.setFillColor(text_color);
-	obxod_2_name.setCharacterSize(40);
-	obxod_2_name.setPosition(30, 190);
-
-	sf::Text obxod_2_value;
-	obxod_2_value.setFont(font);
-	obxod_2_value.setString(vect_wstring[1]);
-	obxod_2_value.setFillColor(text_color);
-	obxod_2_value.setCharacterSize(40);
-	obxod_2_value.setPosition(30, 240);
-
-	RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x - 180, 300));
-	button1.setButtonFont(font);
-	button1.setButtonLable(L"Ok", text_color, 30);
-
-	while (window.isOpen()) {
-		sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
-		sf::Event event;
-		button1.getButtonStatus(window, event);
-		while (window.pollEvent(event))
-		{
-			if (event.type == sf::Event::Closed)
-				window.close();
-			if (event.type == sf::Event::MouseButtonPressed) {
-				if (event.key.code == sf::Mouse::Left) {
-					if (button1.isPressed) {
-						window.close();
-					}
-				}
-			}
-		}
-		window.clear(background_color);
-		button1.draw(window);
-		window.draw(obxod_binary_tree);
-		window.draw(obxod_1_name);
-		window.draw(obxod_1_value);
-		window.draw(obxod_2_name);
-		window.draw(obxod_2_value);
-		window.display();
-	}
-}
-
-template <class T>
-void all_actions_to_bypass(Graph<T>& Graf_1) {//функция для обходов дерева
-	std::string vertex = enter_the_data(L"Введите вершину, с которой реализовать обходы");
-	if (string_to_int_bool(vertex)) {
-		int vert_int = string_to_int(vertex);//вершина
-		int index_vert = Graf_1.get_vert_pos(vert_int);
-		if (index_vert != -1) {
-			Graph_traversal(Graf_1, vert_int);
-		}
-		else {
-			error_or_success_message(L"Такой вершины нет!", L"Ошибка");
-		}
-	}
-	else {
-		error_or_success_message(L"Такой вершины нет!", L"Ай-ай-ай");
-	}
-}
-
-template <class T>
-void running_Dijkstra_algorithm(Graph<T>& Graf_1) {
-	std::string vertex = enter_the_data(L"Введите вершину, с которой реализовать алгоритм Дейкстеры");
-	if (string_to_int_bool(vertex)) {
-		int vert_int = string_to_int(vertex);//вершина
-		if (Graf_1.get_vert_pos(vert_int) != -1) {//если вершина существует
-			std::vector<std::pair<int, int>> vect_3 = Graf_1.Dijkstra_3(vert_int);
-
-			std::wstring first_str = L"Длина пути от вершины " + std::to_wstring(vert_int) + L" до остальных";
-			sf::RenderWindow window(sf::VideoMode(650, 200 + vect_3.size() * 40), L"Алгоритм Дейкстры");
-
-			sf::Font font;
-			font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
-
-			sf::Text mes;
-			mes.setFont(font);
-			mes.setString(L"Алгоритм Дейкстры");
-			mes.setFillColor(sf::Color::Black);
-			mes.setCharacterSize(40);
-			mes.setPosition(window.getSize().x / 2 - 150, 15);
-
-			sf::Text text_1;
-			text_1.setFont(font);
-			text_1.setFillColor(sf::Color::Black);
-			text_1.setCharacterSize(40);
-
-			sf::Text text_2;
-			text_2.setFont(font);
-			text_2.setString(first_str);
-			text_2.setFillColor(sf::Color::Black);
-			text_2.setCharacterSize(40);
-			text_2.setPosition(30, 70);
-
-			RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, window.getSize().y - 80));//Вертикальная печать дерева
-			button1.setButtonFont(font);
-			button1.setButtonLable(L"Ok", sf::Color::Black, 30);
-
-			while (window.isOpen()) {
-				sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
-				sf::Event event;
-				button1.getButtonStatus(window, event);
-
-				while (window.pollEvent(event))
-				{
-					if (event.type == sf::Event::Closed)
-						window.close();
-					if (event.type == sf::Event::MouseButtonPressed) {
-						if (event.key.code == sf::Mouse::Left) {
-							if (button1.isPressed) {
-								window.close();
-							}
-						}
-					}
-				}
-				window.clear(background_color);
-
-				button1.draw(window);
-				window.draw(mes);
-				window.draw(text_2);
-
-				int def_pos_y = 80;
-
-				for (int i = 0; i < vect_3.size(); i++) {
-					int cur_ver = vect_3[i].first;
-					if (cur_ver != vert_int) {
-						std::wstring second_str;
-						if (vect_3[i].second != -1) {
-							second_str = std::to_wstring(vert_int) + L" -> " + std::to_wstring(vect_3[i].first) + L" = " + std::to_wstring(vect_3[i].second);
-						}
-						else {
-							second_str = std::to_wstring(vert_int) + L" -> " + std::to_wstring(vect_3[i].first) + L" = нет пути";
-						}
-						
-						text_1.setString(second_str);
-						text_1.setPosition(30, def_pos_y += 40);
-						window.draw(text_1);
-					}
-				}
-				window.display();
-			}
-		}
-		else {
-			error_or_success_message(L"Такой вершины нет!", L"Ошибка");
-		}
-	}
-	else {
-		error_or_success_message(L"Такой вершины нет!", L"Ай-ай-ай");
-	}
-}
-
-template <class T>
-void running_Floyd_algorithm(Graph<T> Graf_1) {//запуск алгоритма флойда
-	std::string vertex = enter_the_data(L"Введите вершину, с которой реализовать алгоритм Флойда");
-	if (string_to_int_bool(vertex)) {
-		int vert_int = string_to_int(vertex);//вершина
-		int index_vert = Graf_1.get_vert_pos(vert_int);
-		if (index_vert != -1) {
-			std::vector<T> vector_graf;
-			std::vector<bool> v_bool_1(Graf_1.get_amount_verts(), false);
-			Graf_1.DFS(vert_int, v_bool_1, vector_graf);//обход в глубину
-			if(vector_graf.size() != 1){
-				Graf_1.Floyd();
-				std::vector<std::tuple<T, T, std::vector<T>>>  vect_of_way = Graf_1.reading_the_length_vector_from_Floyd();
-				bool flag = true;
-				int index_t, count = 0;
-				for (int i = 0; i < vect_of_way.size(); i++) {
-					if (std::get<0>(vect_of_way[i]) == vert_int) {
-						if (flag) {
-							index_t = i;
-						}
-						flag = false;
-						count++;
-					}	
-				}
-
-				std::wstring first_str = L"Кратчайший путь от вершины " + std::to_wstring(vert_int);
-				sf::RenderWindow window(sf::VideoMode(600, 270 + count * 40), L"Алгоритм Флойда");
-
-				sf::Font font;
-				font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
-
-				sf::Text mes;
-				mes.setFont(font);
-				mes.setString(L"Алгоритм Флойда");
-				mes.setFillColor(sf::Color::Black);
-				mes.setCharacterSize(40);
-				mes.setPosition(30, 15);
-
-				sf::Text text_1;
-				text_1.setFont(font);
-				text_1.setFillColor(sf::Color::Black);
-				text_1.setCharacterSize(40);
-
-				sf::Text text_2;
-				text_2.setFont(font);
-				text_2.setString(first_str);
-				text_2.setFillColor(sf::Color::Black);
-				text_2.setCharacterSize(40);
-				text_2.setPosition(30, 70);
-			
-				RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, window.getSize().y - 80));//Вертикальная печать дерева
-				button1.setButtonFont(font);
-				button1.setButtonLable(L"Ok", sf::Color::Black, 30);
-
-				while (window.isOpen())
-				{
-					sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
-					sf::Event event;
-					button1.getButtonStatus(window, event);
-
-					while (window.pollEvent(event))
-					{
-						if (event.type == sf::Event::Closed)
-							window.close();
-						if (event.type == sf::Event::MouseButtonPressed) {
-							if (event.key.code == sf::Mouse::Left) {
-								if (button1.isPressed) {
-									window.close();
-								}
-							}
-						}
-					}
-					window.clear(background_color);
-
-					button1.draw(window);
-					window.draw(mes);
-					window.draw(text_2);
-
-					int def_pos_y = 80;
-
-					for (int i = index_t; i < vect_of_way.size(); i++) {
-						int cur_ver = std::get<0>(vect_of_way[i]);
-						if (cur_ver == vert_int) {
-							std::wstring second_str = L"  к вершине " + std::to_wstring(std::get<1>(vect_of_way[i])) + L" : ";
-							std::vector<T> vect_dist_way = std::get<2>(vect_of_way[i]);
-							for (int j = 0; j < vect_dist_way.size(); j++) {
-								second_str = second_str + std::to_wstring(vect_dist_way[j]) + L"  ";
-							}
-							text_1.setString(second_str);
-							text_1.setPosition(30, def_pos_y += 40);
-							window.draw(text_1);
-						}
-
-					}
-
-					window.display();
-				}
-			}
-			else {
-				error_or_success_message(L"Вершина не ведет куда-либо", L"...");
-			}
-
-		}
-		else {
-			error_or_success_message(L"Такой вершины нет!", L"Ошибка");
-		}
-	}
-	else {
-		error_or_success_message(L"Такой вершины нет!", L"Ай-ай-ай");
-	}
-}
 
 
 template <class T>
-void add_a_vertex_completely(Graph<T>& Graf_1) {//добавляю вершину
+void add_a_vertex_completely(Graph<T>& Graf_1, sf::Vector2f position) {//добавляю вершину
 	std::string str_vertex = enter_the_data(L"Введите название вершины, которую хотите добавить (int)");
 	if (string_to_int_bool(str_vertex)) {
 		int vert_int = string_to_int(str_vertex);//вершина
 		if (Graf_1.get_vert_pos(vert_int) == -1) {
-			Graf_1.insert_vertex(vert_int);
+			Graf_1.insert_vertex(vert_int, position);
 			error_or_success_message(L"Вершина добавлена", L"Успех");
 		}
 		else {
@@ -870,32 +549,37 @@ void delete_a_vertex_completely(Graph<T>& Graf_1) {//удаляю вершину
 
 template <class T>
 void add_an_edge_completely(Graph<T>& Graf_1) {//добавляю ребро
-	std::string vertex_1, vertex_2, content;
-	enter_the_three_data(L"Добавить/Изменить ребро...", L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
-	if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
-		if (string_to_int_bool(content) && vertex_1 != vertex_2) {//расстояние - число?
-			int content_int = string_to_int(content);
-			if (content_int > 0 && content_int < 10000) {//растояние положительное?
-				int vertex_1_int = string_to_int(vertex_1);
-				int vertex_2_int = string_to_int(vertex_2);
-				if (Graf_1.get_vert_pos(vertex_1_int) != -1 && Graf_1.get_vert_pos(vertex_2_int) != -1) {//вершины есть в графе?
-					Graf_1.insert_edge_orient(vertex_1_int, vertex_2_int, content_int);
-					error_or_success_message(L"Ребро добавлено", L"Успех");
+	if (!Graf_1.is_empty()) {
+		std::string vertex_1, vertex_2, content;
+		enter_the_three_data(L"Добавить/Изменить ребро...", L"Введите первую вершину", L"Введите вторую вершину", L"Введите расстояние между вершинами", vertex_1, vertex_2, content);
+		if (string_to_int_bool(vertex_1) && string_to_int_bool(vertex_2)) {//вершины-числа?
+			if (string_to_int_bool(content) && vertex_1 != vertex_2) {//расстояние - число?
+				int content_int = string_to_int(content);
+				if (content_int > 0) {//растояние положительное?
+					int vertex_1_int = string_to_int(vertex_1);
+					int vertex_2_int = string_to_int(vertex_2);
+					if (Graf_1.get_vert_pos(vertex_1_int) != -1 && Graf_1.get_vert_pos(vertex_2_int) != -1) {//вершины есть в графе?
+						Graf_1.insert_edge_orient(vertex_1_int, vertex_2_int, content_int);
+						error_or_success_message(L"Ребро добавлено", L"Успех");
+					}
+					else {
+						error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ошибка");
+					}
 				}
 				else {
-					error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ошибка");
+					error_or_success_message(L"Расстояние между вершинами не корректно", L"Ошибка");
 				}
 			}
 			else {
-				error_or_success_message(L"Расстояние между вершинами не корректно", L"Ошибка");
+				error_or_success_message(L"Расстояние между вершинами не корректно", L"Ай-ай-ай");
 			}
 		}
 		else {
-			error_or_success_message(L"Расстояние между вершинами не корректно", L"Ай-ай-ай");
+			error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ай-ай-ай");
 		}
 	}
 	else {
-		error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ай-ай-ай");
+		error_or_success_message(L"Граф пуст!", L"Ошибка");
 	}
 }
 
@@ -916,5 +600,199 @@ void delete_an_edge_completely(Graph<T>& Graf_1) {//удаление ребра
 	}
 	else {
 		error_or_success_message(L"Одной из вершин (или обеих) не существует", L"Ай-ай-ай");
+	}
+}
+
+template <class T>
+void a_random_graph(Graph<T>& Graf_1, sf::RenderWindow& window) {//создаю случайный граф
+	std::string number_of_vertices = enter_the_data(L"Сколько вершин у графа?");
+	if (string_to_int_bool(number_of_vertices)) {
+		int number = string_to_int(number_of_vertices);
+		if (number > 0) {
+			Graf_1.clear_the_graph();
+
+			sf::Vector2u size_window = window.getSize();
+			unsigned int width = size_window.x;
+			unsigned int height = size_window.y;
+
+			unsigned int zero_x = width / 2 + 170;//условный центр графа по x
+			unsigned int zero_y = height / 2;//условный центр графа по y
+
+			int default_radius = 100 + number * 15;
+			float default_angle = 360 / number;
+
+			std::vector< sf::Vector2f> def_pos_vert;
+			for (int i = 0; i < number; i++) {//расчитываю позиции вершин
+				def_pos_vert.push_back(calculating_node_coordinates(sf::Vector2f(zero_x, zero_y - default_radius), sf::Vector2f(zero_x, zero_y), default_angle * i));
+			}
+			for (int i = 0; i < number; i++) {//добавляю вершины
+				Graf_1.insert_vertex(i + 1, def_pos_vert[i]);
+			}
+			for (int i = 1; i <= number; i++) {//добавляю ребра
+				for (int j = 1; j <= number; j++) {
+					if (i != j && rand()%2 == 0) {
+						Graf_1.insert_edge_orient(i, j, a_random_number());
+					}	
+				}
+			}
+		}
+		else {
+			error_or_success_message(L"Число не корректно", L"Ошибка");
+		}
+	}
+	else {
+		error_or_success_message(L"Это не число", L"Ай-ай-ай");
+	}
+}
+
+template <class T>
+void THE_SAME_GRAPH(Graph<T>& Graf_1, sf::RenderWindow& window){//граф для демонстрации из методички (последний вариант)
+	Graf_1.clear_the_graph();//очищаю текущий граф
+	int number = 6;
+
+	sf::Vector2u size_window = window.getSize();
+	unsigned int width = size_window.x;
+	unsigned int height = size_window.y;
+
+	unsigned int zero_x = width / 2 + 170;//условный центр графа по x
+	unsigned int zero_y = height / 2;//условный центр графа по y
+
+	int default_radius = 100 + number * 15;
+	float default_angle = 360 / number;
+
+	std::vector< sf::Vector2f> def_pos_vert;
+	for (int i = 0; i < number; i++) {
+		def_pos_vert.push_back(calculating_node_coordinates(sf::Vector2f(zero_x, zero_y - default_radius), sf::Vector2f(zero_x, zero_y), default_angle * i));
+	}
+	for (int i = 0; i < number; i++) {//добавляю вершины
+		Graf_1.insert_vertex(i + 1, def_pos_vert[i]);//создаю вершины
+	}
+
+	Graf_1.insert_edge_orient(1, 3, 13);//создаю все ребра
+	Graf_1.insert_edge_orient(1, 4, 15);
+	Graf_1.insert_edge_orient(2, 4, 20);
+	Graf_1.insert_edge_orient(2, 1, 28);
+	Graf_1.insert_edge_orient(3, 5, 30);
+	Graf_1.insert_edge_orient(4, 6, 31);
+	Graf_1.insert_edge_orient(4, 5, 39);
+	Graf_1.insert_edge_orient(5, 4, 39);
+	Graf_1.insert_edge_orient(5, 2, 21);
+	Graf_1.insert_edge_orient(6, 1, 18);
+}
+
+template <class T>
+void traveling_salesman_is_completely(Graph<T>& Graf_1) {//запуск алгоритма коммивояжера
+	if (Graf_1.is_it_possible_to_solve_the_traveling_salesman_problem() && !Graf_1.is_empty()) {
+		std::string start_vert_string = enter_the_data(L"С какой вершины начать?");
+		if (string_to_int_bool(start_vert_string)) {
+			int start_vert_int = string_to_int(start_vert_string);
+			if (Graf_1.get_vert_pos(start_vert_int) != -1) {
+				std::vector<T> vect_of_paths = Graf_1.the_traveling_salesman_task(start_vert_int);
+				if (vect_of_paths.size() != 0) {
+					if (!has_Duplicates_vector(vect_of_paths)) {
+						std::string all_str = std::to_string(vect_of_paths[0]);
+						for (int i = 1; i <= Graf_1.get_amount_verts(); i++) {//иду по всем обходам
+							all_str = all_str + " -> " + std::to_string(vect_of_paths[i]);
+						}
+						sf::RenderWindow window(sf::VideoMode(650 + 20 * vect_of_paths.size(), 280), L"Задача Коммивояжера");
+
+						sf::Font font;
+						font.loadFromFile("ofont.ru_Expressway.ttf");//загружаю шрифт
+
+						sf::Text mess;
+						mess.setFont(font);
+						mess.setString(L"Оптимальный путь, начиная с вершины " + std::to_wstring(vect_of_paths[0]));
+						mess.setFillColor(text_color);
+						mess.setCharacterSize(40);
+						mess.setPosition(30, 10);
+
+						sf::Text way;
+						way.setFont(font);
+						way.setString(all_str);
+						way.setFillColor(text_color);
+						way.setCharacterSize(39);
+						way.setPosition(30, 80);
+
+						sf::Text all_len;
+						all_len.setFont(font);
+						all_len.setString(L"Длина пути: " + std::to_wstring(Graf_1.path_length(vect_of_paths)));
+						all_len.setFillColor(text_color);
+						all_len.setCharacterSize(39);
+						all_len.setPosition(30, 130);
+
+						RectButton button1(sf::Vector2f(150, 60), sf::Vector2f(window.getSize().x / 2 - 75, window.getSize().y - 90));
+						button1.setButtonFont(font);
+						button1.setButtonLable(L"Ok", text_color, 30);
+
+						while (window.isOpen()) {
+							sf::Vector2i mousePoz = sf::Mouse::getPosition(window);//позиция мыши в окне
+							sf::Event event;
+							button1.getButtonStatus(window, event);
+							while (window.pollEvent(event))
+							{
+								if (event.type == sf::Event::Closed)
+									window.close();
+								if (event.type == sf::Event::MouseButtonPressed) {
+									if (event.key.code == sf::Mouse::Left) {
+										if (button1.isPressed) {
+											window.close();
+										}
+									}
+								}
+							}
+							window.clear(background_color);
+							button1.draw(window);
+							window.draw(mess);
+							window.draw(way);
+							window.draw(all_len);
+							window.display();
+						}
+					}
+					else {
+						error_or_success_message(L"Алгоритм запутался, не ругайте его ~(>_<.)~", L"Ой(");
+					}
+				}
+				else {
+					error_or_success_message(L"Для текущей вершины нельзя решить задачу коммивояжера", L"Ошибка");
+				}
+			}
+			else {
+				error_or_success_message(L"Такой вершины нет", L"Ошибка");
+			}
+		}
+		else {
+			error_or_success_message(L"Это не число", L"Ай-ай-ай");
+		}
+	}
+	else {
+		error_or_success_message(L"Для текущего графа нельзя решить задачу коммивояжера", L"Ошибка");
+	}
+}
+
+template <class T>
+void rename_the_vertex_completely(Graph<T>& Graf_1, sf::Vector2f coords) {
+	int is_it_coord_vert = Graf_1.this_is_node(coords);//индекс вершины 
+	if (is_it_coord_vert != -1) {//если переданы координаты вершины
+		std::string new_name = enter_the_data(L"Введите новое имя (int)");
+		if (string_to_int_bool(new_name)) {
+			int new_vert_name_int = string_to_int(new_name);
+			if (new_vert_name_int > 0 && new_vert_name_int < 10000) {
+				if (Graf_1.get_vert_pos(new_vert_name_int) == -1) {//если такой вершины нет
+					Graf_1.rename_a_vertex(is_it_coord_vert, new_vert_name_int);
+				}
+				else {
+					error_or_success_message(L"Такая вершина уже есть", L"Ай-ай-ай");
+				}
+			}
+			else {
+				error_or_success_message(L"Некорректное значение", L"Ай-ай-ай");
+			}
+		}
+		else {
+			error_or_success_message(L"Это не число", L"Ай-ай-ай");
+		}
+	}
+	else {
+		error_or_success_message(L"Это не вершина", L"Атата");
 	}
 }

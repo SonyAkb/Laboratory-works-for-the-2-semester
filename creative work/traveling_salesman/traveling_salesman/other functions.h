@@ -9,11 +9,10 @@
 #include "textbox.hpp"
 #define PI 3.14159265
 
-sf::Color background_color(173, 203, 181);//фон
-sf::Color button_color(124, 195, 152);//кнопка
-sf::Color button_press_color(98, 167, 124);//кнопка нажата
-sf::Color text_color(21, 54, 38);//текст
-sf::Color node_color(189, 224, 203);//цвет вершины
+sf::Color background_color(247, 247, 232);//фон
+sf::Color button_color(199, 207, 183);//кнопка
+sf::Color button_press_color(157, 173, 127);//кнопка нажата
+sf::Color text_color(37, 64, 65);//текст
 
 sf::Vector2f calculating_node_coordinates(sf::Vector2f first_point, sf::Vector2f second_point, float angle) {//вычислияю координаты 3 точки
 	sf::Vector2f third_point;
@@ -39,17 +38,11 @@ sf::Vector2f point_on_the_node_boundary(sf::Vector2f first_point, sf::Vector2f s
 	return sf::Vector2f(x, y);
 }
 
-double triangleArea(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {// Функция для вычисления площади треугольника
-	return fabs((pos_1.x * (pos_2.y - pos_3.y) + pos_2.x * (pos_3.y - pos_1.y) + pos_3.x * (pos_1.y - pos_2.y)) / 2.0);
-}
-
 double sideLength(sf::Vector2f pos_1, sf::Vector2f pos_2) {// Функция для вычисления длины стороны треугольника
 	return sqrt(pow(pos_2.x - pos_1.x, 2) + pow(pos_2.y - pos_1.y, 2));
 }
 
 double find_angle(sf::Vector2f pos_1, sf::Vector2f pos_2, sf::Vector2f pos_3) {//ищу угол по трем координатам треугольника
-	double area = triangleArea(pos_1, pos_2, pos_3);
-	
 	double ab = sideLength(pos_1, pos_2);// Вычисление длин сторон треугольника
 	double ac = sideLength(pos_1, pos_3);
 	double bc = sideLength(pos_2, pos_3);
@@ -317,3 +310,50 @@ void error_or_success_message(std::wstring message, std::wstring title) {//со�
     }
 }
 
+int a_random_number() {//случайное число от 1 до 100
+    return rand() % 100 + 1;
+}
+
+template<typename T>
+std::vector<std::vector<T>> copyNestedVector(const std::vector<std::vector<T>>& nested) {
+    std::vector<std::vector<T>> result;
+    for (const auto& inner : nested) {
+        std::vector<T> copiedInner;
+        copiedInner.reserve(inner.size()); // Предварительное выделение памяти
+        for (const auto& value : inner) {
+            copiedInner.push_back(value); // Копирование каждого элемента
+        }
+        result.push_back(copiedInner); // Добавление скопированного внутреннего вектора в результат
+    }
+    return result;
+}
+
+void makebase(int i_current, int j_current, std::vector<std::vector<int>>& matrix_of_conditions, int quantity_of_nodes) {//обновления матрицы смежности при нахождении базового значения
+    int i, j;
+    for (i = 0; i < quantity_of_nodes; i++) {//проход по всем столбцам
+        if (matrix_of_conditions[i][j_current] >= 0) { //если есть путь - положительное значение
+            matrix_of_conditions[i][j_current] = -1; //блокирую путь через этот столбец
+        }
+    }
+    for (j = 0; j < quantity_of_nodes; j++) {//проход по всем строкам
+        if (matrix_of_conditions[i_current][j] >= 0) {//если есть путь - положительное значение
+            matrix_of_conditions[i_current][j] = -1;//блокирую путь через эту строку
+        }
+    }
+    matrix_of_conditions[i_current][j_current] = -2;//элемент отмечен как часть решения
+    if (matrix_of_conditions[j_current][i_current] >= 0) { //если есть неотмеченный обратный путь
+        matrix_of_conditions[j_current][i_current] = -1; //если обратный путь положителен, он также блокируется
+    }
+}
+
+bool has_Duplicates_vector(std::vector<int> vec) {//проверяю наличие дубликатов не учитывая первый элемент
+    if (vec.size() > 1) {
+        std::sort(vec.begin() + 1, vec.end());// Сортировка вектора
+        for (int i = 2; i < vec.size(); ++i) {// Проверка наличия дубликатов
+            if (vec[i] == vec[i - 1]) {
+                return true; // Найден дубликат
+            }
+        }
+    }
+    return false; // Дубликаты отсутствуют
+}
